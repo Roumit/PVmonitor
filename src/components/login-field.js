@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import { getLoginRequest } from "./apiVRM";
+
 
 const loginPlaceholder = "логин или email";
 const parolPlaceholder = "пароль";
@@ -26,7 +28,7 @@ const LoginField = ({isActive, onChangeLogin, onChangeParol, loginPass, toLogin}
                     value={loginPass.pass} />
            </div>
             <div>
-                <button onClick={toLogin}>{buttonText}</button>
+                <button onClick={() => getLoginRequest(loginPass, toLogin) }>{buttonText}</button>
             </div>
             
         </div>

@@ -1,10 +1,10 @@
 import loginField from "./loginField";
 import loginInput from "./loginInput";
-import isLogin from "./isLogin";
+import loginVRM from "./loginVRM";
 
 
 export const reducers = {
     loginField,
     loginInput,
-    isLogin
+    loginVRM
 }

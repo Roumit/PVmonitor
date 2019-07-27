@@ -5,14 +5,21 @@ import { connect } from "react-redux";
 
 import { loginShowSelector, setSwith } from "../reducers/loginField";
 import { loginPassSelector, setLogin, setParol} from "../reducers/loginInput";
-import {setIsLogin, isLoginSelector} from "../reducers/isLogin"
+import { setIsntLogin, setToken, isLoginSelector } from "../reducers/loginVRM";
 import LoginField from "../components/login-field";
 
+// import { getLoginRequest } from "./apiVRM";
 
+const ShowUsername = ({ isLogin }) => {
+    if (isLogin.islogin) {
+        return "login as: " + isLogin.username;
+    }
+    return null;
+};
 
 class Login extends React.Component {
     render() {
-        const { showLogin, isActive, onChangeLogin, onChangeParol, loginPass , toLogin, isLogin } = this.props; 
+        const { showLogin, isActive, onChangeLogin, onChangeParol, loginPass, isLogin, toLogin } = this.props; 
         return(
             <div className="login">
                 <div>
@@ -25,7 +32,7 @@ class Login extends React.Component {
                 loginPass={loginPass}
                 toLogin={toLogin}/>
                 <div>
-                    {(isLogin) ? "login as: " + loginPass.login: null}
+                    <ShowUsername isLogin={isLogin} />
                 </div>
             </div>
         )
@@ -38,15 +45,15 @@ Login.propTypes ={
     onChangeLogin: PropTypes.func,
     onChangeParol: PropTypes.func,
     loginPass: PropTypes.object,
-    toLogin: PropTypes.func,
-    isLogin: PropTypes.bool
+    isLogin: PropTypes.object
 }
 
 const mapDispatchToProps = ({
     showLogin: setSwith,
     onChangeLogin: setLogin,
     onChangeParol: setParol,
-    
+    toLogin: setToken,
+
 });
 
 const mapStateToProps = state => ({
