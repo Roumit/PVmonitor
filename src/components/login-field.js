@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { getLoginRequest } from "./apiVRM";
+import { getLoginRequest,  } from "../containers/apiVRM";
 
 
 const loginPlaceholder = "логин или email";
@@ -9,7 +9,7 @@ const parolPlaceholder = "пароль";
 const buttonText = "Login"
 
 
-const LoginField = ({isActive, onChangeLogin, onChangeParol, loginPass, toLogin}) => {
+const LoginField = ({isActive, onChangeLogin, onChangeParol, loginPass, toLogin, showLogin, setInstallations}) => {
     if (!isActive) {
         return null;
     }
@@ -28,7 +28,7 @@ const LoginField = ({isActive, onChangeLogin, onChangeParol, loginPass, toLogin}
                     value={loginPass.pass} />
            </div>
             <div>
-                <button onClick={() => getLoginRequest(loginPass, toLogin) }>{buttonText}</button>
+                <button onClick={() => getLoginRequest(loginPass, toLogin, showLogin, isActive, setInstallations) }>{buttonText}</button>
             </div>
             
         </div>

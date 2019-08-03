@@ -6,20 +6,16 @@ import { connect } from "react-redux";
 import { loginShowSelector, setSwith } from "../reducers/loginField";
 import { loginPassSelector, setLogin, setParol} from "../reducers/loginInput";
 import { setIsntLogin, setToken, isLoginSelector } from "../reducers/loginVRM";
+import { setInstallations } from "../reducers/installationsVRM";
 import LoginField from "../components/login-field";
+import ShowUsername from "../components/showOnlogin";
 
-// import { getLoginRequest } from "./apiVRM";
 
-const ShowUsername = ({ isLogin }) => {
-    if (isLogin.islogin) {
-        return "login as: " + isLogin.username;
-    }
-    return null;
-};
 
 class Login extends React.Component {
     render() {
-        const { showLogin, isActive, onChangeLogin, onChangeParol, loginPass, isLogin, toLogin } = this.props; 
+        const { showLogin, isActive, onChangeLogin, 
+            onChangeParol, loginPass, isLogin, toLogin, logout, tosetInstallations } = this.props; 
         return(
             <div className="login">
                 <div>
@@ -30,9 +26,14 @@ class Login extends React.Component {
                 onChangeLogin={onChangeLogin}
                 onChangeParol={onChangeParol}
                 loginPass={loginPass}
-                toLogin={toLogin}/>
+                toLogin={toLogin}
+                showLogin={showLogin}
+                setInstallations={tosetInstallations} 
+                />
                 <div>
-                    <ShowUsername isLogin={isLogin} />
+                    <ShowUsername 
+                    isLogin={isLogin}
+                    logout={logout} />
                 </div>
             </div>
         )
@@ -45,7 +46,10 @@ Login.propTypes ={
     onChangeLogin: PropTypes.func,
     onChangeParol: PropTypes.func,
     loginPass: PropTypes.object,
-    isLogin: PropTypes.object
+    isLogin: PropTypes.object,
+    toLogin: PropTypes.func,
+    logout: PropTypes.func,
+    tosetInstallations: PropTypes.func,
 }
 
 const mapDispatchToProps = ({
@@ -53,6 +57,8 @@ const mapDispatchToProps = ({
     onChangeLogin: setLogin,
     onChangeParol: setParol,
     toLogin: setToken,
+    logout: setIsntLogin,
+    tosetInstallations: setInstallations
 
 });
 

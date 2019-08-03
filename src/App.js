@@ -3,6 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 
 import Login from "./containers/login";
+import Installations from './containers/installations';
 
 
 class App extends React.Component{
@@ -14,6 +15,7 @@ class App extends React.Component{
         </h1>
         <div>Test version</div>
         <Login />
+        <Installations />
       </div>
     )
   }
