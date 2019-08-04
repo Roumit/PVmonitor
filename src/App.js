@@ -1,14 +1,27 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { ThemeProvider } from "@material-ui/styles";
+import { createMuiTheme } from '@material-ui/core';
 
 import Login from "./containers/login";
 import Installations from './containers/installations';
+import { orange, lightBlue, blue } from '@material-ui/core/colors';
+
+
+
+const mainTheme = createMuiTheme({
+  palette: {
+    primary: lightBlue,
+    secondary: orange,
+  }
+});
 
 
 class App extends React.Component{
   render(){
     return(
+      <ThemeProvider theme={mainTheme}>
       <div className="app">
         <h1>
           PV monitor
@@ -17,6 +30,7 @@ class App extends React.Component{
         <Login />
         <Installations />
       </div>
+      </ThemeProvider>
     )
   }
 }

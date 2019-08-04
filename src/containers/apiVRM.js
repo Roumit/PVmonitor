@@ -17,27 +17,19 @@ export function formInstallationsApi(idUser){
     return targetUrl + `/v2/users/${idUser}/installations`;
 }
 
-// function formInstallationOwerviewApi(idSite){
-//     return targetUrl + `/v2/installations/${idSite}/system-overview`;
-// }
+function formInstallationOwerviewApi(idSite){
+    return targetUrl + `/v2/installations/${idSite}/system-overview`;
+}
 
 
 export const getInstallations = FormRequestToVRM(formInstallationsApi);
 
-// export function getInstallations(isLogin){
-//     return new Promise((resolve, reject) => {
-//         getAxiosRequest(formInstallationsApi(isLogin.idUser), isLogin.headerWithToken)
-//         .then(responce => {
-//             console.log(responce);
-//             resolve(responce);
-//         })
-//     });
-// }
+export const getInstallationData = FormRequestToVRM(formInstallationOwerviewApi)
+
 
 function FormRequestToVRM(formURL) {
     return (urlKey, headerWithToken) => {
         return new Promise((resolve, reject) => {
-            // getAxiosRequest(formURL(urlKey, isLogin), headerWithToken)
             axios({
                 method:'get',
                 url: formURL(urlKey),
@@ -77,27 +69,5 @@ export function getLoginRequest(loginPass, setToken, showLogin, isActive, setIns
             console.log(`login error: ${err}`);
             return null;
         });
-    });
-};
-
-
-
-
-
-
-
-export function getAxiosRequest(url, headerWithToken){
-    return new Promise((resolve, reject) => {
-        axios({
-            method:'get',
-            url: url,
-            headers: headerWithToken
-        })
-        .then((responce) => {
-            resolve(responce);
-        })
-        .catch((err) => {
-            reject(err);
-        })
     });
 };

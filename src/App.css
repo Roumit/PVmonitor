@@ -36,10 +36,10 @@
   display: flex;
   margin-left: 5px;
 }
-
+/* 
 .login {
   margin: 5px;
-}
+} */
 
 .installation-menu button {
   width: 100%;
@@ -47,4 +47,8 @@
 
 .installation-menu button:hover {
   font-weight: bold;
+} 
+
+.installation-menu button:disabled {
+  color: #000000;
 }

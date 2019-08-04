@@ -1,4 +1,5 @@
 import React from "react";
+import { Button } from "@material-ui/core";
 
 
 const ShowUsername = ({ isLogin, logout }) => {
@@ -6,10 +7,10 @@ const ShowUsername = ({ isLogin, logout }) => {
         return (
             <div>
                 <div>
-                    login as: {isLogin.username}
+                    {isLogin.username}
                 </div>
                 <div>
-                    <button onClick={logout}>Exit</button>
+                    <Button color="secondary" onClick={logout}>Exit</Button>
                 </div>
             </div>
         );

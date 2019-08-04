@@ -3,6 +3,7 @@ import loginInput from "./loginInput";
 import loginVRM from "./loginVRM";
 import installationsVRM from "./installationsVRM";
 import selectedInst from "./selectedInst";
+import installationsData from "./installationsData";
 
 
 export const reducers = {
@@ -10,5 +11,6 @@ export const reducers = {
     loginInput,
     loginVRM,
     installationsVRM,
-    selectedInst
+    selectedInst,
+    installationsData
 }

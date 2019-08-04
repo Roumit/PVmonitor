@@ -9,6 +9,7 @@ import { setIsntLogin, setToken, isLoginSelector } from "../reducers/loginVRM";
 import { setInstallations } from "../reducers/installationsVRM";
 import LoginField from "../components/login-field";
 import ShowUsername from "../components/showOnlogin";
+import { Button } from "@material-ui/core";
 
 
 
@@ -19,7 +20,7 @@ class Login extends React.Component {
         return(
             <div className="login">
                 <div>
-                    <button onClick={() => showLogin(isActive)}>Login</button>
+                    <Button color="secondary" onClick={() => showLogin(isActive)}>Login</Button>
                 </div>
                 <LoginField 
                 isActive={isActive}
