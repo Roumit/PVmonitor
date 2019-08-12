@@ -14,11 +14,11 @@ const targetUrl = "https://vrmapi.victronenergy.com";
 const authApi = "/v2/auth/login";
 
 export function formInstallationsApi(idUser){
-    return targetUrl + `/v2/users/${idUser}/installations`;
+    return `${targetUrl}/v2/users/${idUser}/installations?extended=1`;
 }
 
 function formInstallationOwerviewApi(idSite){
-    return targetUrl + `/v2/installations/${idSite}/system-overview`;
+    return `${targetUrl}/v2/installations/${idSite}/system-overview`;
 }
 
 

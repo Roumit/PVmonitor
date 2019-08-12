@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Redirect } from "react-router";
 
 import { connect } from "react-redux";
 
@@ -15,11 +16,12 @@ class Installations extends React.Component {
         const { isLogin, installationResponce, selectInst, selectedInst, addInstData } = this.props;
 
         if (!isLogin.islogin) {
-            console.log(isLogin);
+            // console.log(isLogin);
             return null;
         }
         return (
             <div className="installations">
+                <Redirect push to="/sites" />
                 <InstallationList 
                 installationResponce={installationResponce}
                 selectInst={selectInst} 

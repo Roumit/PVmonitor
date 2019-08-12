@@ -1,3 +1,6 @@
-import { createStore , combineReducers } from "redux";
+import { createStore , combineReducers, applyMiddleware } from "redux";
+import { logger } from "./middlewares";
 
-export const configStore = (reducers) => createStore(combineReducers(reducers));
+export const configStore = (reducers, middlewares) => {
+   return createStore(combineReducers(reducers), {}, applyMiddleware(...middlewares));
+};

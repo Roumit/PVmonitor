@@ -7,9 +7,10 @@ import { Provider } from "react-redux";
 
 import { configStore } from "./store";
 import { reducers } from "./reducers"
+import createMiddlewares from './store/middlewares';
 
 
-const store = configStore(reducers);
+const store = configStore(reducers, createMiddlewares());
 
 const RootComponent = () => {
     return (

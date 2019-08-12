@@ -1,5 +1,4 @@
 import {handleActions, createAction} from "redux-actions";
-import {testLogin, testPass} from "./testLoginPass";
 
 const SET_DATA = "INSTALLATIONS_DATA/SET_DATA";
 const RESET = "INSTALLATIONS_DATA/RESET";

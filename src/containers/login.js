@@ -14,6 +14,9 @@ import { Button } from "@material-ui/core";
 
 
 class Login extends React.Component {
+    // componentDidMount(){
+    //     if (!this.props.isLogin.isLogin) this.props.showLogin(false);
+    // }
     render() {
         const { showLogin, isActive, onChangeLogin, 
             onChangeParol, loginPass, isLogin, toLogin, logout, tosetInstallations } = this.props; 
