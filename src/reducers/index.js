@@ -4,6 +4,7 @@ import loginVRM from "./loginVRM";
 import installationsVRM from "./installationsVRM";
 import selectedInst from "./selectedInst";
 import installationsData from "./installationsData";
+import mouseCoordinates from "./mouseCoordinates";
 
 
 export const reducers = {
@@ -12,5 +13,6 @@ export const reducers = {
     loginVRM,
     installationsVRM,
     selectedInst,
-    installationsData
+    installationsData,
+    mouseCoordinates,
 }

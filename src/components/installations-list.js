@@ -7,6 +7,7 @@ import { TextField } from "@material-ui/core";
 const buttonText = (site) => {
     const date = new Date(site.last_timestamp * 1000);
     const year = date.getFullYear();
+    console.log("Why ???  ", date.getMonth());
     const month = (date.getMonth() > 9)? date.getMonth(): "0" + date.getMonth();
     const day = (date.getDate() > 9)? date.getDate(): "0" + date.getDate();
     const hour = (date.getHours() > 9)? date.getHours(): "0" + date.getHours();
@@ -52,8 +53,8 @@ const ButtonForSite = ({ site, selectInst, selectedInst, isLogin, addInstData })
             </div>
         )
     }
-    console.log(site);
-    console.log(site.extended);
+    // console.log(site);
+    // console.log(site.extended);
     return (
         <div>
         <Button
@@ -62,7 +63,8 @@ const ButtonForSite = ({ site, selectInst, selectedInst, isLogin, addInstData })
                 selectInst(site.idSite);
                 getInstallationData(site.idSite, isLogin.headerWithToken).then((responce) => {
                     const data = {}
-                    data[site.idSite] = responce
+                    console.log(responce);
+                    data[site.idSite] = responce;
                     addInstData(data);
                 })
             }}

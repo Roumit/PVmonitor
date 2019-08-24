@@ -8,7 +8,7 @@ const REDUCER_NAME = 'loginField';
 
 export const setSwith = createAction(SET_SWITH);
 
-const initialState = false;
+const initialState = true;
 
 export default handleActions({
     [setSwith]: (state, {payload}) => !state,

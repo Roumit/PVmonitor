@@ -11,7 +11,7 @@ export const resetInstallationsData = createAction(RESET);
 const initialState = {};
 
 export default handleActions({
-    [setInstallationData] : (state, { payload }) => console.log(state) || Object.assign({}, state, payload),
+    [setInstallationData] : (state, { payload }) => Object.assign({}, state, payload),
     [resetInstallationsData] : (state, { payload }) => initialState,
 }, initialState);
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from "prop-types";
 import logo from './logo.svg';
 import './App.css';
 import { ThemeProvider } from "@material-ui/styles";
@@ -9,8 +10,11 @@ import { connect } from "react-redux";
 import Login from "./containers/login";
 import Installations from './containers/installations';
 import { orange, lightBlue, blue } from '@material-ui/core/colors';
-import { getCookie } from './containers/cookieGetSet';
-import { setIsLogin } from './reducers/loginVRM';
+// import { getCookie } from './containers/cookieGetSet';
+import { setToken } from './reducers/loginVRM';
+import { setInstallations } from './reducers/installationsVRM';
+import { MainMenu } from './components/mainMenu';
+import Constructor from "./containers/constructor";
 
 
 
@@ -28,12 +32,23 @@ const Page404 = () =>(
   </div>   
   );
 
+const Test = {
+  test: () => (
+    <div>Test of object component</div>
+  )
+};
+
 class App extends React.Component{
+
   componentWillMount(){
-    const cookie = JSON.parse(getCookie("loginVRM"));
-    console.log(cookie);
-    this.props.setFromCokie(cookie);
+    const rawloginVRM = localStorage.getItem("loginVRM");
+    const rawInst = localStorage.getItem("installationsVRM")
+    // console.log("component Will Mount. " , rawloginVRM);
+    console.log("-- write to store from Local Storage --");
+    if (rawloginVRM) this.props.setIsLogin(JSON.parse(rawloginVRM));    
+    if (rawInst) this.props.setInst(JSON.parse(rawInst));
   }
+
   render(){
     return(
       <ThemeProvider theme={mainTheme}>
@@ -41,49 +56,34 @@ class App extends React.Component{
         <h1>
           PV monitor
         </h1>
-        <Login />
         <BrowserRouter basename="/application">
+          <MainMenu />
+        <Login />
           <Switch>
             <Route exact path="/" component={Installations} />
             <Route path="/sites" component={Installations} />
+            <Route path="/newdashboard" component={Constructor} />
             <Route component={Page404} />
           </Switch>
         </BrowserRouter>
+        <Test.test />
       </div>
       </ThemeProvider>
     )
   }
 }
 
+App.propTypes = {
+  setIsLogin: PropTypes.func,
+  setInst: PropTypes.func,
+};
 
 const mapDispatchtoProps = {
-  setFromCokie: setIsLogin,
+  setIsLogin: setToken,
+  setInst: setInstallations,
 };
 
 const mapStateToProps = state => ({
-
 });
-
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
 
 export default connect(mapStateToProps, mapDispatchtoProps)(App);

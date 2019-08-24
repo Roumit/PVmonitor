@@ -8,7 +8,7 @@ import { loginPassSelector, setLogin, setParol} from "../reducers/loginInput";
 import { setIsntLogin, setToken, isLoginSelector } from "../reducers/loginVRM";
 import { setInstallations } from "../reducers/installationsVRM";
 import LoginField from "../components/login-field";
-import ShowUsername from "../components/showOnlogin";
+import ShowOnLogin from "../components/showOnlogin";
 import { Button } from "@material-ui/core";
 
 
@@ -35,7 +35,7 @@ class Login extends React.Component {
                 setInstallations={tosetInstallations} 
                 />
                 <div>
-                    <ShowUsername 
+                    <ShowOnLogin 
                     isLogin={isLogin}
                     logout={logout} />
                 </div>

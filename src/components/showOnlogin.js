@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@material-ui/core";
 
 
-const ShowUsername = ({ isLogin, logout }) => {
+const ShowOnLogin = ({ isLogin, logout }) => {
     if (isLogin.islogin) {
         return (
             <div>
@@ -18,4 +18,4 @@ const ShowUsername = ({ isLogin, logout }) => {
     return null;
 };
 
-export default ShowUsername;
+export default ShowOnLogin;

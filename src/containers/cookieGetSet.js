@@ -15,9 +15,10 @@ export function setCookie(name, value, options={}) {
         updatedCookie += ";" + optionKey;
         let optionValue = options[optionKey];
         if (optionValue !== true) {
-            updatedCookie += ";" + optionValue;
+            updatedCookie += "=" + optionValue;
         }
     }
+console.log(updatedCookie);
 
     document.cookie = updatedCookie;
 };
