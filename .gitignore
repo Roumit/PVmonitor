@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-testLoginPass.js
+# testLoginPass.js
 
 # production
 /build

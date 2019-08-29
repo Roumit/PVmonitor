@@ -16,7 +16,7 @@ import { getInstallations } from "./apiVRM";
 let timerId = null;
 
 
-function updateInstallations(isLogin, setInstallations, time=10000){
+export function updateInstallations(isLogin, setInstallations, time=10000){
     timerId = setTimeout(() => {
         timerId = setInterval(() => {
             if (isLogin.islogin) {

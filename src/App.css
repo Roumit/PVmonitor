@@ -52,3 +52,13 @@
 .installation-menu button:disabled {
   color: #000000;
 }
+
+.dashboard div{
+  color: rgb(0, 0, 248);
+  padding: 2px;
+  border: 1px solid black;
+}
+
+.login {
+  background: rgb(149, 200, 241);
+}

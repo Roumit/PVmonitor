@@ -15,6 +15,8 @@ import { setToken } from './reducers/loginVRM';
 import { setInstallations } from './reducers/installationsVRM';
 import { MainMenu } from './components/mainMenu';
 import Constructor from "./containers/constructor";
+import { dashboardsSelector, loadDashboards } from './reducers/dashboards';
+import Dashboard from './containers/dashboard';
 
 
 
@@ -32,22 +34,24 @@ const Page404 = () =>(
   </div>   
   );
 
-const Test = {
-  test: () => (
-    <div>Test of object component</div>
-  )
-};
+// const Test = {
+//   test: () => (
+//     <div>Test of object component</div>
+//   )
+// };
 
 class App extends React.Component{
 
   componentWillMount(){
     const rawloginVRM = localStorage.getItem("loginVRM");
-    const rawInst = localStorage.getItem("installationsVRM")
+    const rawInst = localStorage.getItem("installationsVRM");
+    const rawDashboards = localStorage.getItem("dashboards");
     // console.log("component Will Mount. " , rawloginVRM);
     console.log("-- write to store from Local Storage --");
-    if (rawloginVRM) this.props.setIsLogin(JSON.parse(rawloginVRM));    
-    if (rawInst) this.props.setInst(JSON.parse(rawInst));
-  }
+    if (rawloginVRM) this.props.setIsLogin(JSON.parse(rawloginVRM))   
+    if (rawInst) this.props.setInst(JSON.parse(rawInst))
+    if (rawDashboards) this.props.setDashboards(JSON.parse(rawDashboards))
+  };
 
   render(){
     return(
@@ -57,16 +61,24 @@ class App extends React.Component{
           PV monitor
         </h1>
         <BrowserRouter basename="/application">
-          <MainMenu />
+          <MainMenu
+          dashboards={this.props.dashboards} />
         <Login />
-          <Switch>
+            <Switch>
             <Route exact path="/" component={Installations} />
             <Route path="/sites" component={Installations} />
+            {this.props.dashboards.map((dashboard, id) => {
+              if (dashboard !== "") {
+                return (
+                  <Route path={`/dashboards/${id}`} component={Dashboard}/>
+                )
+              }
+            })}
             <Route path="/newdashboard" component={Constructor} />
             <Route component={Page404} />
           </Switch>
         </BrowserRouter>
-        <Test.test />
+        {/* <Test.test /> */}
       </div>
       </ThemeProvider>
     )
@@ -76,14 +88,18 @@ class App extends React.Component{
 App.propTypes = {
   setIsLogin: PropTypes.func,
   setInst: PropTypes.func,
+  dashboards: PropTypes.array,
+  setDashboards: PropTypes.func,
 };
 
 const mapDispatchtoProps = {
   setIsLogin: setToken,
   setInst: setInstallations,
+  setDashboards: loadDashboards,
 };
 
 const mapStateToProps = state => ({
+  dashboards: dashboardsSelector(state),
 });
 
 export default connect(mapStateToProps, mapDispatchtoProps)(App);
