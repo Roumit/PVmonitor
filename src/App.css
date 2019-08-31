@@ -32,9 +32,15 @@
   }
 } */
 
+html, body {
+  height: 100%;
+}
+
 .login , .login div {
-  display: flex;
-  margin-left: 5px;
+  /* display: flex; */
+  margin-right: 5px;
+  display: table-cell;
+  vertical-align: middle;
 }
 /* 
 .login {
@@ -60,5 +66,39 @@
 }
 
 .login {
+  background: rgb(218, 218, 218);
+}
+
+.move-elem-button, .delete-elem-button {
+  font-size: 0.6em;
+  position: absolute;
+}
+
+.move-elem-button {
+  top: -10px;
+  left: -32px;
+}
+
+.delete-elem-button {
+  top: -10px;
+  right: -42px;
+}
+
+/* .constructor-elem-input {
+  font-size: 1em;
+} */
+
+.main-menu {
+  position: absolute;
+  z-index: 100;
   background: rgb(149, 200, 241);
+}
+
+.main-menu :hover{
+  background: rgb(247, 247, 247);
+}
+
+.main-menu-elem {
+  padding: 4px;
+  padding-bottom: 0;
 }

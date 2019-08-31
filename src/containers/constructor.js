@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Redirect } from "react-router";
-
+// import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import { mouseCoordSelector, setCoord } from "../reducers/mouseCoordinates";
 import { isLoginSelector } from "../reducers/loginVRM";
@@ -14,7 +13,6 @@ import { dashboardsSelector, setDashboard } from "../reducers/dashboards";
 import { dashboardNameSelector, setDashboardName } from "../reducers/dashboardName";
 import { dashboardIdSelector, setDashboardId } from "../reducers/dashboardId";
 
-let newDashboardData = [];
 
 
 const elementTargetParamSet = (sitesData, idSite) => {
@@ -47,20 +45,22 @@ function DashboardObject({ newDashboard, editElement, deleteElement,
                     onMouseLeave={(ev) => {
                         setMouseCoordinate({ in: true, X: ev.clientX, Y: ev.clientY - ev.currentTarget.getBoundingClientRect().top});
                     }}>
-                        <TextField
+                        <input 
+                        className="constructor-elem-input"
+                        size={elem.element.name.length}
                         key={id}
                         value={elem.element.name}
                         onChange={({target: {value}}) => editElement({ id, value })} >
-                        </TextField>
+                        </input>
                         {` : ${elem.element.value}`}
                         <button 
-                        className='mini-button'
+                        className='move-elem-button'
                         onClick={() => {
                             setNewElement(newDashboard[id].element);
                             deleteElement(id);
                         }}>move</button>
                         <button 
-                        className='mini-button'
+                        className='delete-elem-button'
                         onClick={() => deleteElement(id)}
                         >delete</button>
                     </div>
@@ -96,13 +96,13 @@ function LevitateElement({ newElement, coord, setToNewDashboard, clearElement })
     )
 }
 
+
 class Constructor extends React.Component {
     componentDidMount() {
         if (this.props.dashboardId === null) {
             this.props.setDashboardId(this.props.dashboards.length)
         }
     };
-
     componentWillUnmount() {
         this.props.setDashboardId(null);
         this.props.clearNewDashboard();
@@ -118,6 +118,7 @@ class Constructor extends React.Component {
 
     const SiteSelect = () => (
         <Select 
+        color="primary"
         name='site-select' 
         value={newElement.idSite}
         onChange={({target: { value }}) => {
@@ -140,7 +141,8 @@ class Constructor extends React.Component {
     );
 
     const ParamSelect = () => (
-        <Select 
+        <Select
+        color="primary" 
         name='param-select' 
         value={newElement.param} 
         onChange={({target: { value }}) => {
@@ -173,24 +175,12 @@ class Constructor extends React.Component {
 
     return (
         <div>
-            <div style={{position: 'absolute', left: "5px", bottom: "5px", zIndex: "1"}}>
-                <TextField 
-                // label={"name of dashboard"}
-                onChange={({ target: { value }}) => setDashboardName(value)}
-                value={dashboardName}
-                >
-                </TextField>
-                <Button
-                onClick={() => setDashboard({ dashboard: newDashboard, name: dashboardName, id: dashboardId})}
-                >Save dashboard</Button>
-            </div>
             <div>
-                <Button>Change</Button>
                 <SiteSelect />
                 <ParamSelect />
                 <TextField 
+                color="primary"
                 placeholder={"Edit parameter name"}
-                // label="name of monitor"
                 value={newElement.name}
                 onChange={({target: { value }}) => {
                     console.log(value);
@@ -199,13 +189,20 @@ class Constructor extends React.Component {
                     })
                 }} />
             </div>
-            <div style={{position: 'relative', height: '300px', width: '100%', cursor: 'crosshair'}} 
+            <div style={{position: 'relative', 
+                        height: "-webkit-fill-available", 
+                        width: '100%', 
+                        cursor: 'crosshair'}} 
             onMouseMove={(ev) => {
-                setMouseCoordinate({ in: true, X: ev.clientX, Y: ev.clientY - ev.currentTarget.getBoundingClientRect().top});
+                setMouseCoordinate({ in: true, 
+                    X: ev.clientX, 
+                    Y: ev.clientY - ev.currentTarget.getBoundingClientRect().top});
                 }
             }
             onMouseLeave={(ev) => {
-                setMouseCoordinate({ in: false, X: ev.clientX, Y: ev.clientY - ev.currentTarget.getBoundingClientRect().top});
+                setMouseCoordinate({ in: false, 
+                    X: ev.clientX, 
+                    Y: ev.clientY - ev.currentTarget.getBoundingClientRect().top});
                 }
             }>
                 <LevitateElement
@@ -220,6 +217,17 @@ class Constructor extends React.Component {
                 deleteElement={deleteElement}
                 setMouseCoordinate={setMouseCoordinate}
                 setNewElement={setNewElement} />
+            </div>
+            <div style={{position: 'absolute', left: "5px", bottom: "5px", zIndex: "100"}}>
+                <TextField 
+                color="primary"
+                onChange={({ target: { value }}) => setDashboardName(value)}
+                value={dashboardName}
+                >
+                </TextField>
+                <Button
+                onClick={() => setDashboard({ dashboard: newDashboard, name: dashboardName, id: dashboardId})}
+                >Save dashboard</Button>
             </div>
         </div>
     );

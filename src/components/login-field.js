@@ -5,15 +5,15 @@ import { getLoginRequest,  } from "../containers/apiVRM";
 import { Button, Input, TextField } from "@material-ui/core";
 
 
-const loginPlaceholder = "логин или email:";
-const parolPlaceholder = "пароль:";
+const loginPlaceholder = "login or email:";
+const parolPlaceholder = "password";
 const buttonText = "Login"
 
 
 const passInput = React.createRef();
 
-const LoginField = ({isActive, onChangeLogin, onChangeParol, 
-    loginPass, toLogin, showLogin, setInstallations}) => {
+const LoginField = ({ isActive, onChangeLogin, onChangeParol, 
+    loginPass, toLogin, showLogin, setInstallations }) => {
     if (!isActive) {
         return null;
     }
@@ -22,7 +22,8 @@ const LoginField = ({isActive, onChangeLogin, onChangeParol,
             <div>
                 <TextField
                 autoFocus = {true}
-                label={loginPlaceholder} 
+                // label={loginPlaceholder} 
+                placeholder={loginPlaceholder} 
                 onChange={({target: { value }}) => console.log(value) || onChangeLogin(value)} 
                 onKeyDown={ e => {
                     if (e.keyCode === 13) {
@@ -35,7 +36,8 @@ const LoginField = ({isActive, onChangeLogin, onChangeParol,
                 <TextField
                 inputRef = {passInput}
                 type="password"
-                label={parolPlaceholder}
+                // label={parolPlaceholder}
+                placeholder={parolPlaceholder}
                 onChange={({target: { value }}) => onChangeParol(value)}
                 onKeyDown={ e => {
                     if (e.keyCode === 13) {

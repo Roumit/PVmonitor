@@ -15,4 +15,4 @@ export default handleActions({
     [clearDashboardId]: (state, { payload }) => initialState,
 }, initialState);
 
-export const dashboardIdSelector = state => state[REDUCER_NAME];
+export const dashboardIdSelector = state => state[REDUCER_NAME];    

@@ -1,29 +1,60 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 
 
-export function MainMenu({ dashboards }) {
+export function MainMenu({ dashboards, hide, toggleHide }) {
+    if (hide) {
+        return (
+            <div>
+                <Button 
+                color="primary"
+                className="main-menu-button"
+                onClick={toggleHide}>
+                    Menu
+                </Button>
+            </div>
+        )
+    }
     return (
-        <div className="main-menu">
-            <ul>
-                <li>
-                <Link to="/sites">Go to main</Link>
-                </li>
+        <div onMouseLeave={toggleHide}>
+            <Button 
+            color="primary"
+            className="main-menu-button"
+            onClick={toggleHide}>
+                hide menu
+            </Button>
+            <div className="main-menu">
+                <Link 
+                to="/sites" 
+                onClick={toggleHide}>
+                    <div className="main-menu-elem">
+                        Go to main
+                    </div>
+                </Link>       
                 {dashboards.map( (dashboard) => {
                     if (dashboard) {    
                         return (
-                            <li>
-                                <Link to={`/dashboards/${dashboard.id}`}>{dashboard.name}</Link>
-                            </li>
+                            <Link 
+                            to={`/dashboards/${dashboard.id}`} 
+                            onClick={toggleHide}>
+                                <div className="main-menu-elem">
+                                    {dashboard.name}
+                                </div>
+                            </Link> 
                         );
                     }
-                    return null;  
+                    return null;
                 })}
-                <li>
-                <Link to="/newdashboard">New Dashboard</Link>
-                </li>
-            </ul>
+                <Link 
+                to="/newdashboard" 
+                onClick={toggleHide}>
+                    <div className="main-menu-elem">
+                        New Dashboard
+                    </div>
+                </Link>
+            </div>
         </div>
     )
 };

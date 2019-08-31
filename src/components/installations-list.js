@@ -18,7 +18,7 @@ const buttonText = (site) => {
     }
     return `${site.name} ( last connect: ${hour}:${minute} ${day}.${month}.${year} )`;
 };
-
+    
 const dataFilterParams = [143, 215];
 const dataFilterEnergie = ["consumption", "solar_yield", "from_to_grid"];
 

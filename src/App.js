@@ -17,6 +17,7 @@ import { MainMenu } from './components/mainMenu';
 import Constructor from "./containers/constructor";
 import { dashboardsSelector, loadDashboards } from './reducers/dashboards';
 import Dashboard from './containers/dashboard';
+import { hideMainMenuSelector, toggleMainMenu } from './reducers/hideMainMenu';
 
 
 
@@ -54,6 +55,7 @@ class App extends React.Component{
   };
 
   render(){
+    const { dashboards, hideMainMenu, toggleHide } = this.props;
     return(
       <ThemeProvider theme={mainTheme}>
       <div className="app">
@@ -62,12 +64,14 @@ class App extends React.Component{
         </h1>
         <BrowserRouter basename="/application">
           <MainMenu
-          dashboards={this.props.dashboards} />
+          dashboards={dashboards}
+          toggleHide={toggleHide}
+          hide={hideMainMenu} />
         <Login />
             <Switch>
             <Route exact path="/" component={Installations} />
             <Route path="/sites" component={Installations} />
-            {this.props.dashboards.map((dashboard, id) => {
+            {dashboards.map((dashboard, id) => {
               if (dashboard !== "") {
                 return (
                   <Route path={`/dashboards/${id}`} component={Dashboard}/>
@@ -90,16 +94,20 @@ App.propTypes = {
   setInst: PropTypes.func,
   dashboards: PropTypes.array,
   setDashboards: PropTypes.func,
+  hideMainMenu: PropTypes.bool,
+  toggleHide: PropTypes.func,
 };
 
 const mapDispatchtoProps = {
   setIsLogin: setToken,
   setInst: setInstallations,
   setDashboards: loadDashboards,
+  toggleHide: toggleMainMenu,
 };
 
 const mapStateToProps = state => ({
   dashboards: dashboardsSelector(state),
+  hideMainMenu: hideMainMenuSelector(state),
 });
 
 export default connect(mapStateToProps, mapDispatchtoProps)(App);

@@ -13,7 +13,7 @@ import { setInstallationData } from "../reducers/installationsData";
 import { getInstallations } from "./apiVRM";
 
 
-let timerId = null;
+export let timerId = null;
 
 
 export function updateInstallations(isLogin, setInstallations, time=10000){
@@ -32,18 +32,18 @@ export function updateInstallations(isLogin, setInstallations, time=10000){
 
 class Installations extends React.Component {
     componentWillUnmount(){
-        console.log("componentWilUnmount");
+        // console.log("componentWilUnmount");
         clearInterval(timerId);
         clearTimeout(timerId);
     };
 
     componentWillMount(){
-        console.log("componentWilMount");
+        // console.log("componentWilMount");
         updateInstallations(this.props.isLogin, this.props.setInstallations);
     };
 
     componentWillUpdate(){
-        console.log("componentWilUpdate");
+        // console.log("componentWilUpdate");
     };
 
     render(){

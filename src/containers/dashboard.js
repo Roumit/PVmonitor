@@ -5,7 +5,7 @@ import {} from "react-router";
 import { dashboardsSelector, deleteDashboard } from "../reducers/dashboards";
 import { installationsSelector, setInstallations } from "../reducers/installationsVRM";
 import { CreateInstallationsDataObject } from "./apiVRM";
-import { updateInstallations } from "./installations";
+import { updateInstallations, timerId } from "./installations";
 import { isLoginSelector } from "../reducers/loginVRM";
 import { Button } from "@material-ui/core";
 import { setNewDashboard } from "../reducers/newDashboard";
@@ -15,6 +15,10 @@ import { setDashboardId } from "../reducers/dashboardId";
 
 
 class Dashboard extends React.Component {
+    componentWillUnmount(){
+        clearInterval(timerId);
+        clearTimeout(timerId);
+    }
     componentWillMount(){
         updateInstallations(this.props.isLogin, this.props.setInstallations);
     };
@@ -22,7 +26,7 @@ class Dashboard extends React.Component {
         const { dashboards, installationsResponce, setNewDashboard, 
             deleteDashboard, setDashboardName, setDashboardId } = this.props;
         const targetId = this.props.location.pathname.slice(12);
-        console.log(targetId);
+        // console.log(targetId);
         const dashboardsArray = dashboards[targetId].dashboard;
         const installationsData = CreateInstallationsDataObject(installationsResponce);
         return(

@@ -10,6 +10,7 @@ import newDashboard from "./newDashboard";
 import dashboards from "./dashboards";
 import dashboardName from "./dashboardName";
 import dashboardId from "./dashboardId";
+import hideMainMenu from "./hideMainMenu";
 
 
 export const reducers = {
@@ -25,4 +26,5 @@ export const reducers = {
     dashboards,
     dashboardName,
     dashboardId,
+    hideMainMenu,
 }

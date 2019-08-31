@@ -79,7 +79,7 @@ export function CreateInstallationsDataObject(installationResponce) {
     installationResponce.data.records.map((e) => {
         const params = {siteName: e.name};
         e.extended.map((data) => {
-            params[data.idDataAttribute || data.code] = {name: data.description, value: data.formattedValue}
+            params[data.idDataAttribute || data.code] = { name: data.description, value: data.formattedValue}
         });
         newDataObj[e.idSite] = params;
     })
