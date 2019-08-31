@@ -189,8 +189,10 @@ class Constructor extends React.Component {
                     })
                 }} />
             </div>
-            <div style={{position: 'relative', 
-                        height: "-webkit-fill-available", 
+            <div 
+            className="constructor-field"
+            style={{position: 'relative', 
+                        height: "-webkit-fill-available",
                         width: '100%', 
                         cursor: 'crosshair'}} 
             onMouseMove={(ev) => {
@@ -226,7 +228,10 @@ class Constructor extends React.Component {
                 >
                 </TextField>
                 <Button
-                onClick={() => setDashboard({ dashboard: newDashboard, name: dashboardName, id: dashboardId})}
+                onClick={() => setDashboard({ 
+                                    dashboard: newDashboard, 
+                                    name: dashboardName, 
+                                    id: dashboardId})}
                 >Save dashboard</Button>
             </div>
         </div>

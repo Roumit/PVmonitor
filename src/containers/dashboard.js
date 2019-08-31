@@ -26,20 +26,23 @@ class Dashboard extends React.Component {
         const { dashboards, installationsResponce, setNewDashboard, 
             deleteDashboard, setDashboardName, setDashboardId } = this.props;
         const targetId = this.props.location.pathname.slice(12);
-        // console.log(targetId);
         const dashboardsArray = dashboards[targetId].dashboard;
         const installationsData = CreateInstallationsDataObject(installationsResponce);
         return(
             <div style={{position: "static"}}>
                 <div className="dashboard" style={{position: "relative"}}>
-                {dashboards[targetId].dashboard.map((elem, id) => (
+                {dashboards[targetId].dashboard.map((elem, id) => {
+                    if (elem === "") {
+                        return null
+                    }
+                    return (
                     <div
                     key={id} 
                     style={{position: 'absolute', left: elem.X, top: elem.Y}} >
                     {`${elem.element.name} : 
                     ${installationsData[elem.element.idSite][elem.element.param].value}`}
                     </div>
-                ))}  
+                )})}  
                 </div>
                 <div style={{position: 'absolute', left: "5px", bottom: "5px"}}>
                 <Button onClick={

@@ -102,3 +102,7 @@ html, body {
   padding: 4px;
   padding-bottom: 0;
 }
+
+/* .constructor-field {
+  height: -moz-available;
+} */

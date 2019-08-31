@@ -51,7 +51,7 @@ export function MainMenu({ dashboards, hide, toggleHide }) {
                 to="/newdashboard" 
                 onClick={toggleHide}>
                     <div className="main-menu-elem">
-                        New Dashboard
+                        Create Dashboard
                     </div>
                 </Link>
             </div>
