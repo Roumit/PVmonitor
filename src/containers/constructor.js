@@ -8,13 +8,14 @@ import { Input, Button, TextField, Select, OutlinedInput, IconButton } from "@ma
 import { installationsSelector } from "../reducers/installationsVRM";
 import { setElement, newElementSelector, clearElement, initialState as newElementInitialState } from "../reducers/newDashboardElement";
 import { CreateInstallationsDataObject } from "./apiVRM";
-import { newDashboardSelector, setElemToNewDashboard, editElemInNewDashboard, deleteElemInNewDashboard, clearNewDashboard } from "../reducers/newDashboard";
+import { newDashboardSelector, setElemToNewDashboard, editElemInNewDashboard, deleteElemInNewDashboard, clearNewDashboard, setNewDashboard } from "../reducers/newDashboard";
 import { dashboardsSelector, setDashboard } from "../reducers/dashboards";
 import { dashboardNameSelector, setDashboardName } from "../reducers/dashboardName";
 import { dashboardIdSelector, setDashboardId } from "../reducers/dashboardId";
 import Close from "@material-ui/icons/Close";
 import MoveIcon from "@material-ui/icons/OpenWith";
 import { instDataObjectSelector } from "../reducers/installationsObjectData";
+import queryString from "query-string";
 
 
 
@@ -31,7 +32,7 @@ const elementTargetParamSet = (instDataObject, idSite) => {
 
 function DashboardObject({ newDashboard, editElement, deleteElement, 
                         setMouseCoordinate, setNewElement }) {
-    console.log(newDashboard);
+    // console.log(newDashboard);
     return (
         <div className="dashboard">
             {newDashboard.map((elem, id) => {
@@ -105,10 +106,21 @@ function LevitateElement({ newElement, coord, setToNewDashboard, clearElement })
 
 
 class Constructor extends React.Component {
-    componentDidMount() {
-        if (this.props.dashboardId === null) {
+    componentWillMount() {
+        const urlParam = queryString.parse(this.props.location.search);
+        console.log(urlParam);
+        if (urlParam.id) {
+            this.props.setNewDashboard(this.props.dashboards[urlParam.id].dashboard);
+            this.props.setDashboardName(this.props.dashboards[urlParam.id].name);
+            this.props.setDashboardId(urlParam.id);
+        } else {
             this.props.setDashboardId(this.props.dashboards.length)
+            this.props.setDashboardName(`Dashboard #${this.props.dashboards.length}`)
+            this.props.clearNewDashboard();
         }
+        // if (this.props.dashboardId === null) {
+        //     this.props.setDashboardId(this.props.dashboards.length)
+        // }
     };
     componentWillUnmount() {
         this.props.setDashboardId(null);
@@ -274,6 +286,7 @@ Constructor.propTypes = {
     setDashboardId: PropTypes.func,
     clearNewDashboard: PropTypes.func,
     instDataObject: PropTypes.object,
+    setNewDashboard: PropTypes.func,
 
 };
 
@@ -300,6 +313,7 @@ const mapDispatchToProps = {
     setDashboardId: setDashboardId,
     setDashboard: setDashboard,
     clearNewDashboard: clearNewDashboard,
+    setNewDashboard: setNewDashboard,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Constructor);

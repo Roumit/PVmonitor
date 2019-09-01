@@ -51,10 +51,10 @@ class Dashboard extends React.Component {
                 <div style={{position: 'fixed', left: "5px", bottom: "5px"}}>
                 <Button onClick={
                     () => {
-                        setNewDashboard(dashboards[targetId].dashboard);
-                        setDashboardName(dashboards[targetId].name);
-                        setDashboardId(targetId);
-                        this.props.history.push('/newdashboard');
+                        // setNewDashboard(dashboards[targetId].dashboard);
+                        // setDashboardName(dashboards[targetId].name);
+                        // setDashboardId(targetId);
+                        this.props.history.push(`/newdashboard/?id=${targetId}`);
                     }
                 }>Change dashboard</Button>
                 <Button onClick={() => {

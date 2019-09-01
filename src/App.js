@@ -19,6 +19,9 @@ import { dashboardsSelector, loadDashboards } from './reducers/dashboards';
 import Dashboard from './containers/dashboard';
 import { hideMainMenuSelector, toggleMainMenu } from './reducers/hideMainMenu';
 import { setInstallationObjectData } from './reducers/installationsObjectData';
+import { setDashboardId } from './reducers/dashboardId';
+import { setDashboardName } from './reducers/dashboardName';
+import { clearNewDashboard } from './reducers/newDashboard';
 
 
 
@@ -36,11 +39,6 @@ const Page404 = () =>(
   </div>   
   );
 
-// const Test = {
-//   test: () => (
-//     <div>Test of object component</div>
-//   )
-// };
 
 class App extends React.Component{
 
@@ -49,8 +47,7 @@ class App extends React.Component{
     const rawInst = localStorage.getItem("installationsVRM");
     const rawDashboards = localStorage.getItem("dashboards");
     const rawinstallationsObjectData = localStorage.getItem("installationsObjectData");
-    // console.log("component Will Mount. " , rawloginVRM);
-    console.log("-- write to store from Local Storage --");
+    // console.log("-- write to store from Local Storage --");
     if (rawloginVRM) this.props.setIsLogin(JSON.parse(rawloginVRM))   
     if (rawInst) this.props.setInst(JSON.parse(rawInst))
     if (rawDashboards) this.props.setDashboards(JSON.parse(rawDashboards))
@@ -69,7 +66,10 @@ class App extends React.Component{
           <MainMenu
           dashboards={dashboards}
           toggleHide={toggleHide}
-          hide={hideMainMenu} />
+          hide={hideMainMenu}
+          setDashboardId={setDashboardId}
+          setDashboardName={setDashboardName}
+          clearNewDashboard={clearNewDashboard} />
         <Login />
             <Switch>
             <Route exact path="/" component={Installations} />
@@ -77,7 +77,7 @@ class App extends React.Component{
             {dashboards.map((dashboard, id) => {
               if (dashboard !== "") {
                 return (
-                  <Route path={`/dashboards/${id}`} component={Dashboard}/>
+                  <Route key={id} path={`/dashboards/${id}`} component={Dashboard}/>
                 )
               }
             })}
@@ -85,7 +85,6 @@ class App extends React.Component{
             <Route component={Page404} />
           </Switch>
         </BrowserRouter>
-        {/* <Test.test /> */}
       </div>
       </ThemeProvider>
     )
@@ -100,6 +99,9 @@ App.propTypes = {
   hideMainMenu: PropTypes.bool,
   toggleHide: PropTypes.func,
   setInstallationObjectData: PropTypes.func,
+  setDashboardId: PropTypes.func,
+  setDashboardName: PropTypes.func,
+  clearNewDashboard: PropTypes.func,
 };
 
 const mapDispatchtoProps = {
@@ -108,6 +110,9 @@ const mapDispatchtoProps = {
   setDashboards: loadDashboards,
   toggleHide: toggleMainMenu,
   setInstallationObjectData: setInstallationObjectData,
+  setDashboardId: setDashboardId,
+  setDashboardName: setDashboardName,
+  clearNewDashboard: clearNewDashboard,
 };
 
 const mapStateToProps = state => ({

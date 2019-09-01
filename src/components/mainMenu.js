@@ -4,7 +4,8 @@ import { Button } from "@material-ui/core";
 
 
 
-export function MainMenu({ dashboards, hide, toggleHide }) {
+export function MainMenu({ dashboards, hide, toggleHide, setDashboardId,
+    setDashboardName, clearNewDashboard }) {
     if (hide) {
         return (
             <div>
@@ -33,23 +34,29 @@ export function MainMenu({ dashboards, hide, toggleHide }) {
                         Go to main
                     </div>
                 </Link>       
-                {dashboards.map( (dashboard) => {
+                {dashboards.map( (dashboard, id) => {
                     if (dashboard) {    
                         return (
                             <Link 
+                            key={id}
                             to={`/dashboards/${dashboard.id}`} 
                             onClick={toggleHide}>
                                 <div className="main-menu-elem">
                                     {dashboard.name}
                                 </div>
-                            </Link> 
+                            </Link>     
                         );
                     }
                     return null;
                 })}
                 <Link 
                 to="/newdashboard" 
-                onClick={toggleHide}>
+                onClick={() => {
+                    toggleHide();
+                    setDashboardId(dashboards.length);
+                    setDashboardName(`Dashboard #${dashboards.length}`);
+                    clearNewDashboard();
+                }}>
                     <div className="main-menu-base-elem">
                         Create Dashboard
                     </div>
