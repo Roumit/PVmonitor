@@ -46,7 +46,7 @@ function FormRequestToVRM(formURL) {
 };
 
 
-export function getLoginRequest(loginPass, setToken, showLogin, isActive, setInstallations){
+export function getLoginRequest(loginPass, setToken, showLogin, isActive, setInstallations, setInstallationObjectData){
     return new Promise((resolve, reject) => {
         axios({
             method:'post',
@@ -62,6 +62,9 @@ export function getLoginRequest(loginPass, setToken, showLogin, isActive, setIns
                 getInstallations(isLogin.idUser, isLogin.headerWithToken).then((responce) => {
                     setToken(isLogin);
                     setInstallations(responce);
+                    if (setInstallationObjectData) {
+                        CreateInstallationsDataObject(responce, setInstallationObjectData);
+                    }
                 });
                 resolve(true);
         }})
@@ -74,7 +77,7 @@ export function getLoginRequest(loginPass, setToken, showLogin, isActive, setIns
 
 
 
-export function CreateInstallationsDataObject(installationResponce) {
+export function CreateInstallationsDataObject(installationResponce, setInstallationObjectData) {
     const newDataObj = {};
     installationResponce.data.records.map((e) => {
         const params = {siteName: e.name};
@@ -83,5 +86,27 @@ export function CreateInstallationsDataObject(installationResponce) {
         });
         newDataObj[e.idSite] = params;
     })
+    setInstallationObjectData(newDataObj);
     return newDataObj;
 };
+
+
+export let updateTimerId = null;
+
+export function updateInstallations(isLogin, setInstallations, setInstObj, time=10000){
+    updateTimerId = setTimeout(() => {
+        updateTimerId = setInterval(() => {
+            if (isLogin.islogin) {
+                getInstallations (isLogin.idUser, isLogin.headerWithToken).then((responce) => {
+                    console.log("--- Auto request ---");
+                    setInstallations(responce);
+                    if (setInstObj) {
+                        CreateInstallationsDataObject(responce, setInstObj);
+                    }
+
+                });
+            }
+        }, time);
+    }, time);
+};
+

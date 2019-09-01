@@ -4,30 +4,31 @@ import PropTypes from "prop-types";
 import {} from "react-router";
 import { dashboardsSelector, deleteDashboard } from "../reducers/dashboards";
 import { installationsSelector, setInstallations } from "../reducers/installationsVRM";
-import { CreateInstallationsDataObject } from "./apiVRM";
-import { updateInstallations, timerId } from "./installations";
+import { CreateInstallationsDataObject, updateTimerId, updateInstallations } from "./apiVRM";
 import { isLoginSelector } from "../reducers/loginVRM";
 import { Button } from "@material-ui/core";
 import { setNewDashboard } from "../reducers/newDashboard";
 import { setDashboardName } from "../reducers/dashboardName";
 import { setDashboardId } from "../reducers/dashboardId";
+import { setInstallationObjectData, instDataObjectSelector } from "../reducers/installationsObjectData";
 
 
 
 class Dashboard extends React.Component {
     componentWillUnmount(){
-        clearInterval(timerId);
-        clearTimeout(timerId);
+        clearInterval(updateTimerId);
+        clearTimeout(updateTimerId);
     }
     componentWillMount(){
-        updateInstallations(this.props.isLogin, this.props.setInstallations);
+        updateInstallations(this.props.isLogin, this.props.setInstallations, 
+            this.props.setInstallationObjectData);
     };
     render() {
         const { dashboards, installationsResponce, setNewDashboard, 
-            deleteDashboard, setDashboardName, setDashboardId } = this.props;
+            deleteDashboard, setDashboardName, setDashboardId, instDataObject } = this.props;
         const targetId = this.props.location.pathname.slice(12);
-        const dashboardsArray = dashboards[targetId].dashboard;
-        const installationsData = CreateInstallationsDataObject(installationsResponce);
+        // const dashboardsArray = dashboards[targetId].dashboard;
+        // const installationsData = CreateInstallationsDataObject(installationsResponce);
         return(
             <div style={{position: "static"}}>
                 <div className="dashboard" style={{position: "relative"}}>
@@ -40,11 +41,14 @@ class Dashboard extends React.Component {
                     key={id} 
                     style={{position: 'absolute', left: elem.X, top: elem.Y}} >
                     {`${elem.element.name} : 
-                    ${installationsData[elem.element.idSite][elem.element.param].value}`}
+                    ${(instDataObject[elem.element.idSite] && instDataObject[elem.element.idSite][elem.element.param])
+                        ? instDataObject[elem.element.idSite][elem.element.param].value
+                        : "---"
+                    }`}
                     </div>
                 )})}  
                 </div>
-                <div style={{position: 'absolute', left: "5px", bottom: "5px"}}>
+                <div style={{position: 'fixed', left: "5px", bottom: "5px"}}>
                 <Button onClick={
                     () => {
                         setNewDashboard(dashboards[targetId].dashboard);
@@ -75,6 +79,8 @@ Dashboard.propTypes = {
     deleteDashboard: PropTypes.func,
     setDashboardName: PropTypes.func,
     setDashboardId: PropTypes.func,
+    setInstallationObjectData: PropTypes.func,
+    instDataObject: PropTypes.object,
 
 };
 
@@ -82,6 +88,7 @@ const mapStateToProps = state => ({
     dashboards: dashboardsSelector(state),
     installationsResponce: installationsSelector(state),
     isLogin: isLoginSelector(state),
+    instDataObject: instDataObjectSelector(state),
 });
 
 const mapDispathToProps = {
@@ -90,6 +97,7 @@ const mapDispathToProps = {
     deleteDashboard: deleteDashboard,
     setDashboardName: setDashboardName,
     setDashboardId: setDashboardId,
+    setInstallationObjectData: setInstallationObjectData,
 };
 
 export default connect(mapStateToProps, mapDispathToProps)(Dashboard);

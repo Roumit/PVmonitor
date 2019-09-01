@@ -3,18 +3,21 @@ import { setLocalStorage } from "../containers/localStorageReadWrite";
 import { SET_INSTALLATIONS } from "../reducers/installationsVRM";
 import { SET_ISNTLOGIN } from "../reducers/loginVRM";
 import { SET_DASHBOARD } from "../reducers/dashboards";
+import { SET_DATA } from "../reducers/installationsObjectData";
 
-const filterToLocalStorageLog = ["loginVRM", "installationsVRM"];
+const filterToLocalStorageLog = ["loginVRM", "installationsVRM", "installationsObjectData"];
 
 // const filterToCookieLog = ["loginVRM"];
 
 let count = 0;
 
+const actionsToLocalStorage = [SET_INSTALLATIONS, SET_ISNTLOGIN, SET_DATA]
+
 export const  logToLocalStorage = state => next => action => {
     const returnValue = next(action);
     console.log(action);
     const newState = state.getState();
-    if (action.type === SET_INSTALLATIONS || action.type === SET_ISNTLOGIN) {
+    if (actionsToLocalStorage.indexOf(action.type) !== -1) {
         console.log("-- log state to Local Storage -- #", count++);
         filterToLocalStorageLog.map((key) => {
             if (newState[key]) {

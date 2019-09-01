@@ -10,6 +10,7 @@ import { setInstallations } from "../reducers/installationsVRM";
 import LoginField from "../components/login-field";
 import ShowOnLogin from "../components/showOnlogin";
 import { Button } from "@material-ui/core";
+import { setInstallationObjectData } from "../reducers/installationsObjectData";
 
 
 
@@ -29,7 +30,8 @@ class Login extends React.Component {
                 loginPass={loginPass}
                 toLogin={toLogin}
                 showLogin={showLogin}
-                setInstallations={tosetInstallations} 
+                setInstallations={tosetInstallations}
+                setInstallationObjectData={setInstallationObjectData} 
                 />
                 <div>
                     <ShowOnLogin 
@@ -51,6 +53,7 @@ Login.propTypes ={
     toLogin: PropTypes.func,
     logout: PropTypes.func,
     tosetInstallations: PropTypes.func,
+    setInstallationObjectData: PropTypes.func,
 }
 
 const mapDispatchToProps = ({
@@ -59,7 +62,8 @@ const mapDispatchToProps = ({
     onChangeParol: setParol,
     toLogin: setToken,
     logout: setIsntLogin,
-    tosetInstallations: setInstallations
+    tosetInstallations: setInstallations,
+    setInstallationObjectData: setInstallationObjectData,
 
 });
 

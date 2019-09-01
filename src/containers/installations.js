@@ -9,37 +9,22 @@ import InstallationList from "../components/installations-list";
 import { setInst, installationSelector } from "../reducers/selectedInst";
 import InstallationDetails from "./installationDetails";
 import { installationsSelector, setInstallations } from "../reducers/installationsVRM";
-import { setInstallationData } from "../reducers/installationsData";
-import { getInstallations } from "./apiVRM";
+import { updateTimerId, updateInstallations } from "./apiVRM";
+import { setInstallationObjectData } from "../reducers/installationsObjectData";
 
 
-export let timerId = null;
-
-
-export function updateInstallations(isLogin, setInstallations, time=10000){
-    timerId = setTimeout(() => {
-        timerId = setInterval(() => {
-            if (isLogin.islogin) {
-                getInstallations (isLogin.idUser, isLogin.headerWithToken).then((responce) => {
-                    console.log("--- Auto request ---");
-                    setInstallations(responce);
-                });
-            }
-        }, time);
-    }, time);
-};
 
 
 class Installations extends React.Component {
     componentWillUnmount(){
         // console.log("componentWilUnmount");
-        clearInterval(timerId);
-        clearTimeout(timerId);
+        clearInterval(updateTimerId);
+        clearTimeout(updateTimerId);
     };
 
     componentWillMount(){
         // console.log("componentWilMount");
-        updateInstallations(this.props.isLogin, this.props.setInstallations);
+        updateInstallations(this.props.isLogin, this.props.setInstallations, this.props.setInstallationObjectData );
     };
 
     componentWillUpdate(){
@@ -47,20 +32,13 @@ class Installations extends React.Component {
     };
 
     render(){
-        const { isLogin, installationResponce, selectInst, selectedInst, addInstData } = this.props;
+        const { isLogin, installationResponce, selectInst, selectedInst } = this.props;
 
         if (!isLogin.islogin) {
             return (
                 <div className="inner-warning">Please login first!</div>
             );
         }
-
-        // timerId = setInterval(() => {
-        //     getInstallations (isLogin.idUser, isLogin.headerWithToken).then((responce) => {
-        //         console.log("--- Auto request ---");
-        //         addInstData(responce);
-        //     });
-        // } ,10000);
 
         return (
             <div className="installations">
@@ -69,8 +47,7 @@ class Installations extends React.Component {
                 installationResponce={installationResponce}
                 selectInst={selectInst} 
                 selectedInst={selectedInst}
-                isLogin={isLogin}
-                addInstData={addInstData} />
+                isLogin={isLogin} />
                 <InstallationDetails />
             </div>
         )
@@ -83,8 +60,8 @@ Installations.propTypes = {
     installationResponce: PropTypes.object,
     selectInst: PropTypes.func,
     selectedInst: PropTypes.number,
-    addInstData: PropTypes.func,
     setInstallations: PropTypes.func,
+    setInstallationObjectData: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -95,8 +72,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     selectInst: setInst,
-    addInstData: setInstallationData,
     setInstallations: setInstallations, 
+    setInstallationObjectData: setInstallationObjectData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Installations);

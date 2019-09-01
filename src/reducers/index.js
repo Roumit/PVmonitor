@@ -3,7 +3,7 @@ import loginInput from "./loginInput";
 import loginVRM from "./loginVRM";
 import installationsVRM from "./installationsVRM";
 import selectedInst from "./selectedInst";
-import installationsData from "./installationsData";
+import installationsObjectData from "./installationsObjectData";
 import mouseCoordinates from "./mouseCoordinates";
 import newDashboardElement from "./newDashboardElement";
 import newDashboard from "./newDashboard";
@@ -19,7 +19,7 @@ export const reducers = {
     loginVRM,
     installationsVRM,
     selectedInst,
-    installationsData,
+    installationsObjectData,
     mouseCoordinates,
     newDashboardElement,
     newDashboard,

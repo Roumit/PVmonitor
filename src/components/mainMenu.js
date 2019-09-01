@@ -29,7 +29,7 @@ export function MainMenu({ dashboards, hide, toggleHide }) {
                 <Link 
                 to="/sites" 
                 onClick={toggleHide}>
-                    <div className="main-menu-elem">
+                    <div className="main-menu-base-elem">
                         Go to main
                     </div>
                 </Link>       
@@ -50,7 +50,7 @@ export function MainMenu({ dashboards, hide, toggleHide }) {
                 <Link 
                 to="/newdashboard" 
                 onClick={toggleHide}>
-                    <div className="main-menu-elem">
+                    <div className="main-menu-base-elem">
                         Create Dashboard
                     </div>
                 </Link>

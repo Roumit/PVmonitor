@@ -36,16 +36,17 @@ html, body {
   height: 100%;
 }
 
+/* --- login section */
+
 .login , .login div {
   /* display: flex; */
   margin-right: 5px;
   display: table-cell;
   vertical-align: middle;
 }
-/* 
-.login {
-  margin: 5px;
-} */
+
+
+/* --- main page section */
 
 .installation-menu button {
   width: 100%;
@@ -59,15 +60,20 @@ html, body {
   color: #000000;
 }
 
+
+/* --- dashboard section */
+
 .dashboard div{
   color: rgb(0, 0, 248);
-  padding: 2px;
-  border: 1px solid black;
+  /* padding: 2px; */
+  /* border: 1px solid black; */
 }
 
-.login {
-  background: rgb(218, 218, 218);
-}
+/* --- constructor section */
+
+/* .constructor-field {
+  height: -moz-available;
+} */
 
 .move-elem-button, .delete-elem-button {
   font-size: 0.6em;
@@ -75,18 +81,21 @@ html, body {
 }
 
 .move-elem-button {
-  top: -10px;
-  left: -32px;
+  top: -12px;
+  left: 12px;
 }
 
 .delete-elem-button {
-  top: -10px;
-  right: -42px;
+  top: -12px;
+  right: 12px;
 }
 
 /* .constructor-elem-input {
   font-size: 1em;
 } */
+
+
+/* --- main menu section */
 
 .main-menu {
   position: absolute;
@@ -96,13 +105,17 @@ html, body {
 
 .main-menu :hover{
   background: rgb(247, 247, 247);
+  text-decoration: none;
 }
 
-.main-menu-elem {
+.main-menu-elem, .main-menu-base-elem {
   padding: 4px;
   padding-bottom: 0;
 }
 
-/* .constructor-field {
-  height: -moz-available;
-} */
+.main-menu-base-elem {
+  font-weight: bold;
+}
+
+
+

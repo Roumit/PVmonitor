@@ -18,6 +18,7 @@ import Constructor from "./containers/constructor";
 import { dashboardsSelector, loadDashboards } from './reducers/dashboards';
 import Dashboard from './containers/dashboard';
 import { hideMainMenuSelector, toggleMainMenu } from './reducers/hideMainMenu';
+import { setInstallationObjectData } from './reducers/installationsObjectData';
 
 
 
@@ -47,11 +48,13 @@ class App extends React.Component{
     const rawloginVRM = localStorage.getItem("loginVRM");
     const rawInst = localStorage.getItem("installationsVRM");
     const rawDashboards = localStorage.getItem("dashboards");
+    const rawinstallationsObjectData = localStorage.getItem("installationsObjectData");
     // console.log("component Will Mount. " , rawloginVRM);
     console.log("-- write to store from Local Storage --");
     if (rawloginVRM) this.props.setIsLogin(JSON.parse(rawloginVRM))   
     if (rawInst) this.props.setInst(JSON.parse(rawInst))
     if (rawDashboards) this.props.setDashboards(JSON.parse(rawDashboards))
+    if (rawinstallationsObjectData) this.props.setInstallationObjectData(JSON.parse(rawinstallationsObjectData))
   };
 
   render(){
@@ -96,6 +99,7 @@ App.propTypes = {
   setDashboards: PropTypes.func,
   hideMainMenu: PropTypes.bool,
   toggleHide: PropTypes.func,
+  setInstallationObjectData: PropTypes.func,
 };
 
 const mapDispatchtoProps = {
@@ -103,6 +107,7 @@ const mapDispatchtoProps = {
   setInst: setInstallations,
   setDashboards: loadDashboards,
   toggleHide: toggleMainMenu,
+  setInstallationObjectData: setInstallationObjectData,
 };
 
 const mapStateToProps = state => ({

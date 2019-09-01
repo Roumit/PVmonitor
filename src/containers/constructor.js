@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { mouseCoordSelector, setCoord } from "../reducers/mouseCoordinates";
 import { isLoginSelector } from "../reducers/loginVRM";
-import { Input, Button, TextField, Select } from "@material-ui/core";
+import { Input, Button, TextField, Select, OutlinedInput, IconButton } from "@material-ui/core";
 import { installationsSelector } from "../reducers/installationsVRM";
 import { setElement, newElementSelector, clearElement, initialState as newElementInitialState } from "../reducers/newDashboardElement";
 import { CreateInstallationsDataObject } from "./apiVRM";
@@ -12,16 +12,19 @@ import { newDashboardSelector, setElemToNewDashboard, editElemInNewDashboard, de
 import { dashboardsSelector, setDashboard } from "../reducers/dashboards";
 import { dashboardNameSelector, setDashboardName } from "../reducers/dashboardName";
 import { dashboardIdSelector, setDashboardId } from "../reducers/dashboardId";
+import Close from "@material-ui/icons/Close";
+import MoveIcon from "@material-ui/icons/OpenWith";
+import { instDataObjectSelector } from "../reducers/installationsObjectData";
 
 
 
-const elementTargetParamSet = (sitesData, idSite) => {
+const elementTargetParamSet = (instDataObject, idSite) => {
     const dataArray = [];
-    for (let key in sitesData[idSite]) {
+    for (let key in instDataObject[idSite]) {
         dataArray.push({ 
             id: key, 
-            name: sitesData[idSite][key].name, 
-            value: sitesData[idSite][key].value })
+            name: instDataObject[idSite][key].name, 
+            value: instDataObject[idSite][key].value })
     }
     return dataArray;  
 };
@@ -38,13 +41,21 @@ function DashboardObject({ newDashboard, editElement, deleteElement,
                 return (
                     <div 
                     key={id} 
-                    style={{position: 'absolute', left: elem.X, top: elem.Y}}
+                    style={{position: 'absolute', left: elem.X - 48, top: elem.Y}}
                     onMouseEnter={(ev) => {
                         setMouseCoordinate({ in: false, X: ev.clientX, Y: ev.clientY - ev.currentTarget.getBoundingClientRect().top});
                     }}
                     onMouseLeave={(ev) => {
                         setMouseCoordinate({ in: true, X: ev.clientX, Y: ev.clientY - ev.currentTarget.getBoundingClientRect().top});
                     }}>
+                        <IconButton
+                        className='move-elem-button'
+                        onClick={() => {
+                            setNewElement(newDashboard[id].element);
+                            deleteElement(id);
+                        }}>
+                            <MoveIcon />
+                        </IconButton>
                         <input 
                         className="constructor-elem-input"
                         size={elem.element.name.length}
@@ -53,16 +64,12 @@ function DashboardObject({ newDashboard, editElement, deleteElement,
                         onChange={({target: {value}}) => editElement({ id, value })} >
                         </input>
                         {` : ${elem.element.value}`}
-                        <button 
-                        className='move-elem-button'
-                        onClick={() => {
-                            setNewElement(newDashboard[id].element);
-                            deleteElement(id);
-                        }}>move</button>
-                        <button 
+                        
+                        <IconButton 
                         className='delete-elem-button'
-                        onClick={() => deleteElement(id)}
-                        >delete</button>
+                        onClick={() => deleteElement(id)}>
+                            <Close />
+                        </IconButton>
                     </div>
                 )
             })}
@@ -112,12 +119,16 @@ class Constructor extends React.Component {
     const { setMouseCoordinate, coord, isLogin, installationResponce, 
         setNewElement, newElement, newDashboard, setToNewDashboard, 
         editElement, deleteElement, clearElement, dashboards, setDashboard, 
-        dashboardName, setDashboardName, dashboardId, setDashboardId } = this.props;
+        dashboardName, setDashboardName, dashboardId, setDashboardId, 
+        instDataObject } = this.props;
 
-    const sitesData = CreateInstallationsDataObject(installationResponce);
+    // const sitesData = CreateInstallationsDataObject(installationResponce);
 
     const SiteSelect = () => (
         <Select 
+        native
+        inputProps={{style: {width: "25"}}}
+        input={<OutlinedInput />}
         color="primary"
         name='site-select' 
         value={newElement.idSite}
@@ -142,6 +153,9 @@ class Constructor extends React.Component {
 
     const ParamSelect = () => (
         <Select
+        native
+        inputProps={{style: {width: "25"}}}
+        input={<OutlinedInput />}
         color="primary" 
         name='param-select' 
         value={newElement.param} 
@@ -149,9 +163,9 @@ class Constructor extends React.Component {
             if (newElement.idSite !== newElementInitialState.idSite && value !== newElementInitialState.param) {
                 setNewElement({
                     param: value, 
-                    paramName: sitesData[newElement.idSite][value].name,
-                    value: sitesData[newElement.idSite][value].value,
-                    name: sitesData[newElement.idSite][value].name
+                    paramName: instDataObject[newElement.idSite][value].name,
+                    value: instDataObject[newElement.idSite][value].value,
+                    name: instDataObject[newElement.idSite][value].name
                 })
             } 
         }}>
@@ -160,7 +174,7 @@ class Constructor extends React.Component {
             "Choose site first" : "Choose parameter"}
             </option>
             
-            {elementTargetParamSet(sitesData, newElement.idSite).map((e) => (
+            {elementTargetParamSet(instDataObject, newElement.idSite).map((e) => (
                 <option key={e.id} value={e.id}>{e.name}</option>
             ))}
         </Select>
@@ -175,10 +189,11 @@ class Constructor extends React.Component {
 
     return (
         <div>
-            <div>
+            <div style={{width: "100%"}}>
                 <SiteSelect />
                 <ParamSelect />
-                <TextField 
+                <OutlinedInput 
+                inputProps={{style: {width: "-webkit-fill-available"}}}
                 color="primary"
                 placeholder={"Edit parameter name"}
                 value={newElement.name}
@@ -220,7 +235,7 @@ class Constructor extends React.Component {
                 setMouseCoordinate={setMouseCoordinate}
                 setNewElement={setNewElement} />
             </div>
-            <div style={{position: 'absolute', left: "5px", bottom: "5px", zIndex: "100"}}>
+            <div style={{position: 'fixed', left: "5px", bottom: "5px", zIndex: "100"}}>
                 <TextField 
                 color="primary"
                 onChange={({ target: { value }}) => setDashboardName(value)}
@@ -258,6 +273,7 @@ Constructor.propTypes = {
     dashboardId: PropTypes.number,
     setDashboardId: PropTypes.func,
     clearNewDashboard: PropTypes.func,
+    instDataObject: PropTypes.object,
 
 };
 
@@ -270,6 +286,7 @@ const mapStateToProps = state => ({
     dashboards: dashboardsSelector(state),
     dashboardName: dashboardNameSelector(state),
     dashboardId: dashboardIdSelector(state),
+    instDataObject: instDataObjectSelector(state),
 });
 
 const mapDispatchToProps = {

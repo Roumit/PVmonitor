@@ -2,7 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { getLoginRequest,  } from "../containers/apiVRM";
-import { Button, Input, TextField } from "@material-ui/core";
+import { Button, Input, TextField, InputAdornment } from "@material-ui/core";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 
 
 const loginPlaceholder = "login or email:";
@@ -13,7 +14,7 @@ const buttonText = "Login"
 const passInput = React.createRef();
 
 const LoginField = ({ isActive, onChangeLogin, onChangeParol, 
-    loginPass, toLogin, showLogin, setInstallations }) => {
+    loginPass, toLogin, showLogin, setInstallations, setInstallationObjectData }) => {
     if (!isActive) {
         return null;
     }
@@ -21,8 +22,13 @@ const LoginField = ({ isActive, onChangeLogin, onChangeParol,
         <div>
             <div>
                 <TextField
+                // InputProps={{startAdornment: (
+                //     <InputAdornment position="start">
+                //         <AccountCircle />
+                //     </InputAdornment>
+                // )}}
                 autoFocus = {true}
-                // label={loginPlaceholder} 
+                // name={loginPlaceholder} 
                 placeholder={loginPlaceholder} 
                 onChange={({target: { value }}) => console.log(value) || onChangeLogin(value)} 
                 onKeyDown={ e => {
@@ -49,7 +55,7 @@ const LoginField = ({ isActive, onChangeLogin, onChangeParol,
             <div>
                 <Button
                 color="primary"
-                onClick={() => getLoginRequest(loginPass, toLogin, showLogin, isActive, setInstallations) }
+                onClick={() => getLoginRequest(loginPass, toLogin, showLogin, isActive, setInstallations, setInstallationObjectData) }
                 >{buttonText}</Button>
             </div>
             

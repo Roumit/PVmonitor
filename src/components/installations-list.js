@@ -39,7 +39,7 @@ const SmallSiteData = ({ extended }) => {
     );
 };
 
-const ButtonForSite = ({ site, selectInst, selectedInst, isLogin, addInstData }) => {
+const ButtonForSite = ({ site, selectInst, selectedInst, isLogin }) => {
     if (site.idSite === selectedInst) {
         return (
             <div> 
@@ -65,7 +65,6 @@ const ButtonForSite = ({ site, selectInst, selectedInst, isLogin, addInstData })
                     const data = {}
                     console.log(responce);
                     data[site.idSite] = responce;
-                    addInstData(data);
                 })
             }}
         >{buttonText(site)}</Button>
@@ -75,7 +74,7 @@ const ButtonForSite = ({ site, selectInst, selectedInst, isLogin, addInstData })
     );
 };
 
-const InstallationList = ({ installationResponce, selectInst, selectedInst, isLogin, addInstData}) => {
+const InstallationList = ({ installationResponce, selectInst, selectedInst, isLogin }) => {
     // console.log(installationResponce)
 
     if (installationResponce){
@@ -88,8 +87,7 @@ const InstallationList = ({ installationResponce, selectInst, selectedInst, isLo
                         site={site}
                         selectInst={selectInst}
                         selectedInst={selectedInst}
-                        isLogin={isLogin}
-                        addInstData={addInstData} />
+                        isLogin={isLogin} />
                     </div>
                 ))}
             </div>
