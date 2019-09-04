@@ -54,7 +54,7 @@ function FormRequestToVRM(formURL) {
 
 export function getLoginRequest() { //loginPass_1, setToken_1, showLogin_1, setInstallations_1, setInstallationObjectData_1){
     const loginPass = loginPassSelector(store.getState());
-    console.log(loginPass);
+    // console.log(loginPass);
     return new Promise((resolve, reject) => {
         axios({
             method:'post',
@@ -76,11 +76,6 @@ export function getLoginRequest() { //loginPass_1, setToken_1, showLogin_1, setI
                     if (responce.data && responce.data.records) {
                         CreateInstallationsDataObject(responce);
                     }
-
-                    // if (setInstallationObjectData) {
-                    //     console.log("-- true --");
-                        // CreateInstallationsDataObject(responce, setInstallationObjectData);
-                    // }
                 });
                 resolve(true);
         }})
@@ -115,7 +110,7 @@ export function updateInstallations(isLogin, setInstallations, setInstObj, time=
         updateTimerId = setInterval(() => {
             if (isLogin.islogin) {
                 getInstallations (isLogin.idUser, isLogin.headerWithToken).then((responce) => {
-                    console.log("--- Auto request ---");
+                    // console.log("--- Auto request ---");
                     setInstallations(responce);
                     if (setInstObj) {
                         CreateInstallationsDataObject(responce, setInstObj);
