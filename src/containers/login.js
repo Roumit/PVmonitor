@@ -17,7 +17,7 @@ import { setInstallationObjectData } from "../reducers/installationsObjectData";
 class Login extends React.Component {
     render() {
         const { showLogin, isActive, onChangeLogin, 
-            onChangeParol, loginPass, isLogin, toLogin, logout, tosetInstallations } = this.props; 
+            onChangeParol, loginPass, isLogin, logout } = this.props; 
         return(
             <div className="login">
                 <div>
@@ -28,10 +28,6 @@ class Login extends React.Component {
                 onChangeLogin={onChangeLogin}
                 onChangeParol={onChangeParol}
                 loginPass={loginPass}
-                toLogin={toLogin}
-                showLogin={showLogin}
-                setInstallations={tosetInstallations}
-                setInstallationObjectData={setInstallationObjectData} 
                 />
                 <div>
                     <ShowOnLogin 
@@ -50,9 +46,7 @@ Login.propTypes ={
     onChangeParol: PropTypes.func,
     loginPass: PropTypes.object,
     isLogin: PropTypes.object,
-    toLogin: PropTypes.func,
     logout: PropTypes.func,
-    tosetInstallations: PropTypes.func,
     setInstallationObjectData: PropTypes.func,
 }
 
@@ -60,9 +54,7 @@ const mapDispatchToProps = ({
     showLogin: setSwith,
     onChangeLogin: setLogin,
     onChangeParol: setParol,
-    toLogin: setToken,
     logout: setIsntLogin,
-    tosetInstallations: setInstallations,
     setInstallationObjectData: setInstallationObjectData,
 
 });

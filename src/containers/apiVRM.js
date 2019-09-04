@@ -1,6 +1,12 @@
 import axios from "axios";
 import React from "react";
 import PropTypes from "prop-types";
+import { setToken } from "../reducers/loginVRM";
+import { setInstallations } from "../reducers/installationsVRM";
+import { setInstallationObjectData } from "../reducers/installationsObjectData";
+import { setSwith as showLogin } from "../reducers/loginField";
+import { loginPassSelector } from "../reducers/loginInput";
+import { store } from "../index.js";
 
 
 
@@ -46,7 +52,9 @@ function FormRequestToVRM(formURL) {
 };
 
 
-export function getLoginRequest(loginPass, setToken, showLogin, isActive, setInstallations, setInstallationObjectData){
+export function getLoginRequest() { //loginPass_1, setToken_1, showLogin_1, setInstallations_1, setInstallationObjectData_1){
+    const loginPass = loginPassSelector(store.getState());
+    console.log(loginPass);
     return new Promise((resolve, reject) => {
         axios({
             method:'post',
@@ -57,14 +65,22 @@ export function getLoginRequest(loginPass, setToken, showLogin, isActive, setIns
             if (response.status === 200){
                 const headerWithToken = {'X-Authorization' : 'Bearer ' + response.data.token};
                 const idUser = response.data.idUser;
-                showLogin(isActive);
+                // showLogin();
+                store.dispatch(showLogin());
                 const isLogin = {islogin: true, username: loginPass.login, idUser: idUser, headerWithToken};
                 getInstallations(isLogin.idUser, isLogin.headerWithToken).then((responce) => {
-                    setToken(isLogin);
-                    setInstallations(responce);
-                    if (setInstallationObjectData) {
-                        CreateInstallationsDataObject(responce, setInstallationObjectData);
+                    // setToken(isLogin);
+                    store.dispatch(setToken(isLogin));
+                    // setInstallations(responce);
+                    store.dispatch(setInstallations(responce));
+                    if (responce.data && responce.data.records) {
+                        CreateInstallationsDataObject(responce);
                     }
+
+                    // if (setInstallationObjectData) {
+                    //     console.log("-- true --");
+                        // CreateInstallationsDataObject(responce, setInstallationObjectData);
+                    // }
                 });
                 resolve(true);
         }})
@@ -77,7 +93,7 @@ export function getLoginRequest(loginPass, setToken, showLogin, isActive, setIns
 
 
 
-export function CreateInstallationsDataObject(installationResponce, setInstallationObjectData) {
+export function CreateInstallationsDataObject(installationResponce) { //, setInstallationObjectData_1) {
     const newDataObj = {};
     installationResponce.data.records.map((e) => {
         const params = {siteName: e.name};
@@ -86,7 +102,8 @@ export function CreateInstallationsDataObject(installationResponce, setInstallat
         });
         newDataObj[e.idSite] = params;
     })
-    setInstallationObjectData(newDataObj);
+    // setInstallationObjectData(newDataObj);
+    store.dispatch(setInstallationObjectData(newDataObj));
     return newDataObj;
 };
 
@@ -109,4 +126,5 @@ export function updateInstallations(isLogin, setInstallations, setInstObj, time=
         }, time);
     }, time);
 };
+
 

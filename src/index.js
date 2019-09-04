@@ -10,7 +10,7 @@ import { reducers } from "./reducers"
 import createMiddlewares from './store/middlewares';
 
 
-const store = configStore(reducers, createMiddlewares());
+export const store = configStore(reducers, createMiddlewares());
 
 const RootComponent = () => {
     return (

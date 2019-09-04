@@ -14,7 +14,7 @@ const buttonText = "Login"
 const passInput = React.createRef();
 
 const LoginField = ({ isActive, onChangeLogin, onChangeParol, 
-    loginPass, toLogin, showLogin, setInstallations, setInstallationObjectData }) => {
+    loginPass }) => {
     if (!isActive) {
         return null;
     }
@@ -47,7 +47,7 @@ const LoginField = ({ isActive, onChangeLogin, onChangeParol,
                 onChange={({target: { value }}) => onChangeParol(value)}
                 onKeyDown={ e => {
                     if (e.keyCode === 13) {
-                        getLoginRequest(loginPass, toLogin, showLogin, isActive, setInstallations)
+                        getLoginRequest()
                     }
                 }} 
                 value={loginPass.pass} />
@@ -55,7 +55,7 @@ const LoginField = ({ isActive, onChangeLogin, onChangeParol,
             <div>
                 <Button
                 color="primary"
-                onClick={() => getLoginRequest(loginPass, toLogin, showLogin, isActive, setInstallations, setInstallationObjectData) }
+                onClick={() => getLoginRequest() }
                 >{buttonText}</Button>
             </div>
             

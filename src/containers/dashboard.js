@@ -4,12 +4,9 @@ import PropTypes from "prop-types";
 import {} from "react-router";
 import { dashboardsSelector, deleteDashboard } from "../reducers/dashboards";
 import { installationsSelector, setInstallations } from "../reducers/installationsVRM";
-import { CreateInstallationsDataObject, updateTimerId, updateInstallations } from "./apiVRM";
+import { updateTimerId, updateInstallations } from "./apiVRM";
 import { isLoginSelector } from "../reducers/loginVRM";
 import { Button } from "@material-ui/core";
-import { setNewDashboard } from "../reducers/newDashboard";
-import { setDashboardName } from "../reducers/dashboardName";
-import { setDashboardId } from "../reducers/dashboardId";
 import { setInstallationObjectData, instDataObjectSelector } from "../reducers/installationsObjectData";
 
 
@@ -24,11 +21,9 @@ class Dashboard extends React.Component {
             this.props.setInstallationObjectData);
     };
     render() {
-        const { dashboards, installationsResponce, setNewDashboard, 
-            deleteDashboard, setDashboardName, setDashboardId, instDataObject } = this.props;
+        const { dashboards,  
+            deleteDashboard, instDataObject } = this.props;
         const targetId = this.props.location.pathname.slice(12);
-        // const dashboardsArray = dashboards[targetId].dashboard;
-        // const installationsData = CreateInstallationsDataObject(installationsResponce);
         return(
             <div style={{position: "static"}}>
                 <div className="dashboard" style={{position: "relative"}}>
@@ -51,9 +46,6 @@ class Dashboard extends React.Component {
                 <div style={{position: 'fixed', left: "5px", bottom: "5px"}}>
                 <Button onClick={
                     () => {
-                        // setNewDashboard(dashboards[targetId].dashboard);
-                        // setDashboardName(dashboards[targetId].name);
-                        // setDashboardId(targetId);
                         this.props.history.push(`/newdashboard/?id=${targetId}`);
                     }
                 }>Change dashboard</Button>
@@ -75,10 +67,7 @@ Dashboard.propTypes = {
     installationsResponce: PropTypes.object,
     isLogin: PropTypes.object,
     setInstallations: PropTypes.func,
-    setNewDashboard: PropTypes.func,
     deleteDashboard: PropTypes.func,
-    setDashboardName: PropTypes.func,
-    setDashboardId: PropTypes.func,
     setInstallationObjectData: PropTypes.func,
     instDataObject: PropTypes.object,
 
@@ -93,10 +82,7 @@ const mapStateToProps = state => ({
 
 const mapDispathToProps = {
     setInstallations: setInstallations,
-    setNewDashboard: setNewDashboard,
     deleteDashboard: deleteDashboard,
-    setDashboardName: setDashboardName,
-    setDashboardId: setDashboardId,
     setInstallationObjectData: setInstallationObjectData,
 };
 

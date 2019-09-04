@@ -13,7 +13,7 @@ const filterToLocalStorageLog = {
 };
 
 
-const actionsToLocalStorage = [SET_INSTALLATIONS, SET_ISNTLOGIN, SET_DATA, SET_DASHBOARD]
+const actionsToLocalStorage = [SET_INSTALLATIONS, SET_ISNTLOGIN, SET_DATA ]//, SET_DASHBOARD];
 
 export const  logToLocalStorage = state => next => action => {
     const returnValue = next(action);

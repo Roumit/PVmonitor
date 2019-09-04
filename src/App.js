@@ -62,7 +62,7 @@ class App extends React.Component{
         <h1>
           PV monitor
         </h1>
-        <BrowserRouter basename="/application">
+        <BrowserRouter basename="/PVM">
           <MainMenu
           dashboards={dashboards}
           toggleHide={toggleHide}

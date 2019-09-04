@@ -108,7 +108,7 @@ function LevitateElement({ newElement, coord, setToNewDashboard, clearElement })
 class Constructor extends React.Component {
     componentWillMount() {
         const urlParam = queryString.parse(this.props.location.search);
-        console.log(urlParam);
+        // console.log(urlParam);
         if (urlParam.id) {
             this.props.setNewDashboard(this.props.dashboards[urlParam.id].dashboard);
             this.props.setDashboardName(this.props.dashboards[urlParam.id].name);
@@ -136,32 +136,28 @@ class Constructor extends React.Component {
 
     // const sitesData = CreateInstallationsDataObject(installationResponce);
 
-    const SiteSelect = () => (
+    const SiteSelect = () => {
+        return (
         <Select 
-        native
-        inputProps={{style: {width: "25"}}}
-        input={<OutlinedInput />}
-        color="primary"
-        name='site-select' 
-        value={newElement.idSite}
-        onChange={({target: { value }}) => {
+            native 
+            inputProps={{ style: { width: "25" } }} 
+            input={<OutlinedInput />} 
+            color="primary" 
+            name='site-select' 
+            value={newElement.idSite} 
+            onChange={({ target: { value } }) => {
             if (value !== "-") {
-                setNewElement({ 
+                setNewElement({
                     idSite: value
-                })
-            } 
-        }}>
-            <option 
-            key="null" 
-            value="-" 
-            hidden>Choose site</option>
+                });
+            }
+        } }>
+            <option key="null" value="-" hidden>Choose site</option>
             {installationResponce.data.records.map((site) => (
-                <option 
-                key={site.idSite} 
-                value={site.idSite}>{site.name}</option>
-            ))}  
-        </Select>
-    );
+                    <option key={site.idSite} value={site.idSite}>{site.name}</option>
+                    ))}
+        </Select>);
+    };
 
     const ParamSelect = () => (
         <Select
@@ -187,8 +183,8 @@ class Constructor extends React.Component {
             </option>
             
             {elementTargetParamSet(instDataObject, newElement.idSite).map((e) => (
-                <option key={e.id} value={e.id}>{e.name}</option>
-            ))}
+                        <option key={e.id} value={e.id}>{e.name}</option>))}
+               
         </Select>
     );
 
@@ -202,8 +198,17 @@ class Constructor extends React.Component {
     return (
         <div>
             <div style={{width: "100%"}}>
-                <SiteSelect />
-                <ParamSelect />
+                {(installationResponce.data && installationResponce.data.records)
+                ? (<SiteSelect />)
+                   // <ParamSelect />
+                : (
+                    <div>Loading...</div>
+                )}
+                 {(installationResponce.data && installationResponce.data.records)
+                ? (<ParamSelect />)
+                : null
+                }
+                
                 <OutlinedInput 
                 inputProps={{style: {width: "-webkit-fill-available"}}}
                 color="primary"

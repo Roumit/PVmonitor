@@ -2,7 +2,7 @@
   "name": "pv-monitor",
   "version": "0.1.0",
   "private": true,
-  "homepage": "roumit.github.io/pvmonitor",
+  "homepage": "http://roumit.github.io/PVM",
   "dependencies": {
     "@material-ui/core": "^4.3.1",
     "@material-ui/icons": "^4.2.1",
