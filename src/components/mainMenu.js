@@ -39,7 +39,7 @@ export function MainMenu({ dashboards, hide, toggleHide, setDashboardId,
                         return (
                             <Link 
                             key={id}
-                            to={`/dashboards/${dashboard.id}`} 
+                            to={`/dashboards/?id=${dashboard.id}`} 
                             onClick={toggleHide}>
                                 <div className="main-menu-elem">
                                     {dashboard.name}

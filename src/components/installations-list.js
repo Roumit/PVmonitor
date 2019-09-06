@@ -62,7 +62,7 @@ const ButtonForSite = ({ site, selectInst, selectedInst, isLogin }) => {
                 selectInst(site.idSite);
                 getInstallationData(site.idSite, isLogin.headerWithToken).then((responce) => {
                     const data = {}
-                    console.log(responce);
+                    // console.log(responce);
                     data[site.idSite] = responce;
                 })
             }}

@@ -8,7 +8,8 @@ import { updateTimerId, updateInstallations } from "./apiVRM";
 import { isLoginSelector } from "../reducers/loginVRM";
 import { Button } from "@material-ui/core";
 import { setInstallationObjectData, instDataObjectSelector } from "../reducers/installationsObjectData";
-
+import queryString from "query-string";
+import { Link } from "react-router-dom";
 
 
 class Dashboard extends React.Component {
@@ -21,13 +22,29 @@ class Dashboard extends React.Component {
             this.props.setInstallationObjectData);
     };
     render() {
-        const { dashboards,  
-            deleteDashboard, instDataObject } = this.props;
-        const targetId = this.props.location.pathname.slice(12);
+        const { dashboards, deleteDashboard, instDataObject } = this.props;
+        // const targetId = this.props.location.pathname.slice(12);
+        const target = queryString.parse(this.props.location.search);
+        if (!target.id || !dashboards[target.id]) {
+               return (dashboards.map( (dashboard, id) => {
+                    if (dashboard) {    
+                        return (
+                            <Link 
+                            key={id}
+                            to={`/dashboards/?id=${dashboard.id}`} >
+                                <div>
+                                    {dashboard.name}
+                                </div>
+                            </Link>     
+                        );
+                    }
+                    return null;
+                }));
+        }
         return(
             <div style={{position: "static"}}>
                 <div className="dashboard" style={{position: "relative"}}>
-                {dashboards[targetId].dashboard.map((elem, id) => {
+                {dashboards[target.id].dashboard.map((elem, id) => {
                     if (elem === "") {
                         return null
                     }
@@ -46,12 +63,12 @@ class Dashboard extends React.Component {
                 <div style={{position: 'fixed', left: "5px", bottom: "5px"}}>
                 <Button onClick={
                     () => {
-                        this.props.history.push(`/newdashboard/?id=${targetId}`);
+                        this.props.history.push(`/newdashboard/?id=${target.id}`);
                     }
                 }>Change dashboard</Button>
                 <Button onClick={() => {
                     if (window.confirm("Do you really want to delete dashboard?")) {
-                        deleteDashboard(targetId);
+                        deleteDashboard(target.id);
                         this.props.history.push("/");
                     }
                 }}>Delete dashboard</Button>

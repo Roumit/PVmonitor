@@ -74,13 +74,14 @@ class App extends React.Component{
             <Switch>
             <Route exact path="/" component={Installations} />
             <Route path="/sites" component={Installations} />
-            {dashboards.map((dashboard, id) => {
+            {/* {dashboards.map((dashboard, id) => {
               if (dashboard !== "") {
                 return (
                   <Route key={id} path={`/dashboards/${id}`} component={Dashboard}/>
                 )
               }
-            })}
+            })} */}
+            <Route path="/dashboards" component={Dashboard} />
             <Route path="/newdashboard" component={Constructor} />
             <Route component={Page404} />
           </Switch>

@@ -44,10 +44,12 @@ function DashboardObject({ newDashboard, editElement, deleteElement,
                     key={id} 
                     style={{position: 'absolute', left: elem.X - 48, top: elem.Y}}
                     onMouseEnter={(ev) => {
-                        setMouseCoordinate({ in: false, X: ev.clientX, Y: ev.clientY - ev.currentTarget.getBoundingClientRect().top});
+                        // console.log(ev.currentTarget.style.left);
+                        setMouseCoordinate({ in: false});
                     }}
                     onMouseLeave={(ev) => {
-                        setMouseCoordinate({ in: true, X: ev.clientX, Y: ev.clientY - ev.currentTarget.getBoundingClientRect().top});
+                        // console.log(ev.currentTarget);
+                        setMouseCoordinate({ in: true});
                     }}>
                         <IconButton
                         className='move-elem-button'
