@@ -9,11 +9,6 @@ import { loginPassSelector } from "../reducers/loginInput";
 import { store } from "../index.js";
 
 
-
-// let headerWithToken = {};
-// let idUser = null;
-
-
 //APIs
 
 const targetUrl = "https://vrmapi.victronenergy.com";

@@ -23,6 +23,9 @@ export default handleActions({
     [clearNewDashboard]: (state, { payload }) => initialState,
     [editElemInNewDashboard]: (state, { payload }) => {
         let newState = [...state];
+        for (let key in payload.element) {
+            newState[payload.id].element.name = payload.value;
+        }
         newState[payload.id].element.name = payload.value;
         return newState;
     },

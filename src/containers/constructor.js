@@ -8,14 +8,20 @@ import { Input, Button, TextField, Select, OutlinedInput, IconButton } from "@ma
 import { installationsSelector } from "../reducers/installationsVRM";
 import { setElement, newElementSelector, clearElement, initialState as newElementInitialState } from "../reducers/newDashboardElement";
 import { CreateInstallationsDataObject } from "./apiVRM";
+// import ConstructorElement from "./constructorElement";
+import DashboardInConstructor from "../components/dashboardInConstructor";
+import ConstructorField from "./constructorField";
+
 import { newDashboardSelector, setElemToNewDashboard, editElemInNewDashboard, deleteElemInNewDashboard, clearNewDashboard, setNewDashboard } from "../reducers/newDashboard";
 import { dashboardsSelector, setDashboard } from "../reducers/dashboards";
 import { dashboardNameSelector, setDashboardName } from "../reducers/dashboardName";
 import { dashboardIdSelector, setDashboardId } from "../reducers/dashboardId";
 import Close from "@material-ui/icons/Close";
 import MoveIcon from "@material-ui/icons/OpenWith";
+import EditIcon from "@material-ui/icons/Edit";
 import { instDataObjectSelector } from "../reducers/installationsObjectData";
 import queryString from "query-string";
+
 
 
 
@@ -30,59 +36,84 @@ const elementTargetParamSet = (instDataObject, idSite) => {
     return dataArray;  
 };
 
-function DashboardObject({ newDashboard, editElement, deleteElement, 
-                        setMouseCoordinate, setNewElement }) {
-    // console.log(newDashboard);
-    return (
-        <div className="dashboard">
-            {newDashboard.map((elem, id) => {
-                if (elem === "") {
-                    return null
-                }
-                return (
-                    <div 
-                    key={id} 
-                    style={{position: 'absolute', left: elem.X - 48, top: elem.Y}}
-                    onMouseEnter={(ev) => {
-                        // console.log(ev.currentTarget.style.left);
-                        setMouseCoordinate({ in: false});
-                    }}
-                    onMouseLeave={(ev) => {
-                        // console.log(ev.currentTarget);
-                        setMouseCoordinate({ in: true});
-                    }}>
-                        <IconButton
-                        className='move-elem-button'
-                        onClick={() => {
-                            setNewElement(newDashboard[id].element);
-                            deleteElement(id);
-                        }}>
-                            <MoveIcon />
-                        </IconButton>
-                        <input 
-                        className="constructor-elem-input"
-                        size={elem.element.name.length}
-                        key={id}
-                        value={elem.element.name}
-                        onChange={({target: {value}}) => editElement({ id, value })} >
-                        </input>
-                        {` : ${elem.element.value}`}
+//  function DashboardInConstructor({ newDashboard, editElement, deleteElement, 
+//                         setMouseCoordinate, setNewElement, coord }) {
+//     // console.log(newDashboard);
+//     return (
+//         <div className="dashboard">
+//             {newDashboard.map((elem, id) => {
+//                 console.log(elem);
+//                 console.log(elem === "", coord.dragX , !coord.dragY)
+//                 if (elem === "" ) {
+//                     return null
+//                 }
+//                 if (coord.dragX || coord.dragY) {
+//                     return (
+//                         <div 
+//                         key={id} 
+//                         style={{position: 'absolute', left: coord.X - coord.dragX, top: coord.Y - coord.dragY}}
                         
-                        <IconButton 
-                        className='delete-elem-button'
-                        onClick={() => deleteElement(id)}>
-                            <Close />
-                        </IconButton>
-                    </div>
-                )
-            })}
-        </div>
-    )
-};
+//                         onMouseUP={(ev) => {
+//                             console.log("mouseUp");
+//                             setMouseCoordinate({dragX: 0 , dragY: 0});
+//                             // console.log(coord);
+//                         }}
+//                         >
+//                             {`${elem.element.name} : ${elem.element.value}`}
+//                         </div>
+//                     )
+//                 }
+//                 return (
+//                         <ConstructorElement
+//                         element={elem} />
+//                     // <div 
+//                     // key={id} 
+//                     // style={{position: 'absolute', left: elem.X - 48, top: elem.Y}}
+//                     // onMouseEnter={(ev) => {
+//                     //     // console.log(ev.currentTarget.style.left);
+//                     //     setMouseCoordinate({ in: false});
+//                     // }}
+//                     // onMouseLeave={(ev) => {
+//                     //     // console.log(ev.currentTarget);
+//                     //     setMouseCoordinate({ in: true});
+//                     // }}
+//                     // onMouseDown={(ev) => {
+//                     //     setMouseCoordinate({dragX: coord.X - elem.X , dragY: coord.Y - elem.Y});
+//                     //     console.log(coord);
+//                     // }}
+//                     // >
+//                     //     {/* <IconButton
+//                     //     className='move-elem-button'
+//                     //     onClick={() => {
+//                     //         setNewElement(newDashboard[id].element);
+//                     //         deleteElement(id);
+//                     //     }}>
+//                     //         <MoveIcon />
+//                     //     </IconButton> */}
+//                     //     {/* <input 
+//                     //     className="constructor-elem-input"
+//                     //     size={elem.element.name.length}
+//                     //     key={id}
+//                     //     value={elem.element.name}
+//                     //     onChange={({target: {value}}) => editElement({ id, value })} >
+//                     //     </input> */}
+//                     //     {`${elem.element.name} : ${elem.element.value}`}
+                        
+//                     //     {/* <IconButton 
+//                     //     className='delete-elem-button'
+//                     //     onClick={() => deleteElement(id)}>
+//                     //         <Close />
+//                     //     </IconButton> */}
+//                     // </div>
+//                 )
+//             })}
+//         </div>
+//     )
+// };
 
 
-function LevitateElement({ newElement, coord, setToNewDashboard, clearElement }) {
-    if (!coord.in){
+function LevitateElement({ newElement, coord, setToNewDashboard, clearElement, setMouseCoordinate }) {
+    if (!coord.in && !coord.dragX && !coord.dragY) {
         return null;
     }
     if (newElement === newElementInitialState) {
@@ -92,15 +123,19 @@ function LevitateElement({ newElement, coord, setToNewDashboard, clearElement })
         <div 
         style={{
             position: 'absolute', 
-            left: `${coord.X}px`, 
-            top: `${coord.Y}px`}}
+            left: `${coord.X - coord.dragX}px`, 
+            top: `${coord.Y - coord.dragY}px`}}
             onClick={(ev) => {
+                console.log("click");
                 if ( newElement.idSite !== newElementInitialState.idSite 
                     && newElement.param !== newElementInitialState.param ) {
                     setToNewDashboard({element: newElement, X: coord.X, Y: coord.Y});
                     clearElement();
-                }}
-            }>
+                }}}
+            onMouseUp={(ev) => {
+                console.log("mouseup");
+                setMouseCoordinate({ dragX: 0, dragY: 0 });
+            }} >
                 {newElement.name || "choose monitor"} : {newElement.value || ""}
         </div>
     )
@@ -130,7 +165,7 @@ class Constructor extends React.Component {
 
     };
    render(){
-    const { setMouseCoordinate, coord, isLogin, installationResponce, 
+    const { setMouseCoordinate, isLogin, installationResponce, 
         setNewElement, newElement, newDashboard, setToNewDashboard, 
         editElement, deleteElement, clearElement, dashboards, setDashboard, 
         dashboardName, setDashboardName, dashboardId, setDashboardId, 
@@ -139,6 +174,7 @@ class Constructor extends React.Component {
     // const sitesData = CreateInstallationsDataObject(installationResponce);
 
     const SiteSelect = () => {
+        console.log("--- site select update ---");
         return (
         <Select 
             native 
@@ -191,11 +227,11 @@ class Constructor extends React.Component {
     );
 
 
-    if (!isLogin.islogin) {
-        return (
-            <div className="inner-warning">Please login first!</div>
-        );
-    }
+    // if (!isLogin.islogin) {
+    //     return (
+    //         <div className="inner-warning">Please login first!</div>
+    //     );
+    // }
 
     return (
         <div>
@@ -223,37 +259,51 @@ class Constructor extends React.Component {
                     })
                 }} />
             </div>
-            <div 
+            {/* <div 
             className="constructor-field"
             style={{position: 'relative', 
                         height: "-webkit-fill-available",
                         width: '100%', 
                         cursor: 'crosshair'}} 
             onMouseMove={(ev) => {
-                setMouseCoordinate({ in: true, 
-                    X: ev.clientX, 
+                setMouseCoordinate({ 
+                    X: ev.clientX - ev.currentTarget.getBoundingClientRect().left,
                     Y: ev.clientY - ev.currentTarget.getBoundingClientRect().top});
+                    console.log(coord);
                 }
             }
+            onMouseEnter={(ev) => {
+                setMouseCoordinate({ in: true });
+            }}
             onMouseLeave={(ev) => {
-                setMouseCoordinate({ in: false, 
+                setMouseCoordinate({ 
+                    in: false, 
                     X: ev.clientX, 
                     Y: ev.clientY - ev.currentTarget.getBoundingClientRect().top});
                 }
             }>
-                <LevitateElement
-                newElement={newElement}
-                coord={coord}
-                setToNewDashboard={setToNewDashboard}
-                clearElement={clearElement} />
-
-                <DashboardObject 
+                
+            </div> */}
+            <div style={{position: 'relative'}}>
+                <ConstructorField />
+                <DashboardInConstructor 
                 newDashboard={newDashboard}
                 editElement={editElement}
                 deleteElement={deleteElement}
                 setMouseCoordinate={setMouseCoordinate}
-                setNewElement={setNewElement} />
+                setNewElement={setNewElement}
+                // coord={coord}
+                 />
             </div>
+            
+            {/* <LevitateElement
+                newElement={newElement}
+                coord={coord}
+                setToNewDashboard={setToNewDashboard}
+                clearElement={clearElement}
+                setMouseCoordinate={setMouseCoordinate} /> */}
+
+               
             <div style={{position: 'fixed', left: "5px", bottom: "5px", zIndex: "100"}}>
                 <TextField 
                 color="primary"
@@ -274,7 +324,7 @@ class Constructor extends React.Component {
 };
 
 Constructor.propTypes = {
-    coord: PropTypes.object,
+    // coord: PropTypes.object,
     setMouseCoordinate:PropTypes.func,
     isLogin: PropTypes.object,
     installationResponce: PropTypes.object,
@@ -298,7 +348,7 @@ Constructor.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    coord: mouseCoordSelector(state),
+    // coord: mouseCoordSelector(state),
     isLogin: isLoginSelector(state),
     installationResponce: installationsSelector(state),
     newElement: newElementSelector(state),
