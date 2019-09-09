@@ -3,23 +3,23 @@ import PropTypes from "prop-types";
 // import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import { mouseCoordSelector, setCoord } from "../reducers/mouseCoordinates";
-import { isLoginSelector } from "../reducers/loginVRM";
-import { Input, Button, TextField, Select, OutlinedInput, IconButton } from "@material-ui/core";
-import { installationsSelector } from "../reducers/installationsVRM";
+// import { isLoginSelector } from "../reducers/loginVRM";
+// import { Input, Button, TextField, Select, OutlinedInput, IconButton } from "@material-ui/core";
+// import { installationsSelector } from "../reducers/installationsVRM";
 import { setElement, newElementSelector, clearElement, initialState as newElementInitialState } from "../reducers/newDashboardElement";
-import { CreateInstallationsDataObject } from "./apiVRM";
+// import { CreateInstallationsDataObject } from "./apiVRM";
 // import ConstructorElement from "./constructorElement";
 import DashboardInConstructor from "../components/dashboardInConstructor";
 
 import { newDashboardSelector, setElemToNewDashboard, editElemInNewDashboard, deleteElemInNewDashboard, clearNewDashboard, setNewDashboard } from "../reducers/newDashboard";
-import { dashboardsSelector, setDashboard } from "../reducers/dashboards";
-import { dashboardNameSelector, setDashboardName } from "../reducers/dashboardName";
-import { dashboardIdSelector, setDashboardId } from "../reducers/dashboardId";
-import Close from "@material-ui/icons/Close";
-import MoveIcon from "@material-ui/icons/OpenWith";
-import EditIcon from "@material-ui/icons/Edit";
-import { instDataObjectSelector } from "../reducers/installationsObjectData";
-import queryString from "query-string";
+// import { dashboardsSelector, setDashboard } from "../reducers/dashboards";
+// import { dashboardNameSelector, setDashboardName } from "../reducers/dashboardName";
+// import { dashboardIdSelector, setDashboardId } from "../reducers/dashboardId";
+// import Close from "@material-ui/icons/Close";
+// import MoveIcon from "@material-ui/icons/OpenWith";
+// import EditIcon from "@material-ui/icons/Edit";
+// import { instDataObjectSelector } from "../reducers/installationsObjectData";
+// import queryString from "query-string";
 
 
 
@@ -34,7 +34,8 @@ function LevitateElement({ newElement, coord, setToNewDashboard, clearElement, s
         return null;
     }
     return (
-        <div 
+        <div
+        className="levitate-element-div"
         style={{
             position: 'absolute', 
             left: `${coord.X - coord.dragX}px`, 
@@ -70,8 +71,8 @@ class ConstructorField extends React.Component {
         return (
             <div 
             className="constructor-field"
-            style={{position: 'relative', 
-                        height: "-webkit-fill-available",
+            style={{position: 'absolute', 
+                        height: '100%',
                         width: '100%', 
                         cursor: 'crosshair'}} 
             onMouseMove={(ev) => {

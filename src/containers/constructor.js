@@ -7,7 +7,7 @@ import { isLoginSelector } from "../reducers/loginVRM";
 import { Input, Button, TextField, Select, OutlinedInput, IconButton } from "@material-ui/core";
 import { installationsSelector } from "../reducers/installationsVRM";
 import { setElement, newElementSelector, clearElement, initialState as newElementInitialState } from "../reducers/newDashboardElement";
-import { CreateInstallationsDataObject } from "./apiVRM";
+// import { CreateInstallationsDataObject } from "./apiVRM";
 // import ConstructorElement from "./constructorElement";
 import DashboardInConstructor from "../components/dashboardInConstructor";
 import ConstructorField from "./constructorField";
@@ -16,9 +16,9 @@ import { newDashboardSelector, setElemToNewDashboard, editElemInNewDashboard, de
 import { dashboardsSelector, setDashboard } from "../reducers/dashboards";
 import { dashboardNameSelector, setDashboardName } from "../reducers/dashboardName";
 import { dashboardIdSelector, setDashboardId } from "../reducers/dashboardId";
-import Close from "@material-ui/icons/Close";
-import MoveIcon from "@material-ui/icons/OpenWith";
-import EditIcon from "@material-ui/icons/Edit";
+// import Close from "@material-ui/icons/Close";
+// import MoveIcon from "@material-ui/icons/OpenWith";
+// import EditIcon from "@material-ui/icons/Edit";
 import { instDataObjectSelector } from "../reducers/installationsObjectData";
 import queryString from "query-string";
 
@@ -128,8 +128,16 @@ class Constructor extends React.Component {
     }
 
     return (
-        <div>
-            <div style={{width: "100%"}}>
+        <div
+        className="constructor" 
+        style={{
+            position: 'relative',
+            height: '100%'}}>
+            <div
+            className="element-select-div"
+            style={{
+                width: "100%",
+                }}>
                 {(installationResponce.data && installationResponce.data.records)
                 ? (<SiteSelect />)
                 : (
@@ -153,7 +161,11 @@ class Constructor extends React.Component {
                 }} />
             </div>
             
-            <div style={{position: 'relative'}}>
+            {/* <div 
+            className="constructor-box"
+            style={{
+                position: 'relative',
+                height: '100px'}}> */}
                 <ConstructorField />
                 <DashboardInConstructor 
                 newDashboard={newDashboard}
@@ -163,7 +175,7 @@ class Constructor extends React.Component {
                 setNewElement={setNewElement}
                 instDataObject={instDataObject}
                  />
-            </div>
+            {/* </div> */}
                            
             <div style={{position: 'fixed', left: "5px", bottom: "5px", zIndex: "100"}}>
                 <TextField 

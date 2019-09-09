@@ -7,7 +7,8 @@ import ConstructorElement from "./constructorElement";
 export default function DashboardInConstructor({ newDashboard, editElement, deleteElement, 
     setMouseCoordinate, setNewElement, instDataObject }) {
 return (
-<div className="dashboard">
+<div 
+className="dashboard-in-constructor">
     <div className="constructor-help-text">
         <p>Choose site and parameter to add element.</p>
         <p>To move element hold mouse button and drag.</p>

@@ -32,9 +32,10 @@
   }
 } */
 
-html, body {
+html, body, #root, .app, .constructor {
   height: 100%;
 }
+
 
 /* --- login section */
 
@@ -97,6 +98,16 @@ button.MuiButtonBase-root.MuiIconButton-root.info-elem-button {
   padding: 0;
 }
 
+.dashboard-in-constructor {
+  position: relative;
+
+}
+
+.element-select-div {
+  display: flex;
+}
+
+
 .constructor-element {
   display: flex;
 }
@@ -112,9 +123,6 @@ button.MuiButtonBase-root.MuiIconButton-root.info-elem-button {
   color: rgba(0, 0, 0, 0.25);
 }
 
-/* .constructor-elem-input {
-  font-size: 1em;
-} */
 
 
 /* --- main menu section */
