@@ -72,7 +72,9 @@ class ConstructorField extends React.Component {
             <div 
             className="constructor-field"
             style={{position: 'absolute', 
-                        height: '100%',
+                        // height: '-webkit-fill-available',
+                        top: '0',
+                        bottom: '0',
                         width: '100%', 
                         cursor: 'crosshair'}} 
             onMouseMove={(ev) => {

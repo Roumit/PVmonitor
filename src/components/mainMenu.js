@@ -8,7 +8,7 @@ export function MainMenu({ dashboards, hide, toggleHide, setDashboardId,
     setDashboardName, clearNewDashboard }) {
     if (hide) {
         return (
-            <div>
+            <div className='main-menu-conteiner'>
                 <Button 
                 color="primary"
                 className="main-menu-button"
@@ -19,7 +19,9 @@ export function MainMenu({ dashboards, hide, toggleHide, setDashboardId,
         )
     }
     return (
-        <div onMouseLeave={toggleHide}>
+        <div
+        className='main-menu-conteiner'
+        onMouseLeave={toggleHide}>
             <Button 
             color="primary"
             className="main-menu-button"

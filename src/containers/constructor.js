@@ -131,8 +131,11 @@ class Constructor extends React.Component {
         <div
         className="constructor" 
         style={{
-            position: 'relative',
-            height: '100%'}}>
+            // position: 'absolute',
+            // height: '-webkit-fill-available'
+            // top: '0',
+            // bottom: '0'
+            }}>
             <div
             className="element-select-div"
             style={{
@@ -161,11 +164,13 @@ class Constructor extends React.Component {
                 }} />
             </div>
             
-            {/* <div 
+            <div 
             className="constructor-box"
             style={{
                 position: 'relative',
-                height: '100px'}}> */}
+                // height: '-webkit-fill-available'
+                height: '100vh'
+                }}>
                 <ConstructorField />
                 <DashboardInConstructor 
                 newDashboard={newDashboard}
@@ -175,7 +180,8 @@ class Constructor extends React.Component {
                 setNewElement={setNewElement}
                 instDataObject={instDataObject}
                  />
-            {/* </div> */}
+                
+            </div>
                            
             <div style={{position: 'fixed', left: "5px", bottom: "5px", zIndex: "100"}}>
                 <TextField 
