@@ -48,6 +48,7 @@ html, body {
 
 /* --- main page section */
 
+
 .installation-menu button {
   width: 100%;
 }
@@ -75,7 +76,7 @@ html, body {
   height: -moz-available;
 } */
 
-.move-elem-button, .delete-elem-button {
+/* .move-elem-button, .delete-elem-button {
   font-size: 0.6em;
   position: absolute;
 }
@@ -88,6 +89,27 @@ html, body {
 .delete-elem-button {
   top: -12px;
   right: 12px;
+} */
+
+button.MuiButtonBase-root.MuiIconButton-root.edit-elem-button,
+button.MuiButtonBase-root.MuiIconButton-root.delete-elem-button,
+button.MuiButtonBase-root.MuiIconButton-root.info-elem-button {
+  padding: 0;
+}
+
+.constructor-element {
+  display: flex;
+}
+
+.constructor-help-text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+.constructor-help-text p {
+  color: rgba(0, 0, 0, 0.25);
 }
 
 /* .constructor-elem-input {
@@ -100,7 +122,8 @@ html, body {
 .main-menu {
   position: absolute;
   z-index: 100;
-  background: rgb(149, 200, 241);
+  background: #d5ebf5;
+  border-radius: 4px;
 }
 
 .main-menu :hover{

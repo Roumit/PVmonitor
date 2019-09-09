@@ -24,14 +24,13 @@ export default handleActions({
     [editElemInNewDashboard]: (state, { payload }) => {
         let newState = [...state];
         for (let key in payload.element) {
-            newState[payload.id].element.name = payload.value;
+            newState[payload.id].element[key] = payload.element[key];
         }
-        newState[payload.id].element.name = payload.value;
         return newState;
     },
     [deleteElemInNewDashboard]: (state, { payload }) => {
         let newState = [...state];
-        newState[payload] = "";
+        newState[payload].delete = true;
         return newState;
     },
 }, initialState);

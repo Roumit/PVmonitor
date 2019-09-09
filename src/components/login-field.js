@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import { getLoginRequest,  } from "../containers/apiVRM";
 import { Button, Input, TextField, InputAdornment } from "@material-ui/core";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+// import AccountCircle from "@material-ui/icons/AccountCircle";
 
 
 const loginPlaceholder = "login or email:";
@@ -57,8 +57,7 @@ const LoginField = ({ isActive, onChangeLogin, onChangeParol,
                 color="primary"
                 onClick={() => getLoginRequest() }
                 >{buttonText}</Button>
-            </div>
-            
+            </div>   
         </div>
     );
 };

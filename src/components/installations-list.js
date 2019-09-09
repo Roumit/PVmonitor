@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
 import { getInstallationData } from "../containers/apiVRM";
-import { TextField } from "@material-ui/core";
+// import { TextField } from "@material-ui/core";
 
 
 const buttonText = (site) => {
@@ -44,7 +44,6 @@ const ButtonForSite = ({ site, selectInst, selectedInst, isLogin }) => {
             <div> 
             <Button
                 color="primary"
-                // onClick={() => selectInst(site.idSite)}
                 disabled
             >{buttonText(site)}</Button>
             <SmallSiteData
@@ -52,19 +51,17 @@ const ButtonForSite = ({ site, selectInst, selectedInst, isLogin }) => {
             </div>
         )
     }
-    // console.log(site);
-    // console.log(site.extended);
     return (
         <div>
         <Button
             color="primary" 
             onClick={() => {
                 selectInst(site.idSite);
-                getInstallationData(site.idSite, isLogin.headerWithToken).then((responce) => {
-                    const data = {}
-                    // console.log(responce);
-                    data[site.idSite] = responce;
-                })
+                // getInstallationData(site.idSite, isLogin.headerWithToken).then((responce) => {
+                //     const data = {}
+                //     // console.log(responce);
+                //     data[site.idSite] = responce;
+                // })
             }}
         >{buttonText(site)}</Button>
         <SmallSiteData
@@ -74,8 +71,6 @@ const ButtonForSite = ({ site, selectInst, selectedInst, isLogin }) => {
 };
 
 const InstallationList = ({ installationResponce, selectInst, selectedInst, isLogin }) => {
-    // console.log(installationResponce)
-
     if (installationResponce){
         if (installationResponce.data.success) {
             return (

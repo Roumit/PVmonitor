@@ -5,31 +5,19 @@ import ConstructorElement from "./constructorElement";
 
 
 export default function DashboardInConstructor({ newDashboard, editElement, deleteElement, 
-    setMouseCoordinate, setNewElement, coord }) {
-// console.log(newDashboard);
+    setMouseCoordinate, setNewElement, instDataObject }) {
 return (
 <div className="dashboard">
+    <div className="constructor-help-text">
+        <p>Choose site and parameter to add element.</p>
+        <p>To move element hold mouse button and drag.</p>
+    </div>
+    
 {newDashboard.map((elem, id) => {
-    console.log(elem);
-    if (elem === "" ) {
+    if (elem.delete) {
         return null
     }
-    // if (coord.dragX || coord.dragY) {
-    // return (
-    //     <div 
-    //     key={id} 
-    //     style={{position: 'absolute', left: coord.X - coord.dragX, top: coord.Y - coord.dragY}}
-        
-    //     onMouseUP={(ev) => {
-    //         console.log("mouseUp");
-    //         setMouseCoordinate({dragX: 0 , dragY: 0});
-    //         // console.log(coord);
-    //     }}
-    //     >
-    //         {`${elem.element.name} : ${elem.element.value}`}
-    //     </div>
-    // )
-    // }
+    
     return (
         <ConstructorElement
         element={elem}
@@ -37,46 +25,11 @@ return (
         setNewElement={setNewElement}
         deleteElement={deleteElement}
         newDashboard={newDashboard}
-        id={id} />
-    // <div 
-    // key={id} 
-    // style={{position: 'absolute', left: elem.X - 48, top: elem.Y}}
-    // onMouseEnter={(ev) => {
-    //     // console.log(ev.currentTarget.style.left);
-    //     setMouseCoordinate({ in: false});
-    // }}
-    // onMouseLeave={(ev) => {
-    //     // console.log(ev.currentTarget);
-    //     setMouseCoordinate({ in: true});
-    // }}
-    // onMouseDown={(ev) => {
-    //     setMouseCoordinate({dragX: coord.X - elem.X , dragY: coord.Y - elem.Y});
-    //     console.log(coord);
-    // }}
-    // >
-    //     {/* <IconButton
-    //     className='move-elem-button'
-    //     onClick={() => {
-    //         setNewElement(newDashboard[id].element);
-    //         deleteElement(id);
-    //     }}>
-    //         <MoveIcon />
-    //     </IconButton> */}
-    //     {/* <input 
-    //     className="constructor-elem-input"
-    //     size={elem.element.name.length}
-    //     key={id}
-    //     value={elem.element.name}
-    //     onChange={({target: {value}}) => editElement({ id, value })} >
-    //     </input> */}
-    //     {`${elem.element.name} : ${elem.element.value}`}
-        
-    //     {/* <IconButton 
-    //     className='delete-elem-button'
-    //     onClick={() => deleteElement(id)}>
-    //         <Close />
-    //     </IconButton> */}
-    // </div>
+        editElement={editElement}
+        instDataObject={instDataObject}
+        id={id}
+        key={id} />
+    
     )
 })}
 </div>

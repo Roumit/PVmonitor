@@ -1,4 +1,4 @@
-import { setCookie } from "../containers/cookieGetSet";
+// import { setCookie } from "../containers/cookieGetSet";
 import { setLocalStorage } from "../containers/localStorageReadWrite";
 import { SET_INSTALLATIONS } from "../reducers/installationsVRM";
 import { SET_ISNTLOGIN } from "../reducers/loginVRM";

@@ -27,6 +27,9 @@ function LevitateElement({ newElement, coord, setToNewDashboard, clearElement, s
     if (!coord.in && !coord.dragX && !coord.dragY) {
         return null;
     }
+    if (coord.Y < 0) {
+        return null;
+    }
     if (newElement === newElementInitialState) {
         return null;
     }
@@ -88,7 +91,7 @@ class ConstructorField extends React.Component {
                     X: ev.clientX, 
                     Y: ev.clientY - ev.currentTarget.getBoundingClientRect().top});
             }}
-            onClick={(ev) => console.log("--- ConstructorField Click ---")}
+            // onClick={(ev) => console.log("--- ConstructorField Click ---")}
             >
 
             <LevitateElement

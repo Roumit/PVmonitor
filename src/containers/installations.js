@@ -17,18 +17,12 @@ import { setInstallationObjectData } from "../reducers/installationsObjectData";
 
 class Installations extends React.Component {
     componentWillUnmount(){
-        // console.log("componentWilUnmount");
         clearInterval(updateTimerId);
         clearTimeout(updateTimerId);
     };
 
     componentWillMount(){
-        // console.log("componentWilMount");
         updateInstallations(this.props.isLogin, this.props.setInstallations, this.props.setInstallationObjectData );
-    };
-
-    componentWillUpdate(){
-        // console.log("componentWilUpdate");
     };
 
     render(){

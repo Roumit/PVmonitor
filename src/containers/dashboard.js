@@ -23,23 +23,22 @@ class Dashboard extends React.Component {
     };
     render() {
         const { dashboards, deleteDashboard, instDataObject } = this.props;
-        // const targetId = this.props.location.pathname.slice(12);
         const target = queryString.parse(this.props.location.search);
         if (!target.id || !dashboards[target.id]) {
-               return (dashboards.map( (dashboard, id) => {
-                    if (dashboard) {    
-                        return (
-                            <Link 
-                            key={id}
-                            to={`/dashboards/?id=${dashboard.id}`} >
-                                <div>
-                                    {dashboard.name}
-                                </div>
-                            </Link>     
-                        );
-                    }
-                    return null;
-                }));
+            return (dashboards.map( (dashboard, id) => {
+                if (dashboard) {    
+                    return (
+                        <Link 
+                        key={id}
+                        to={`/dashboards/?id=${dashboard.id}`} >
+                            <div>
+                                {dashboard.name}
+                            </div>
+                        </Link>     
+                    );
+                }
+                return null;
+            }));
         }
         return(
             <div style={{position: "static"}}>
@@ -49,32 +48,31 @@ class Dashboard extends React.Component {
                         return null
                     }
                     return (
-                    <div
-                    key={id} 
-                    style={{position: 'absolute', left: elem.X, top: elem.Y}} >
-                    {`${elem.element.name} : 
-                    ${(instDataObject[elem.element.idSite] && instDataObject[elem.element.idSite][elem.element.param])
-                        ? instDataObject[elem.element.idSite][elem.element.param].value
-                        : "---"
-                    }`}
-                    </div>
-                )})}  
+                        <div
+                        key={id} 
+                        style={{position: 'absolute', left: elem.X, top: elem.Y}} >
+                            {`${elem.element.name} : 
+                            ${(instDataObject[elem.element.idSite] && instDataObject[elem.element.idSite][elem.element.param])
+                                ? instDataObject[elem.element.idSite][elem.element.param].value
+                                : "---"
+                            }`}
+                        </div>
+                    )})}  
                 </div>
                 <div style={{position: 'fixed', left: "5px", bottom: "5px"}}>
-                <Button onClick={
-                    () => {
-                        this.props.history.push(`/newdashboard/?id=${target.id}`);
-                    }
-                }>Change dashboard</Button>
-                <Button onClick={() => {
-                    if (window.confirm("Do you really want to delete dashboard?")) {
-                        deleteDashboard(target.id);
-                        this.props.history.push("/");
-                    }
-                }}>Delete dashboard</Button>
+                    <Button onClick={
+                        () => {
+                            this.props.history.push(`/newdashboard/?id=${target.id}`);
+                        }
+                    }>Change dashboard</Button>
+                    <Button onClick={() => {
+                        if (window.confirm("Do you really want to delete dashboard?")) {
+                            deleteDashboard(target.id);
+                            this.props.history.push("/");
+                        }
+                    }}>Delete dashboard</Button>
                 </div>
-            </div>
-            
+            </div>  
         );
     };
 };
