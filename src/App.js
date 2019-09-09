@@ -55,7 +55,7 @@ class App extends React.Component{
   };
 
   render(){
-    const { dashboards, hideMainMenu, toggleHide } = this.props;
+    const { dashboards, hideMainMenu, toggleHide, setDashboardId, setDashboardName, clearNewDashboard } = this.props;
     return(
       <ThemeProvider theme={mainTheme}>
       <div className="app">

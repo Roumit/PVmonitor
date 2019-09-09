@@ -41,7 +41,7 @@ const elementTargetParamSet = (instDataObject, idSite) => {
 class Constructor extends React.Component {
     componentWillMount() {
         const urlParam = queryString.parse(this.props.location.search);
-        // console.log(urlParam);
+        console.log(urlParam);
         if (urlParam.id) {
             this.props.setNewDashboard(this.props.dashboards[urlParam.id].dashboard);
             this.props.setDashboardName(this.props.dashboards[urlParam.id].name);
@@ -121,11 +121,11 @@ class Constructor extends React.Component {
     );
 
 
-    // if (!isLogin.islogin) {
-    //     return (
-    //         <div className="inner-warning">Please login first!</div>
-    //     );
-    // }
+    if (!isLogin.islogin) {
+        return (
+            <div className="inner-warning">Please login first!</div>
+        );
+    }
 
     return (
         <div>
