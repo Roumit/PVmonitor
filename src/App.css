@@ -95,6 +95,16 @@ button.MuiButtonBase-root.MuiIconButton-root {
   color: rgba(0, 0, 0, 0.25);
 }
 
+/* .text-elem-dashboard-constructor-div {
+  display: inline-block;
+  cursor: move;
+} */
+
+.levitate-element-div {
+  display: inline-block;
+  cursor: crosshair;
+}
+
 
 
 

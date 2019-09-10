@@ -39,7 +39,8 @@ function LevitateElement({ newElement, coord, setToNewDashboard, clearElement, s
         style={{
             position: 'absolute', 
             left: `${coord.X - coord.dragX}px`, 
-            top: `${coord.Y - coord.dragY}px`}}
+            top: `${coord.Y - coord.dragY}px`,
+            }}
             // onClick={(ev) => {
             //     console.log("click");
             //     if ( newElement.idSite !== newElementInitialState.idSite 
@@ -76,7 +77,7 @@ class ConstructorField extends React.Component {
                         top: '0',
                         bottom: '0',
                         width: '100%', 
-                        cursor: 'crosshair'}} 
+                        }} 
             onMouseMove={(ev) => {
                 setMouseCoordinate({ 
                     in: true,

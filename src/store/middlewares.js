@@ -1,19 +1,20 @@
 // import { setCookie } from "../containers/cookieGetSet";
 import { setLocalStorage } from "../containers/localStorageReadWrite";
 import { SET_INSTALLATIONS } from "../reducers/installationsVRM";
-import { SET_ISNTLOGIN } from "../reducers/loginVRM";
+import { SET_ISNTLOGIN, SET_TOKEN } from "../reducers/loginVRM";
 import { SET_DASHBOARD } from "../reducers/dashboards";
 import { SET_DATA } from "../reducers/installationsObjectData";
 
 const filterToLocalStorageLog = {
-    [SET_ISNTLOGIN]: "loginVRM", 
+    [SET_ISNTLOGIN]: "loginVRM",
+    [SET_TOKEN]: "loginVRM", 
     [SET_INSTALLATIONS]: "installationsVRM", 
     [SET_DATA]: "installationsObjectData",
     [SET_DASHBOARD]: "dashboards"
 };
 
 
-const actionsToLocalStorage = [SET_INSTALLATIONS, SET_ISNTLOGIN, SET_DATA, SET_DASHBOARD];
+const actionsToLocalStorage = [SET_INSTALLATIONS, SET_ISNTLOGIN, SET_TOKEN, SET_DATA, SET_DASHBOARD];
 
 export const  logToLocalStorage = state => next => action => {
     const returnValue = next(action);

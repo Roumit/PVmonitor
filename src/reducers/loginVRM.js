@@ -1,7 +1,7 @@
 import {handleActions, createAction} from "redux-actions";
 
 export const SET_ISNTLOGIN = "LOGIN_VRM/SET_ISNTLOGIN";
-const SET_TOKEN = "LOGIN_VRM/SET_TOKEN";
+export const SET_TOKEN = "LOGIN_VRM/SET_TOKEN";
 // const SET_ISLOGIN = "LOGIN_VRM/SET_ISLOGIN";
 
 const REDUCER_NAME = "loginVRM";

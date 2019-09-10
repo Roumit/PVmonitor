@@ -70,8 +70,8 @@ class App extends React.Component{
           setDashboardId={setDashboardId}
           setDashboardName={setDashboardName}
           clearNewDashboard={clearNewDashboard} />
-        <Login />
-            <Switch>
+          <Login />
+          <Switch>
             <Route exact path="/" component={Installations} />
             <Route path="/sites" component={Installations} />
             {/* {dashboards.map((dashboard, id) => {

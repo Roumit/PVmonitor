@@ -16,15 +16,25 @@ export default function ConstructorElement (props) {
     return(
         <div className="constructor-element"
         style={{position: 'absolute', left: element.X, top: element.Y}}
-        key={id}>
-            <div 
+        key={id}
+        onMouseMove={(ev) => {
+            setMouseCoordinate({
+                X: ev.clientX,
+                Y: ev.clientY - ev.currentTarget.parentElement.getBoundingClientRect().top
+            })
+        }}>
+            <div
+            style={{cursor: 'move'}}
+            classname='text-elem-dashboard-constructor-div'
             onMouseDown={(ev) => {
-                setMouseCoordinate({
-                    dragX: ev.clientX - ev.currentTarget.getBoundingClientRect().left,
-                    dragY: ev.clientY - ev.currentTarget.getBoundingClientRect().top
-                });
-                setNewElement(newDashboard[id].element);
-                deleteElement(id);
+                if (ev.button === 0) {
+                    setMouseCoordinate({
+                        dragX: ev.clientX - ev.currentTarget.getBoundingClientRect().left,
+                        dragY: ev.clientY - ev.currentTarget.getBoundingClientRect().top
+                    });
+                    setNewElement(newDashboard[id].element);
+                    deleteElement(id);
+                }
             }}
             onDoubleClick={(ev) => {
                 const newName = prompt("Monitor name:", element.element.name);
