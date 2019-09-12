@@ -22,6 +22,8 @@ import { dashboardIdSelector, setDashboardId } from "../reducers/dashboardId";
 import { instDataObjectSelector } from "../reducers/installationsObjectData";
 import queryString from "query-string";
 
+import WidgetFrame from "./widgetFrame";
+
 
 
 
@@ -180,6 +182,10 @@ class Constructor extends React.Component {
                 setNewElement={setNewElement}
                 instDataObject={instDataObject}
                  />
+                <WidgetFrame 
+                Component={null}>
+                    <div>123456789</div>
+                </WidgetFrame>
                 
             </div>
                            

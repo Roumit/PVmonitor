@@ -11,6 +11,7 @@ import dashboards from "./dashboards";
 import dashboardName from "./dashboardName";
 import dashboardId from "./dashboardId";
 import hideMainMenu from "./hideMainMenu";
+import currentWidgetSize from "./currentWidgetSize";
 
 
 export const reducers = {
@@ -27,4 +28,5 @@ export const reducers = {
     dashboardName,
     dashboardId,
     hideMainMenu,
+    currentWidgetSize,
 }
