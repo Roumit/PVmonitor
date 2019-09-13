@@ -6,7 +6,7 @@ const SET_CURRENT_WIDGET_SIZE = "CURRENT_WIDGET_SIZE/SET_SIZE";
 
 export const setWidgetSize = createAction(SET_CURRENT_WIDGET_SIZE);
 
-const initialState = {X: 0, Y: 0, W: 100, H: 100, resizeX: false, resizeY: false, move: false};
+const initialState = {X: 0, Y: 0, W: 200, H: 100, resizeX: false, resizeY: false, move: false};
 
 export default handleActions({
     [setWidgetSize]: (state, { payload }) => {

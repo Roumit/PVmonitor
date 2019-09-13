@@ -9,12 +9,10 @@ import { IconButton } from "@material-ui/core";
 
 
 export default function WidgetFrame(props) {
-    // const Component = props.children;
     // console.log(props.children);
-
+    // console.log(props);
     const dispatch = useDispatch();
     const size = useSelector(state => state[currentWidgetSize]);
-    console.log(props);
 
     return (
         <div 
@@ -22,7 +20,7 @@ export default function WidgetFrame(props) {
         style={{
             position: 'absolute', 
             left: size.X,
-            // top: size.Y,
+            top: size.Y,
             width: `${size.W}px`,
             height:`${size.H}px`,
             borderWidth: '1px',
@@ -58,8 +56,9 @@ export default function WidgetFrame(props) {
                 // console.log('=== mouse move ===');
                 if (size.move) {
                     // console.log(ev.clientX,'  =====  ',size.dX, '  ====  ', size.X)
+                    // console.log(document.getElementsByClassName('constructor-box')[0].offsetTop);
                     const X = ev.clientX - size.dX;
-                    const Y = ev.clientY - size.dY;
+                    const Y = ev.clientY - size.dY - document.getElementsByClassName('constructor-box')[0].offsetTop;
                     dispatch(setWidgetSize({ X, Y }));
                 }
             }}
