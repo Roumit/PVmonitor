@@ -1,6 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { REDUCER_NAME as currentWidgetSize, setWidgetSize} from "../reducers/currentWidgetSize"
+import EditIcon from "@material-ui/icons/Edit";
+import InfoIcon from "@material-ui/icons/Info";
+import CloseIcon from "@material-ui/icons/Close";
+import { IconButton } from "@material-ui/core";
 
 
 
@@ -10,51 +14,105 @@ export default function WidgetFrame(props) {
 
     const dispatch = useDispatch();
     const size = useSelector(state => state[currentWidgetSize]);
+    console.log(props);
 
     return (
         <div 
         className='widget-outer-div'
         style={{
-            position: 'absolute',
-        }}
-        >
+            position: 'absolute', 
+            left: size.X,
+            // top: size.Y,
+            width: `${size.W}px`,
+            height:`${size.H}px`,
+            borderWidth: '1px',
+            borderStyle: 'solid',
+            borderColor: 'rgb(0,0,0)',
+        }}>
+
             <div 
             className='widget-content-div'
             style={{
-                width: `${size.W}px`,
-                height:`${size.H}px`,
-                borderWidth: '1px',
-                borderStyle: 'solid',
-                borderColor: 'rgb(0,0,0)',
+                position: 'absolute',
+                left: 0,
+                top: '24px',
+                
                 backgroundColor: '#ffff',
-                cursor: 'crosshair'
+                cursor: 'crosshair',
+            }}>
+                {props.children}
+            </div>
+
+            <div 
+            className='top-move-div'
+            style={{
+                position: 'absolute',
+                right: 0,
+                top: size.move? '-50px': '0px',
+                height: size.move? '100px': '24px',
+                width: '100%',
+                cursor: 'move',
             }}
-            
-            >
-                {/* <Component /> */}
+            onMouseMove={(ev) => {
+                ev.preventDefault();
+                // console.log('=== mouse move ===');
+                if (size.move) {
+                    // console.log(ev.clientX,'  =====  ',size.dX, '  ====  ', size.X)
+                    const X = ev.clientX - size.dX;
+                    const Y = ev.clientY - size.dY;
+                    dispatch(setWidgetSize({ X, Y }));
+                }
+            }}
+            onMouseDown={(ev) => {
+                // console.log('=== mouse down ===');
+                dispatch(setWidgetSize({ 
+                    move: true,
+                    dX: ev.clientX - ev.currentTarget.parentElement.getBoundingClientRect().left,
+                    dY: ev.clientY - ev.currentTarget.parentElement.getBoundingClientRect().top,
+                 }));
+            }}
+            onMouseUp ={(ev) => {
+                // console.log('=== mouse up ===');
+                dispatch(setWidgetSize({ 
+                    move: false,
+                    dY: 0,
+                    dX:0
+                 }));
+            }}
+            onMouseLeave={(ev) => {
+                // console.log('=== mouse leave ===');
+                dispatch(setWidgetSize({ 
+                    move: false,
+                    dY: 0,
+                    dX:0
+                 }));
+            }}>
+                <div
+                style={{
+                    position: 'absolute',
+                    top: size.move? '50%': 0,
+                    width: '100%',
+                    height: '24px',
+                    backgroundColor: 'rgba(0,0,0,0.1)',
+                }}></div>
             </div>
             <div 
             className='right-scale-div'
             style={{
                 position: 'absolute',
-                right: -5,
+                right: size.resizeX? '-50px': '-5px',
                 top: 0,
                 height: '100%',
-                width: '10px',
+                width: size.resizeX? '100px': '10px',
                 cursor: 'ew-resize',
-                draggable: false
             }}
             // onTouchMove={(ev) => console.log('=== ??? ===')}
             onMouseMove={(ev) => {
                 ev.preventDefault();
-                console.log('=== mouse move ===');
-                const currentSizeX = ev.clientX - ev.currentTarget.parentElement.getBoundingClientRect().left;
-                console.log(ev.currentTarget.parentElement.getBoundingClientRect().left);
-                // console.log(ev.clientX);
-                // console.log(currentSizeX);
-                
+                // console.log('=== mouse move ===');
+                // console.log(ev.currentTarget.parentElement.getBoundingClientRect().left);
                 if (size.resizeX) {
-                    // console.log(currentSizeX);
+                    const currentSizeX = ev.clientX - ev.currentTarget.parentElement.getBoundingClientRect().left;
                     dispatch(setWidgetSize({ W: currentSizeX }));
                 }
             }}
@@ -65,7 +123,7 @@ export default function WidgetFrame(props) {
             onMouseUp ={(ev) => {
                 // console.log('=== mouse up ===');
                 dispatch(setWidgetSize({ resizeX: false }));
-            }}gi
+            }}
             onMouseLeave={(ev) => {
                 // console.log('=== mouse leave ===');
                 dispatch(setWidgetSize({ resizeX: false }));
@@ -75,21 +133,17 @@ export default function WidgetFrame(props) {
             className='bottom-scale-div'
             style={{
                 position: 'absolute',
-                bottom: -5,
-                height: '10px',
+                bottom: size.resizeY? '-50px': '-5px',
+                height: size.resizeY? '100px': '10px',
                 width: '100%',
                 cursor: 'ns-resize'
             }}
             onMouseMove={(ev) => {
                 ev.preventDefault();
                 // console.log('=== mouse move ===');
-                const currentSizeY = ev.clientY - ev.currentTarget.parentElement.getBoundingClientRect().top;
-                console.log(ev.currentTarget.parentElement.getBoundingClientRect().top);
-                // console.log(ev.clientY);
-                // console.log(currentSizeY);
-                
+                // console.log(ev.currentTarget.parentElement.getBoundingClientRect().top);
                 if (size.resizeY) {
-                    // console.log(currentSizeY);
+                    const currentSizeY = ev.clientY - ev.currentTarget.parentElement.getBoundingClientRect().top;
                     dispatch(setWidgetSize({ H: currentSizeY }));
                 }
             }}
@@ -110,25 +164,20 @@ export default function WidgetFrame(props) {
             className='bottom-right-corner-scale-div'
             style={{
                 position: 'absolute',
-                right: -5,
-                bottom: -5,
-                height: '10px',
-                width: '10px',
-                cursor: 'nwse-resize',
-                background: 'linear-gradient(to bottom right, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 5%, rgba(0,0,0,1) 45%'
+                right: (size.resizeY && size.resizeX)? '-50px': '-5px',
+                bottom: (size.resizeY && size.resizeX)? '-50px': '-5px',
+                height: (size.resizeY && size.resizeX)? '100px': '10px',
+                width: (size.resizeY && size.resizeX)? '100px': '10px',
+                cursor: 'nwse-resize'
             }}
             onMouseMove={(ev) => {
                 ev.preventDefault();
                 // console.log('=== mouse move ===');
-                const currentSizeX = ev.clientX - ev.currentTarget.parentElement.getBoundingClientRect().left;
-                console.log(ev.currentTarget.parentElement.getBoundingClientRect().left);
-                const currentSizeY = ev.clientY - ev.currentTarget.parentElement.getBoundingClientRect().top;
-                console.log(ev.currentTarget.parentElement.getBoundingClientRect().top);
-                // console.log(ev.clientY);
-                // console.log(currentSizeY);
-                
+                // console.log(ev.currentTarget.parentElement.getBoundingClientRect().left);
+                // console.log(ev.currentTarget.parentElement.getBoundingClientRect().top);
                 if (size.resizeY && size.resizeX) {
-                    // console.log(currentSizeY);
+                    const currentSizeX = ev.clientX - ev.currentTarget.parentElement.getBoundingClientRect().left;
+                    const currentSizeY = ev.clientY - ev.currentTarget.parentElement.getBoundingClientRect().top;
                     dispatch(setWidgetSize({ W: currentSizeX, H: currentSizeY }));
                 }
             }}
@@ -143,8 +192,41 @@ export default function WidgetFrame(props) {
             onMouseLeave={(ev) => {
                 // console.log('=== mouse leave ===');
                 dispatch(setWidgetSize({ resizeX: false, resizeY: false }));
-            }}
-            ></div>
+            }}>
+                <div
+                style={{
+                    position: 'absolute',
+                    bottom: '50%',
+                    right: '50%',
+                    height: '5px',
+                    width: '5px',
+                    background: 'linear-gradient(to bottom right, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 5%, rgba(0,0,0,1) 45%'
+                }}></div>
+            </div>
+            <div 
+            className='widget-top-left-buttons-div'
+            style={{
+                position: 'absolute',
+                top: 0,
+                right: 0,
+                display: 'flex',
+            }}>
+                <div>
+                    <IconButton>
+                         <EditIcon />
+                    </IconButton>
+                </div>
+                <div>
+                    <IconButton>
+                        <InfoIcon />
+                    </IconButton>
+                </div>
+                <div>
+                    <IconButton>
+                        <CloseIcon />
+                    </IconButton>
+                </div>
+            </div>
         </div>
     )
 };

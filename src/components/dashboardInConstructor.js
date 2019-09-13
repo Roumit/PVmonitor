@@ -12,6 +12,7 @@ className="dashboard-in-constructor">
     <div className="constructor-help-text">
         <p>Choose site and parameter to add element.</p>
         <p>To move element hold mouse button and drag.</p>
+        <p>Saved dashboards are in menu list.</p>
     </div>
     
 {newDashboard.map((elem, id) => {

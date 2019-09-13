@@ -141,7 +141,7 @@ class Constructor extends React.Component {
             <div
             className="element-select-div"
             style={{
-                width: "100%",
+                width: '100%',
                 }}>
                 {(installationResponce.data && installationResponce.data.records)
                 ? (<SiteSelect />)
@@ -201,6 +201,7 @@ class Constructor extends React.Component {
                     // console.log(newDashboard);
                     const filterNewDashboard = newDashboard.filter(
                         elem => (elem.delete === false || elem.delete === undefined));
+                    alert(`Dashboard "${dashboardName}" saved. You can find it in main Menu.`)
                     // console.log(filterNewDashboard);
                     setDashboard({ 
                         dashboard: filterNewDashboard, 
