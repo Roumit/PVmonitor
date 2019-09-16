@@ -1,10 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { REDUCER_NAME as currentWidgetSize, setWidgetSize} from "../reducers/currentWidgetSize"
-import EditIcon from "@material-ui/icons/Edit";
-import InfoIcon from "@material-ui/icons/Info";
-import CloseIcon from "@material-ui/icons/Close";
-import { IconButton } from "@material-ui/core";
+import { editElemInNewDashboard } from "../reducers/newDashboard";
 
 
 
@@ -14,9 +11,23 @@ export default function WidgetFrame(props) {
     const dispatch = useDispatch();
     const size = useSelector(state => state[currentWidgetSize]);
 
+    const saveToNewDashboard = () => {
+        dispatch(editElemInNewDashboard({
+            id: size.id,
+            element: {
+                size: {
+                    X: size.X,
+                    Y: size.Y,
+                    H: size.H,
+                    W: size.W,
+                }
+            }
+        }));
+    };
+
     return (
         <div 
-        className='widget-outer-div'
+        className='widget-size-outer-div'
         style={{
             position: 'absolute', 
             left: size.X,
@@ -27,20 +38,7 @@ export default function WidgetFrame(props) {
             borderStyle: 'solid',
             borderColor: 'rgb(0,0,0)',
         }}>
-
-            <div 
-            className='widget-content-div'
-            style={{
-                position: 'absolute',
-                left: 0,
-                top: '24px',
-                
-                backgroundColor: '#ffff',
-                cursor: 'crosshair',
-            }}>
-                {props.children}
-            </div>
-
+            {props.children}
             <div 
             className='top-move-div'
             style={{
@@ -57,8 +55,8 @@ export default function WidgetFrame(props) {
                 if (size.move) {
                     // console.log(ev.clientX,'  =====  ',size.dX, '  ====  ', size.X)
                     // console.log(document.getElementsByClassName('constructor-box')[0].offsetTop);
-                    const X = ev.clientX - size.dX;
-                    const Y = ev.clientY - size.dY - document.getElementsByClassName('constructor-box')[0].offsetTop;
+                    const X = ev.clientX - size.dX - size.left;
+                    const Y = ev.clientY - size.dY - size.top;
                     dispatch(setWidgetSize({ X, Y }));
                 }
             }}
@@ -77,6 +75,7 @@ export default function WidgetFrame(props) {
                     dY: 0,
                     dX:0
                  }));
+                 saveToNewDashboard();
             }}
             onMouseLeave={(ev) => {
                 // console.log('=== mouse leave ===');
@@ -84,7 +83,8 @@ export default function WidgetFrame(props) {
                     move: false,
                     dY: 0,
                     dX:0
-                 }));
+                }));
+                saveToNewDashboard();
             }}>
                 <div
                 style={{
@@ -109,7 +109,6 @@ export default function WidgetFrame(props) {
             onMouseMove={(ev) => {
                 ev.preventDefault();
                 // console.log('=== mouse move ===');
-                // console.log(ev.currentTarget.parentElement.getBoundingClientRect().left);
                 if (size.resizeX) {
                     const currentSizeX = ev.clientX - ev.currentTarget.parentElement.getBoundingClientRect().left;
                     dispatch(setWidgetSize({ W: currentSizeX }));
@@ -122,10 +121,12 @@ export default function WidgetFrame(props) {
             onMouseUp ={(ev) => {
                 // console.log('=== mouse up ===');
                 dispatch(setWidgetSize({ resizeX: false }));
+                saveToNewDashboard();
             }}
             onMouseLeave={(ev) => {
                 // console.log('=== mouse leave ===');
                 dispatch(setWidgetSize({ resizeX: false }));
+                saveToNewDashboard();
             }}
             ></div>
             <div 
@@ -140,7 +141,6 @@ export default function WidgetFrame(props) {
             onMouseMove={(ev) => {
                 ev.preventDefault();
                 // console.log('=== mouse move ===');
-                // console.log(ev.currentTarget.parentElement.getBoundingClientRect().top);
                 if (size.resizeY) {
                     const currentSizeY = ev.clientY - ev.currentTarget.parentElement.getBoundingClientRect().top;
                     dispatch(setWidgetSize({ H: currentSizeY }));
@@ -153,10 +153,12 @@ export default function WidgetFrame(props) {
             onMouseUp ={(ev) => {
                 // console.log('=== mouse up ===');
                 dispatch(setWidgetSize({ resizeY: false }));
+                saveToNewDashboard();
             }}
             onMouseLeave={(ev) => {
                 // console.log('=== mouse leave ===');
                 dispatch(setWidgetSize({ resizeY: false }));
+                saveToNewDashboard();
             }}
             ></div>
             <div 
@@ -172,8 +174,6 @@ export default function WidgetFrame(props) {
             onMouseMove={(ev) => {
                 ev.preventDefault();
                 // console.log('=== mouse move ===');
-                // console.log(ev.currentTarget.parentElement.getBoundingClientRect().left);
-                // console.log(ev.currentTarget.parentElement.getBoundingClientRect().top);
                 if (size.resizeY && size.resizeX) {
                     const currentSizeX = ev.clientX - ev.currentTarget.parentElement.getBoundingClientRect().left;
                     const currentSizeY = ev.clientY - ev.currentTarget.parentElement.getBoundingClientRect().top;
@@ -187,10 +187,12 @@ export default function WidgetFrame(props) {
             onMouseUp ={(ev) => {
                 // console.log('=== mouse up ===');
                 dispatch(setWidgetSize({ resizeX: false, resizeY: false }));
+                saveToNewDashboard();
             }}
             onMouseLeave={(ev) => {
                 // console.log('=== mouse leave ===');
                 dispatch(setWidgetSize({ resizeX: false, resizeY: false }));
+                saveToNewDashboard();
             }}>
                 <div
                 style={{
@@ -201,30 +203,6 @@ export default function WidgetFrame(props) {
                     width: '5px',
                     background: 'linear-gradient(to bottom right, rgba(0,0,0,0) 50%, rgba(0,0,0,0) 5%, rgba(0,0,0,1) 45%'
                 }}></div>
-            </div>
-            <div 
-            className='widget-top-left-buttons-div'
-            style={{
-                position: 'absolute',
-                top: 0,
-                right: 0,
-                display: 'flex',
-            }}>
-                <div>
-                    <IconButton>
-                         <EditIcon />
-                    </IconButton>
-                </div>
-                <div>
-                    <IconButton>
-                        <InfoIcon />
-                    </IconButton>
-                </div>
-                <div>
-                    <IconButton>
-                        <CloseIcon />
-                    </IconButton>
-                </div>
             </div>
         </div>
     )

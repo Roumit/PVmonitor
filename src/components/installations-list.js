@@ -64,8 +64,8 @@ const ButtonForSite = ({ site, selectInst, selectedInst, isLogin }) => {
                 // })
             }}
         >{buttonText(site)}</Button>
-        <SmallSiteData
-        extended={site.extended} />
+        {/* <SmallSiteData
+        extended={site.extended} /> */}
         </div>
     );
 };

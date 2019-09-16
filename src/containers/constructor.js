@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createRef } from "react";
 import PropTypes from "prop-types";
 // import { Redirect } from "react-router";
 import { connect } from "react-redux";
@@ -11,6 +11,7 @@ import { setElement, newElementSelector, clearElement, initialState as newElemen
 // import ConstructorElement from "./constructorElement";
 import DashboardInConstructor from "../components/dashboardInConstructor";
 import ConstructorField from "./constructorField";
+import WidgetFrameSize from "./widgetSizeFrame";
 
 import { newDashboardSelector, setElemToNewDashboard, editElemInNewDashboard, deleteElemInNewDashboard, clearNewDashboard, setNewDashboard } from "../reducers/newDashboard";
 import { dashboardsSelector, setDashboard } from "../reducers/dashboards";
@@ -21,8 +22,8 @@ import { dashboardIdSelector, setDashboardId } from "../reducers/dashboardId";
 // import EditIcon from "@material-ui/icons/Edit";
 import { instDataObjectSelector } from "../reducers/installationsObjectData";
 import queryString from "query-string";
+import { setWidgetSize } from "../reducers/currentWidgetSize";
 
-import WidgetFrame from "./widgetFrame";
 
 
 
@@ -41,6 +42,9 @@ const elementTargetParamSet = (instDataObject, idSite) => {
 
 
 class Constructor extends React.Component {
+    componentWillUpdate(){
+        console.log('===  constructor update ===');
+    }
     componentWillMount() {
         const urlParam = queryString.parse(this.props.location.search);
         // console.log(urlParam);
@@ -55,17 +59,27 @@ class Constructor extends React.Component {
         }
       
     };
+    componentDidMount(){
+        this.props.setWidgetSize({
+            left: this.upperDiv.current.offsetLeft,
+            top: this.upperDiv.current.offsetTop
+        });
+    };
+
     componentWillUnmount() {
         this.props.setDashboardId(null);
         this.props.clearNewDashboard();
-
     };
-   render(){
+
+    upperDiv = createRef();
+
+
+    render(){
     const { setMouseCoordinate, isLogin, installationResponce, 
         setNewElement, newElement, newDashboard, setToNewDashboard, 
         editElement, deleteElement, clearElement, dashboards, setDashboard, 
         dashboardName, setDashboardName, dashboardId, setDashboardId, 
-        instDataObject } = this.props;
+        instDataObject, size, setTargetWidget } = this.props;
 
     // const sitesData = CreateInstallationsDataObject(installationResponce);
 
@@ -166,8 +180,10 @@ class Constructor extends React.Component {
                 }} />
             </div>
             
-            <div 
+            <div
+            ref={this.upperDiv}
             className="constructor-box"
+            id="constructor-box"
             style={{
                 position: 'relative',
                 // height: '-webkit-fill-available'
@@ -181,12 +197,10 @@ class Constructor extends React.Component {
                 setMouseCoordinate={setMouseCoordinate}
                 setNewElement={setNewElement}
                 instDataObject={instDataObject}
+                setTargetWidget={setTargetWidget}
                  />
-                <WidgetFrame 
-                Component={null}>
-                    <div>123456789</div>
-                </WidgetFrame>
-                
+                <WidgetFrameSize>
+                </WidgetFrameSize>
             </div>
                            
             <div style={{position: 'fixed', left: "5px", bottom: "5px", zIndex: "100"}}>
@@ -210,6 +224,7 @@ class Constructor extends React.Component {
                 }}
                 >Save dashboard</Button>
             </div>
+            
         </div>
     );
    };
@@ -235,6 +250,8 @@ Constructor.propTypes = {
     clearNewDashboard: PropTypes.func,
     instDataObject: PropTypes.object,
     setNewDashboard: PropTypes.func,
+    setWidgetSize: PropTypes.func,
+    setTargetWidget:PropTypes.func,
 
 };
 
@@ -261,6 +278,8 @@ const mapDispatchToProps = {
     setDashboard: setDashboard,
     clearNewDashboard: clearNewDashboard,
     setNewDashboard: setNewDashboard,
+    setWidgetSize: setWidgetSize,
+    setTargetWidget: setWidgetSize,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Constructor);

@@ -15,7 +15,36 @@ export const editElemInNewDashboard = createAction(EDIT_DASHBOARD_ELEMENT);
 export const deleteElemInNewDashboard = createAction(DELETE_DASHBOARD_ELEMENT);
 export const clearNewDashboard = createAction(CLEAR_DASHBOARD);
 
-const initialState = [];
+const initialState = [
+    {
+        element: {
+            type: 'widget',
+            size: {
+                X: 0,
+                Y: 0,
+                H: 100,
+                W: 200,
+            },
+            X: 0,
+            Y: 0,
+        }
+    },
+    {
+        element: {
+            type: 'widget',
+            size: {
+                X: 600,
+                Y: 300,
+                H: 100,
+                W: 200,
+            },
+            X: 0,
+            Y: 0,
+        }
+    }
+]
+
+    
 
 export default handleActions({
     [setElemToNewDashboard]: (state, { payload }) => [...state, payload],
@@ -26,6 +55,7 @@ export default handleActions({
         for (let key in payload.element) {
             newState[payload.id].element[key] = payload.element[key];
         }
+        console.log(newState);
         return newState;
     },
     [deleteElemInNewDashboard]: (state, { payload }) => {

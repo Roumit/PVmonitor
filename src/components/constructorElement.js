@@ -25,7 +25,7 @@ export default function ConstructorElement (props) {
         }}>
             <div
             style={{cursor: 'move'}}
-            classname='text-elem-dashboard-constructor-div'
+            className='text-elem-dashboard-constructor-div'
             onMouseDown={(ev) => {
                 if (ev.button === 0) {
                     setMouseCoordinate({
