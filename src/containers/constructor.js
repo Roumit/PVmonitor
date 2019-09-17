@@ -52,7 +52,7 @@ class Constructor extends React.Component {
     // }
     componentWillMount() {
         const urlParam = queryString.parse(this.props.location.search);
-        if (urlParam.id) {
+        if (urlParam.id && this.props.dashboards[urlParam.id]) {
             this.props.setNewDashboard(this.props.dashboards[urlParam.id].dashboard);
             this.props.setDashboardName(this.props.dashboards[urlParam.id].name);
             this.props.setDashboardId(parseInt(urlParam.id));
