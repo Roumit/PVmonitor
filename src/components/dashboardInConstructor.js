@@ -1,13 +1,12 @@
 import React from "react";
 import ConstructorElement from "./constructorElement";
-import WidgetFrameSize from "../containers/widgetSizeFrame";
 import WidgetFrame from "./widgetFrame";
 
 
 
 
 export default function DashboardInConstructor({ newDashboard, editElement, deleteElement, 
-    setMouseCoordinate, setNewElement, instDataObject, setTargetWidget }) {
+    setMouseCoordinate, setNewElement, instDataObject, setTargetWidget, clearWidgetSize }) {
 return (
 <div 
 className="dashboard-in-constructor">
@@ -16,8 +15,11 @@ className="dashboard-in-constructor">
     style={{
         disabled: true, 
         }}>
-        <p>Choose site and parameter to add element.</p>
-        <p>To move element hold mouse button and drag.</p>
+        <p>Choose site and parameter to add parameter element.</p>
+        <p>Press "Add widget" button to add widget element.</p>
+        <p>To move parameter element hold mouse button and drag.</p>
+        <p>To move widget element hold mouse button on top side and drag.</p>
+        <p>To scale widget element use botoom and right side or bottom-right corner.</p>
         <p>Saved dashboards are in menu list.</p>
     </div>
         
@@ -28,9 +30,12 @@ className="dashboard-in-constructor">
         if (elem.element.type === 'widget'){
             return (
                 <WidgetFrame
+                key={id}
                 id={id}
                 setTargetWidget={setTargetWidget}
-                size={elem.element.size}>
+                size={elem.element.size}
+                deleteElement={deleteElement}
+                clearWidgetSize={clearWidgetSize}>
                     <div>Some content....</div>
                 </WidgetFrame>
             )

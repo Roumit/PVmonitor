@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {} from "react-router";
 import { dashboardsSelector, deleteDashboard } from "../reducers/dashboards";
 import { installationsSelector, setInstallations } from "../reducers/installationsVRM";
 import { updateTimerId, updateInstallations } from "./apiVRM";
@@ -46,6 +45,25 @@ class Dashboard extends React.Component {
                 {dashboards[target.id].dashboard.map((elem, id) => {
                     if (elem === "") {
                         return null
+                    }
+                    if (elem.element.type === 'widget'){
+                        return (
+                            <div
+                            id={id}
+                            style={{
+                                position: 'absolute',
+                                left: elem.element.size.X,
+                                top: elem.element.size.Y,
+                                height: elem.element.size.H,
+                                width: elem.element.size.W,
+                                borderColor: 'rgba(0, 0, 0, 255)',
+                                borderWidth: '1px',
+                                borderStyle: 'solid',
+                            }}
+                            >
+                                <div>Some content....</div>
+                            </div>
+                        )
                     }
                     return (
                         <div

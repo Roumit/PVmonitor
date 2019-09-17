@@ -6,9 +6,7 @@ import { IconButton } from "@material-ui/core";
 
 
 
-export default function WidgetFrame(props) {
-    const { size, setSize, children, setTargetWidget, id } = props;
-// console.log(size);
+export default function WidgetFrame({ size, setTargetWidget, id, deleteElement, clearWidgetSize, children }) {
     return (
         <div 
         className='widget-outer-div'
@@ -23,12 +21,11 @@ export default function WidgetFrame(props) {
             borderColor: 'rgb(0,0,0)',
         }}
         onMouseEnter={(ev) => {
-            console.log('=== mouse enter ===');
+            // console.log('=== mouse enter ===');
             setTargetWidget({ id: id });
             setTargetWidget(size);
         }}
         >
-
             <div 
             className='widget-content-div'
             style={{
@@ -39,7 +36,7 @@ export default function WidgetFrame(props) {
                 backgroundColor: '#ffff',
                 cursor: 'crosshair',
             }}>
-                {props.children}
+                {children}
             </div>
 
             <div 
@@ -51,7 +48,7 @@ export default function WidgetFrame(props) {
                 height: '24px',
                 width: '100%',
                 backgroundColor: 'rgba(0,0,0,0.1)',
-                // cursor: 'move',
+                cursor: 'move',
             }}>
             </div>
             <div 
@@ -81,6 +78,7 @@ export default function WidgetFrame(props) {
                 top: 0,
                 right: 0,
                 display: 'flex',
+                zIndex: 1000
             }}>
                 <div>
                     <IconButton>
@@ -93,7 +91,16 @@ export default function WidgetFrame(props) {
                     </IconButton>
                 </div>
                 <div>
-                    <IconButton>
+                    <IconButton
+                    className='delete-elem-button'
+                    onClick={() => {
+                        const confirm = window.confirm('Do You want delete element?');
+                        if (confirm) {
+                            deleteElement(id);
+                            clearWidgetSize();
+                        }
+                    }}
+                    >
                         <CloseIcon />
                     </IconButton>
                 </div>

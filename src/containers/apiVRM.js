@@ -1,6 +1,5 @@
 import axios from "axios";
 import React from "react";
-// import PropTypes from "prop-types";
 import { setToken } from "../reducers/loginVRM";
 import { setInstallations } from "../reducers/installationsVRM";
 import { setInstallationObjectData } from "../reducers/installationsObjectData";
@@ -47,7 +46,7 @@ function FormRequestToVRM(formURL) {
 };
 
 
-export function getLoginRequest() { //loginPass_1, setToken_1, showLogin_1, setInstallations_1, setInstallationObjectData_1){
+export function getLoginRequest() {
     const loginPass = loginPassSelector(store.getState());
     // console.log(loginPass);
     return new Promise((resolve, reject) => {
@@ -60,13 +59,10 @@ export function getLoginRequest() { //loginPass_1, setToken_1, showLogin_1, setI
             if (response.status === 200){
                 const headerWithToken = {'X-Authorization' : 'Bearer ' + response.data.token};
                 const idUser = response.data.idUser;
-                // showLogin();
                 store.dispatch(showLogin());
                 const isLogin = {islogin: true, username: loginPass.login, idUser: idUser, headerWithToken};
                 getInstallations(isLogin.idUser, isLogin.headerWithToken).then((responce) => {
-                    // setToken(isLogin);
                     store.dispatch(setToken(isLogin));
-                    // setInstallations(responce);
                     store.dispatch(setInstallations(responce));
                     if (responce.data && responce.data.records) {
                         CreateInstallationsDataObject(responce);
@@ -88,11 +84,12 @@ export function CreateInstallationsDataObject(installationResponce) { //, setIns
     installationResponce.data.records.map((e) => {
         const params = {siteName: e.name};
         e.extended.map((data) => {
-            params[data.idDataAttribute || data.code] = { name: data.description, value: data.formattedValue}
+            params[data.idDataAttribute || data.code] = { name: data.description, value: data.formattedValue};
+            return null;
         });
         newDataObj[e.idSite] = params;
-    })
-    // setInstallationObjectData(newDataObj);
+        return null;
+    });
     store.dispatch(setInstallationObjectData(newDataObj));
     return newDataObj;
 };

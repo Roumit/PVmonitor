@@ -6,8 +6,7 @@ import { editElemInNewDashboard } from "../reducers/newDashboard";
 
 
 export default function WidgetFrame(props) {
-    // console.log(props.children);
-    // console.log(props);
+
     const dispatch = useDispatch();
     const size = useSelector(state => state[currentWidgetSize]);
 
@@ -105,7 +104,6 @@ export default function WidgetFrame(props) {
                 width: size.resizeX? '100px': '10px',
                 cursor: 'ew-resize',
             }}
-            // onTouchMove={(ev) => console.log('=== ??? ===')}
             onMouseMove={(ev) => {
                 ev.preventDefault();
                 // console.log('=== mouse move ===');

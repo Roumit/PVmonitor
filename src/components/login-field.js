@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { getLoginRequest,  } from "../containers/apiVRM";
-import { Button, Input, TextField, InputAdornment } from "@material-ui/core";
-// import AccountCircle from "@material-ui/icons/AccountCircle";
+import { Button, TextField } from "@material-ui/core";
+
 
 
 const loginPlaceholder = "login or email:";
@@ -22,13 +22,7 @@ const LoginField = ({ isActive, onChangeLogin, onChangeParol,
         <div>
             <div>
                 <TextField
-                // InputProps={{startAdornment: (
-                //     <InputAdornment position="start">
-                //         <AccountCircle />
-                //     </InputAdornment>
-                // )}}
                 autoFocus = {true}
-                // name={loginPlaceholder} 
                 placeholder={loginPlaceholder} 
                 onChange={({target: { value }}) => console.log(value) || onChangeLogin(value)} 
                 onKeyDown={ e => {
@@ -42,7 +36,6 @@ const LoginField = ({ isActive, onChangeLogin, onChangeParol,
                 <TextField
                 inputRef = {passInput}
                 type="password"
-                // label={parolPlaceholder}
                 placeholder={parolPlaceholder}
                 onChange={({target: { value }}) => onChangeParol(value)}
                 onKeyDown={ e => {

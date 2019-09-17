@@ -5,8 +5,7 @@ import { connect } from "react-redux";
 
 import { loginShowSelector, setSwith } from "../reducers/loginField";
 import { loginPassSelector, setLogin, setParol} from "../reducers/loginInput";
-import { setIsntLogin, setToken, isLoginSelector } from "../reducers/loginVRM";
-import { setInstallations } from "../reducers/installationsVRM";
+import { setIsntLogin, isLoginSelector } from "../reducers/loginVRM";
 import LoginField from "../components/login-field";
 import ShowOnLogin from "../components/showOnlogin";
 import { Button } from "@material-ui/core";

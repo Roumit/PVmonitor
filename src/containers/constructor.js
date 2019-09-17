@@ -2,13 +2,11 @@ import React, { createRef } from "react";
 import PropTypes from "prop-types";
 // import { Redirect } from "react-router";
 import { connect } from "react-redux";
-import { mouseCoordSelector, setCoord } from "../reducers/mouseCoordinates";
+import { setCoord } from "../reducers/mouseCoordinates";
 import { isLoginSelector } from "../reducers/loginVRM";
-import { Input, Button, TextField, Select, OutlinedInput, IconButton } from "@material-ui/core";
+import { Button, TextField, Select, OutlinedInput } from "@material-ui/core";
 import { installationsSelector } from "../reducers/installationsVRM";
 import { setElement, newElementSelector, clearElement, initialState as newElementInitialState } from "../reducers/newDashboardElement";
-// import { CreateInstallationsDataObject } from "./apiVRM";
-// import ConstructorElement from "./constructorElement";
 import DashboardInConstructor from "../components/dashboardInConstructor";
 import ConstructorField from "./constructorField";
 import WidgetFrameSize from "./widgetSizeFrame";
@@ -17,14 +15,9 @@ import { newDashboardSelector, setElemToNewDashboard, editElemInNewDashboard, de
 import { dashboardsSelector, setDashboard } from "../reducers/dashboards";
 import { dashboardNameSelector, setDashboardName } from "../reducers/dashboardName";
 import { dashboardIdSelector, setDashboardId } from "../reducers/dashboardId";
-// import Close from "@material-ui/icons/Close";
-// import MoveIcon from "@material-ui/icons/OpenWith";
-// import EditIcon from "@material-ui/icons/Edit";
 import { instDataObjectSelector } from "../reducers/installationsObjectData";
 import queryString from "query-string";
-import { setWidgetSize } from "../reducers/currentWidgetSize";
-
-
+import { setWidgetSize, clearWidgetSize } from "../reducers/currentWidgetSize";
 
 
 
@@ -39,15 +32,26 @@ const elementTargetParamSet = (instDataObject, idSite) => {
     return dataArray;  
 };
 
-
+function InitialWidget() {
+    return {element: {
+        type: 'widget',
+        size: {
+            X: 0,
+            Y: 0,
+            H: 100,
+            W: 200,
+        }
+    },
+    X: 0,
+    Y: 0};
+};
 
 class Constructor extends React.Component {
-    componentWillUpdate(){
-        console.log('===  constructor update ===');
-    }
+    // componentWillUpdate(){
+    //     console.log('===  constructor update ===');
+    // }
     componentWillMount() {
         const urlParam = queryString.parse(this.props.location.search);
-        // console.log(urlParam);
         if (urlParam.id) {
             this.props.setNewDashboard(this.props.dashboards[urlParam.id].dashboard);
             this.props.setDashboardName(this.props.dashboards[urlParam.id].name);
@@ -60,15 +64,29 @@ class Constructor extends React.Component {
       
     };
     componentDidMount(){
-        this.props.setWidgetSize({
-            left: this.upperDiv.current.offsetLeft,
-            top: this.upperDiv.current.offsetTop
-        });
+        // console.log("--- constructor did mount  ---");
+        if (this.props.isLogin.islogin) {
+            this.props.setWidgetSize({
+                left: this.upperDiv.current.offsetLeft,
+                top: this.upperDiv.current.offsetTop
+            });
+        }
+    };
+
+    componentDidUpdate(){
+        // console.log("--- constructor did update  ---");
+        if (this.props.isLogin.islogin) {
+            this.props.setWidgetSize({
+                left: this.upperDiv.current.offsetLeft,
+                top: this.upperDiv.current.offsetTop
+            });
+        }
     };
 
     componentWillUnmount() {
         this.props.setDashboardId(null);
         this.props.clearNewDashboard();
+        this.props.clearWidgetSize();
     };
 
     upperDiv = createRef();
@@ -77,14 +95,11 @@ class Constructor extends React.Component {
     render(){
     const { setMouseCoordinate, isLogin, installationResponce, 
         setNewElement, newElement, newDashboard, setToNewDashboard, 
-        editElement, deleteElement, clearElement, dashboards, setDashboard, 
-        dashboardName, setDashboardName, dashboardId, setDashboardId, 
-        instDataObject, size, setTargetWidget } = this.props;
-
-    // const sitesData = CreateInstallationsDataObject(installationResponce);
+        editElement, deleteElement, setDashboard, 
+        dashboardName, setDashboardName, dashboardId, 
+        instDataObject, setTargetWidget, clearWidgetSize } = this.props;
 
     const SiteSelect = () => {
-        // console.log("--- site select update ---");
         return (
         <Select 
             native 
@@ -99,7 +114,7 @@ class Constructor extends React.Component {
                     idSite: value
                 });
             }
-        } }>
+        }}>
             <option key="null" value="-" hidden>Choose site</option>
             {installationResponce.data.records.map((site) => (
                     <option key={site.idSite} value={site.idSite}>{site.name}</option>
@@ -132,7 +147,6 @@ class Constructor extends React.Component {
             
             {elementTargetParamSet(instDataObject, newElement.idSite).map((e) => (
                         <option key={e.id} value={e.id}>{e.name}</option>))}
-               
         </Select>
     );
 
@@ -146,12 +160,7 @@ class Constructor extends React.Component {
     return (
         <div
         className="constructor" 
-        style={{
-            // position: 'absolute',
-            // height: '-webkit-fill-available'
-            // top: '0',
-            // bottom: '0'
-            }}>
+        >
             <div
             className="element-select-div"
             style={{
@@ -171,13 +180,21 @@ class Constructor extends React.Component {
                 inputProps={{style: {width: "-webkit-fill-available"}}}
                 color="primary"
                 placeholder={"Edit parameter name"}
-                value ={newElement.name}
+                value={newElement.name || ''}
                 onChange={({target: { value }}) => {
-                    // console.log(value);
                     setNewElement({ 
                         name: value
                     })
                 }} />
+                <Button
+                variant={'outlined'}
+                style={{
+                    marginLeft: '10px'
+                }}
+                onClick={() => {
+                    setToNewDashboard(new InitialWidget());
+                }}
+                >Add widget</Button>
             </div>
             
             <div
@@ -186,7 +203,6 @@ class Constructor extends React.Component {
             id="constructor-box"
             style={{
                 position: 'relative',
-                // height: '-webkit-fill-available'
                 height: '100vh'
                 }}>
                 <ConstructorField />
@@ -198,6 +214,7 @@ class Constructor extends React.Component {
                 setNewElement={setNewElement}
                 instDataObject={instDataObject}
                 setTargetWidget={setTargetWidget}
+                clearWidgetSize={clearWidgetSize}
                  />
                 <WidgetFrameSize>
                 </WidgetFrameSize>
@@ -215,12 +232,12 @@ class Constructor extends React.Component {
                     // console.log(newDashboard);
                     const filterNewDashboard = newDashboard.filter(
                         elem => (elem.delete === false || elem.delete === undefined));
-                    alert(`Dashboard "${dashboardName}" saved. You can find it in main Menu.`)
-                    // console.log(filterNewDashboard);
                     setDashboard({ 
                         dashboard: filterNewDashboard, 
                         name: dashboardName, 
-                        id: dashboardId});
+                        id: dashboardId
+                    });
+                    alert(`Dashboard "${dashboardName}" saved. You can find it in main Menu.`)
                 }}
                 >Save dashboard</Button>
             </div>
@@ -252,6 +269,7 @@ Constructor.propTypes = {
     setNewDashboard: PropTypes.func,
     setWidgetSize: PropTypes.func,
     setTargetWidget:PropTypes.func,
+    clearWidgetSize: PropTypes.func,
 
 };
 
@@ -280,6 +298,7 @@ const mapDispatchToProps = {
     setNewDashboard: setNewDashboard,
     setWidgetSize: setWidgetSize,
     setTargetWidget: setWidgetSize,
+    clearWidgetSize: clearWidgetSize,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Constructor);

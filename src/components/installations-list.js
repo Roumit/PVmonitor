@@ -1,7 +1,5 @@
 import React from "react";
 import Button from "@material-ui/core/Button";
-import { getInstallationData } from "../containers/apiVRM";
-// import { TextField } from "@material-ui/core";
 
 
 const buttonText = (site) => {
@@ -23,16 +21,12 @@ const dataFilterEnergie = ["consumption", "solar_yield", "from_to_grid"];
 
 const SmallSiteData = ({ extended }) => {
     const params = extended.filter(elem => (dataFilterParams.indexOf(elem.idDataAttribute) !== -1));
-    // console.log(extended);
     const energie = (extended.filter(elem => (dataFilterEnergie.indexOf(elem.code) !== -1)));
-    // console.log(energie);
     const data = params.concat(energie);
-    // console.log(data);
     return (
         <div className="small-site-data">
             {data.map((data) => (
                 <div key={data.idDataAttribute || data.code}>{data.description} {data.formattedValue}</div>
-                // <TextField type="checkbox" key={data.idDataAttribute} />
             ))}
         </div>
     );
@@ -57,15 +51,8 @@ const ButtonForSite = ({ site, selectInst, selectedInst, isLogin }) => {
             color="primary" 
             onClick={() => {
                 selectInst(site.idSite);
-                // getInstallationData(site.idSite, isLogin.headerWithToken).then((responce) => {
-                //     const data = {}
-                //     // console.log(responce);
-                //     data[site.idSite] = responce;
-                // })
             }}
         >{buttonText(site)}</Button>
-        {/* <SmallSiteData
-        extended={site.extended} /> */}
         </div>
     );
 };

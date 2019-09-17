@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import logo from './logo.svg';
 import './App.css';
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from '@material-ui/core';
@@ -9,8 +8,7 @@ import { connect } from "react-redux";
 
 import Login from "./containers/login";
 import Installations from './containers/installations';
-import { orange, lightBlue, blue } from '@material-ui/core/colors';
-// import { getCookie } from './containers/cookieGetSet';
+import { orange, lightBlue } from '@material-ui/core/colors';
 import { setToken } from './reducers/loginVRM';
 import { setInstallations } from './reducers/installationsVRM';
 import { MainMenu } from './components/mainMenu';
@@ -22,6 +20,7 @@ import { setInstallationObjectData } from './reducers/installationsObjectData';
 import { setDashboardId } from './reducers/dashboardId';
 import { setDashboardName } from './reducers/dashboardName';
 import { clearNewDashboard } from './reducers/newDashboard';
+import { clearWidgetSize } from './reducers/currentWidgetSize';
 
 
 
@@ -55,13 +54,22 @@ class App extends React.Component{
   };
 
   render(){
-    const { dashboards, hideMainMenu, toggleHide, setDashboardId, setDashboardName, clearNewDashboard } = this.props;
+    const { dashboards, hideMainMenu, toggleHide, setDashboardId, setDashboardName, clearNewDashboard,
+      clearWidgetSize } = this.props;
     return(
       <ThemeProvider theme={mainTheme}>
+        <div
+        style={{
+          position: 'fixed',
+          top: '5px',
+          right: '10px',
+        }}
+        >
+          <h1>
+            PV monitor V1.0.0
+          </h1>
+        </div>
       <div className="app">
-        <h1>
-          PV monitor
-        </h1>
         <BrowserRouter basename="/PVM">
           <MainMenu
           dashboards={dashboards}
@@ -69,18 +77,12 @@ class App extends React.Component{
           hide={hideMainMenu}
           setDashboardId={setDashboardId}
           setDashboardName={setDashboardName}
-          clearNewDashboard={clearNewDashboard} />
+          clearNewDashboard={clearNewDashboard}
+          clearWidgetSize={clearWidgetSize} />
           <Login />
           <Switch>
             <Route exact path="/" component={Installations} />
             <Route path="/sites" component={Installations} />
-            {/* {dashboards.map((dashboard, id) => {
-              if (dashboard !== "") {
-                return (
-                  <Route key={id} path={`/dashboards/${id}`} component={Dashboard}/>
-                )
-              }
-            })} */}
             <Route path="/dashboards" component={Dashboard} />
             <Route path="/newdashboard" component={Constructor} />
             <Route component={Page404} />
@@ -103,6 +105,7 @@ App.propTypes = {
   setDashboardId: PropTypes.func,
   setDashboardName: PropTypes.func,
   clearNewDashboard: PropTypes.func,
+  clearWidgetSize: PropTypes.func,
 };
 
 const mapDispatchtoProps = {
@@ -114,6 +117,7 @@ const mapDispatchtoProps = {
   setDashboardId: setDashboardId,
   setDashboardName: setDashboardName,
   clearNewDashboard: clearNewDashboard,
+  clearWidgetSize: clearWidgetSize,
 };
 
 const mapStateToProps = state => ({

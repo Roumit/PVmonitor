@@ -1,5 +1,4 @@
 import { handleActions, createAction} from "redux-actions";
-import { object } from "prop-types";
 
 
 const SET_ELEMENT = 'NEW_ELEMENT/SET_ELEMENT';
@@ -20,15 +19,6 @@ export default handleActions({
         }
         return newState;
     },
-        // return(
-        //     { 
-        //         idSite: payload.idSite || state.idSite, 
-        //         param: payload.param || state.param, 
-        //         name: (payload.name === "")? "" : payload.name || state.name,
-        //         paramName: payload.paramName || state.paramName,
-        //         value: payload.value || state.value
-        //     }
-        //     )},
     [clearElement]: (state, { payload }) => initialState,
 }, initialState);
 

@@ -1,14 +1,13 @@
 import React from "react";
 import Close from "@material-ui/icons/Close";
-// import MoveIcon from "@material-ui/icons/OpenWith";
 import EditIcon from "@material-ui/icons/Edit";
 import InfoIcon from "@material-ui/icons/Info";
-import { Input, Button, TextField, Select, OutlinedInput, IconButton } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
 
 
-export default function ConstructorElement (props) {
-    const { element, setMouseCoordinate, setNewElement, deleteElement,
-        newDashboard, editElement, instDataObject, id } = props;
+export default function ConstructorElement ({ element, setMouseCoordinate, setNewElement, deleteElement,
+    newDashboard, editElement, instDataObject, id }) {
+
     if (!element) {
         return null;
     }
@@ -21,7 +20,7 @@ export default function ConstructorElement (props) {
             setMouseCoordinate({
                 X: ev.clientX,
                 Y: ev.clientY - ev.currentTarget.parentElement.getBoundingClientRect().top
-            })
+            });
         }}>
             <div
             style={{cursor: 'move'}}
@@ -35,9 +34,6 @@ export default function ConstructorElement (props) {
                     setNewElement(newDashboard[id].element);
                     deleteElement(id);
                 }
-            }}
-            onDoubleClick={(ev) => {
-                const newName = prompt("Monitor name:", element.element.name);
             }}>
                 {`${element.element.name} : ${element.element.value}`}  
             </div>
@@ -57,7 +53,7 @@ export default function ConstructorElement (props) {
                 <IconButton 
                 className='info-elem-button'
                 onClick={() => {
-                    console.log(element);
+                    // console.log(element);
                     alert(`
                     monitor name: ${element.element.name}
                     site: ${instDataObject[element.element.idSite].siteName}

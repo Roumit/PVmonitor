@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Redirect } from "react-router";
-
 import { connect } from "react-redux";
 
 import { isLoginSelector } from "../reducers/loginVRM";
@@ -16,6 +15,7 @@ import { setInstallationObjectData } from "../reducers/installationsObjectData";
 
 
 class Installations extends React.Component {
+    
     componentWillUnmount(){
         clearInterval(updateTimerId);
         clearTimeout(updateTimerId);

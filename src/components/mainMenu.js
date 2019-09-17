@@ -5,7 +5,7 @@ import { Button } from "@material-ui/core";
 
 
 export function MainMenu({ dashboards, hide, toggleHide, setDashboardId,
-    setDashboardName, clearNewDashboard }) {
+    setDashboardName, clearNewDashboard, clearWidgetSize }) {
     if (hide) {
         return (
             <div className='main-menu-conteiner'>
@@ -58,6 +58,7 @@ export function MainMenu({ dashboards, hide, toggleHide, setDashboardId,
                     setDashboardId(dashboards.length);
                     setDashboardName(`Dashboard #${dashboards.length}`);
                     clearNewDashboard();
+                    clearWidgetSize();
                 }}>
                     <div className="main-menu-base-elem">
                         Create Dashboard
