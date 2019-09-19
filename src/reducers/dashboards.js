@@ -18,8 +18,7 @@ const initialState = [];
 export default handleActions({
     [setDashboard]: (state, { payload })  => {
         let newState = [...state];
-        newState[payload.id] = {dashboard: payload.dashboard,
-        name: payload.name, id: payload.id};
+        newState[payload.id] = { ...payload };
         return newState;
     },
     [loadDashboards]: (state, { payload }) => payload,

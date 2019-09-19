@@ -12,13 +12,7 @@ export const clearElement = createAction(CLEAR_ELEMENT);
 export const initialState = { type: 'param', idSite:"-", param: "-" };
 
 export default handleActions({
-    [setElement]: (state, { payload }) => {
-        const newState = Object.assign({}, state);
-        for (let key in payload) {
-            newState[key] = payload[key];
-        }
-        return newState;
-    },
+    [setElement]: (state, { payload }) => ({ ...state, ...payload}),
     [clearElement]: (state, { payload }) => initialState,
 }, initialState);
 

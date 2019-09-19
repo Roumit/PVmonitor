@@ -1,10 +1,8 @@
 import axios from "axios";
 import React from "react";
-import { setToken } from "../reducers/loginVRM";
+import { setToken, isLoginSelector } from "../reducers/loginVRM";
 import { setInstallations } from "../reducers/installationsVRM";
 import { setInstallationObjectData } from "../reducers/installationsObjectData";
-import { setSwith as showLogin } from "../reducers/loginField";
-import { loginPassSelector } from "../reducers/loginInput";
 import { store } from "../index.js";
 
 
@@ -47,7 +45,7 @@ function FormRequestToVRM(formURL) {
 
 
 export function getLoginRequest() {
-    const loginPass = loginPassSelector(store.getState());
+    const loginPass = isLoginSelector(store.getState());
     // console.log(loginPass);
     return new Promise((resolve, reject) => {
         axios({
@@ -59,7 +57,6 @@ export function getLoginRequest() {
             if (response.status === 200){
                 const headerWithToken = {'X-Authorization' : 'Bearer ' + response.data.token};
                 const idUser = response.data.idUser;
-                store.dispatch(showLogin());
                 const isLogin = {islogin: true, username: loginPass.login, idUser: idUser, headerWithToken};
                 getInstallations(isLogin.idUser, isLogin.headerWithToken).then((responce) => {
                     store.dispatch(setToken(isLogin));
@@ -79,7 +76,7 @@ export function getLoginRequest() {
 
 
 
-export function CreateInstallationsDataObject(installationResponce) { //, setInstallationObjectData_1) {
+export function CreateInstallationsDataObject(installationResponce) {
     const newDataObj = {};
     installationResponce.data.records.map((e) => {
         const params = {siteName: e.name};
@@ -113,5 +110,3 @@ export function updateInstallations(isLogin, setInstallations, setInstObj, time=
         }, time);
     }, time);
 };
-
-

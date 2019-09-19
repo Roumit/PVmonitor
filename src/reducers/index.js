@@ -1,5 +1,3 @@
-import loginField from "./loginField";
-import loginInput from "./loginInput";
 import loginVRM from "./loginVRM";
 import installationsVRM from "./installationsVRM";
 import selectedInst from "./selectedInst";
@@ -15,8 +13,6 @@ import currentWidgetSize from "./currentWidgetSize";
 
 
 export const reducers = {
-    loginField,
-    loginInput,
     loginVRM,
     installationsVRM,
     selectedInst,
@@ -29,4 +25,4 @@ export const reducers = {
     dashboardId,
     hideMainMenu,
     currentWidgetSize,
-}
+};

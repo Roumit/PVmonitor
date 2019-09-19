@@ -56,5 +56,4 @@ className="dashboard-in-constructor">
         )
     })}
 </div>
-)
-};
+)};

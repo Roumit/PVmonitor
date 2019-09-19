@@ -12,11 +12,7 @@ const initialState = {X: -100, Y: 0, W: 50, H: 50, resizeX: false, resizeY: fals
 
 export default handleActions({
     [setWidgetSize]: (state, { payload }) => {
-        const newState = Object.assign({}, state);
-        for (let key in payload) {
-            newState[key] = payload[key];
-        } 
-        return newState;
+        return {...state, ...payload}
     },
     [clearWidgetSize]: (state, { payload }) => initialState,
 }, initialState);

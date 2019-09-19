@@ -3,9 +3,7 @@ import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
 
-import { loginShowSelector, setSwith } from "../reducers/loginField";
-import { loginPassSelector, setLogin, setParol} from "../reducers/loginInput";
-import { setIsntLogin, isLoginSelector } from "../reducers/loginVRM";
+import { setIsntLogin, isLoginSelector, setToken } from "../reducers/loginVRM";
 import LoginField from "../components/login-field";
 import ShowOnLogin from "../components/showOnlogin";
 import { Button } from "@material-ui/core";
@@ -15,19 +13,16 @@ import { setInstallationObjectData } from "../reducers/installationsObjectData";
 
 class Login extends React.Component {
     render() {
-        const { showLogin, isActive, onChangeLogin, 
-            onChangeParol, loginPass, isLogin, logout } = this.props; 
+        const { onChangeLoginPass, isLogin, logout } = this.props; 
         return(
             <div className="login">
-                <div>
+                {/* <div>
                     <Button color="secondary" onClick={() => showLogin(isActive)}>Login</Button>
-                </div>
+                </div> */}
                 <LoginField 
-                isActive={isActive}
-                onChangeLogin={onChangeLogin}
-                onChangeParol={onChangeParol}
-                loginPass={loginPass}
-                />
+                onChangeLoginPass={onChangeLoginPass}
+                isLogin={isLogin}
+                logout={logout} />
                 <div>
                     <ShowOnLogin 
                     isLogin={isLogin}
@@ -50,17 +45,14 @@ Login.propTypes ={
 }
 
 const mapDispatchToProps = ({
-    showLogin: setSwith,
-    onChangeLogin: setLogin,
-    onChangeParol: setParol,
+    onChangeLoginPass: setToken,
+    // onChangeParol: setParol,
     logout: setIsntLogin,
     setInstallationObjectData: setInstallationObjectData,
 
 });
 
 const mapStateToProps = state => ({
-    isActive: loginShowSelector(state),
-    loginPass: loginPassSelector(state),
     isLogin: isLoginSelector(state)
 })
 

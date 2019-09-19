@@ -1,9 +1,7 @@
 import React from "react";
-import PropTypes from "prop-types";
 
 import { getLoginRequest,  } from "../containers/apiVRM";
 import { Button, TextField } from "@material-ui/core";
-
 
 
 const loginPlaceholder = "login or email:";
@@ -13,9 +11,8 @@ const buttonText = "Login"
 
 const passInput = React.createRef();
 
-const LoginField = ({ isActive, onChangeLogin, onChangeParol, 
-    loginPass }) => {
-    if (!isActive) {
+const LoginField = ({ onChangeLoginPass, isLogin }) => {
+    if (isLogin.islogin) {
         return null;
     }
     return (
@@ -24,26 +21,26 @@ const LoginField = ({ isActive, onChangeLogin, onChangeParol,
                 <TextField
                 autoFocus = {true}
                 placeholder={loginPlaceholder} 
-                onChange={({target: { value }}) => console.log(value) || onChangeLogin(value)} 
+                onChange={({target: { value }}) => onChangeLoginPass({ login: value })} 
                 onKeyDown={ e => {
                     if (e.keyCode === 13) {
                         passInput.current.focus();
                     }
                 }}
-                value={loginPass.login} />
+                value={isLogin.login} />
             </div>
            <div>
                 <TextField
                 inputRef = {passInput}
                 type="password"
                 placeholder={parolPlaceholder}
-                onChange={({target: { value }}) => onChangeParol(value)}
+                onChange={({target: { value }}) => onChangeLoginPass({ pass: value })}
                 onKeyDown={ e => {
                     if (e.keyCode === 13) {
                         getLoginRequest()
                     }
                 }} 
-                value={loginPass.pass} />
+                value={isLogin.pass} />
            </div>
             <div>
                 <Button
@@ -55,15 +52,6 @@ const LoginField = ({ isActive, onChangeLogin, onChangeParol,
     );
 };
 
-LoginField.propTypes = {
-    isActive: PropTypes.bool,
-    onChange: PropTypes.func,
-    loginPass: PropTypes.object,
-    toLogin: PropTypes.func
-};
 
 export default LoginField;
-
-
-
 
