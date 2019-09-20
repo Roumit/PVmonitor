@@ -14,7 +14,6 @@ import WidgetFrameSize from "./widgetSizeFrame";
 import { newDashboardSelector, setElemToNewDashboard, editElemInNewDashboard, deleteElemInNewDashboard, clearNewDashboard, setNewDashboard } from "../reducers/newDashboard";
 import { dashboardsSelector, setDashboard } from "../reducers/dashboards";
 import { dashboardNameSelector, setDashboardName } from "../reducers/dashboardName";
-import { dashboardIdSelector, setDashboardId } from "../reducers/dashboardId";
 import { instDataObjectSelector } from "../reducers/installationsObjectData";
 import queryString from "query-string";
 import { setWidgetSize, clearWidgetSize } from "../reducers/currentWidgetSize";
@@ -51,13 +50,12 @@ class Constructor extends React.Component {
     //     console.log('===  constructor update ===');
     // }
     componentWillMount() {
-        const urlParam = queryString.parse(this.props.location.search);
-        if (urlParam.id && this.props.dashboards[urlParam.id]) {
-            this.props.setNewDashboard(this.props.dashboards[urlParam.id].dashboard);
-            this.props.setDashboardName(this.props.dashboards[urlParam.id].name);
-            this.props.setDashboardId(parseInt(urlParam.id));
+        this.urlParam = queryString.parse(this.props.location.search);
+        if (this.urlParam.id && this.props.dashboards[this.urlParam.id]) {
+            this.urlParam.valid = true;
+            this.props.setNewDashboard(this.props.dashboards[this.urlParam.id].dashboard);
+            this.props.setDashboardName(this.props.dashboards[this.urlParam.id].name);
         } else {
-            this.props.setDashboardId(this.props.dashboards.length)
             this.props.setDashboardName(`Dashboard #${this.props.dashboards.length}`)
             this.props.clearNewDashboard();
         }
@@ -84,7 +82,6 @@ class Constructor extends React.Component {
     };
 
     componentWillUnmount() {
-        this.props.setDashboardId(null);
         this.props.clearNewDashboard();
         this.props.clearWidgetSize();
     };
@@ -96,7 +93,7 @@ class Constructor extends React.Component {
     const { setMouseCoordinate, isLogin, installationResponce, 
         setNewElement, newElement, newDashboard, setToNewDashboard, 
         editElement, deleteElement, setDashboard, 
-        dashboardName, setDashboardName, dashboardId, 
+        dashboardName, setDashboardName, dashboards, 
         instDataObject, setTargetWidget, clearWidgetSize } = this.props;
 
     const SiteSelect = () => {
@@ -235,7 +232,7 @@ class Constructor extends React.Component {
                     setDashboard({ 
                         dashboard: filterNewDashboard, 
                         name: dashboardName, 
-                        id: dashboardId
+                        id: this.urlParam.valid ? this.urlParam.id : dashboards.length //dashboardId
                     });
                     alert(`Dashboard "${dashboardName}" saved. You can find it in main Menu.`)
                 }}
@@ -262,8 +259,6 @@ Constructor.propTypes = {
     setDashboard: PropTypes.func,
     dashboardName: PropTypes.string,
     setDashboardName: PropTypes.func,
-    dashboardId: PropTypes.number,
-    setDashboardId: PropTypes.func,
     clearNewDashboard: PropTypes.func,
     instDataObject: PropTypes.object,
     setNewDashboard: PropTypes.func,
@@ -280,7 +275,6 @@ const mapStateToProps = state => ({
     newDashboard: newDashboardSelector(state),
     dashboards: dashboardsSelector(state),
     dashboardName: dashboardNameSelector(state),
-    dashboardId: dashboardIdSelector(state),
     instDataObject: instDataObjectSelector(state),
 });
 
@@ -292,7 +286,6 @@ const mapDispatchToProps = {
     deleteElement: deleteElemInNewDashboard,
     clearElement: clearElement,
     setDashboardName: setDashboardName,
-    setDashboardId: setDashboardId,
     setDashboard: setDashboard,
     clearNewDashboard: clearNewDashboard,
     setNewDashboard: setNewDashboard,

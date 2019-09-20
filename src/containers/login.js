@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { setIsntLogin, isLoginSelector, setToken } from "../reducers/loginVRM";
 import LoginField from "../components/login-field";
 import ShowOnLogin from "../components/showOnlogin";
-import { Button } from "@material-ui/core";
 import { setInstallationObjectData } from "../reducers/installationsObjectData";
 
 
@@ -16,9 +15,6 @@ class Login extends React.Component {
         const { onChangeLoginPass, isLogin, logout } = this.props; 
         return(
             <div className="login">
-                {/* <div>
-                    <Button color="secondary" onClick={() => showLogin(isActive)}>Login</Button>
-                </div> */}
                 <LoginField 
                 onChangeLoginPass={onChangeLoginPass}
                 isLogin={isLogin}

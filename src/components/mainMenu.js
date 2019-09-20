@@ -4,7 +4,7 @@ import { Button } from "@material-ui/core";
 
 
 
-export function MainMenu({ dashboards, hide, toggleHide, setDashboardId,
+export function MainMenu({ dashboards, hide, toggleHide,
     setDashboardName, clearNewDashboard, clearWidgetSize }) {
     if (hide) {
         return (
@@ -55,7 +55,6 @@ export function MainMenu({ dashboards, hide, toggleHide, setDashboardId,
                 to="/newdashboard" 
                 onClick={() => {
                     toggleHide();
-                    setDashboardId(dashboards.length);
                     setDashboardName(`Dashboard #${dashboards.length}`);
                     clearNewDashboard();
                     clearWidgetSize();

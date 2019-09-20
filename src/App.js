@@ -17,7 +17,7 @@ import { dashboardsSelector, loadDashboards } from './reducers/dashboards';
 import Dashboard from './containers/dashboard';
 import { hideMainMenuSelector, toggleMainMenu } from './reducers/hideMainMenu';
 import { setInstallationObjectData } from './reducers/installationsObjectData';
-import { setDashboardId } from './reducers/dashboardId';
+// import { setDashboardId } from './reducers/dashboardId';
 import { setDashboardName } from './reducers/dashboardName';
 import { clearNewDashboard } from './reducers/newDashboard';
 import { clearWidgetSize } from './reducers/currentWidgetSize';
@@ -75,7 +75,7 @@ class App extends React.Component{
           dashboards={dashboards}
           toggleHide={toggleHide}
           hide={hideMainMenu}
-          setDashboardId={setDashboardId}
+          // setDashboardId={setDashboardId}
           setDashboardName={setDashboardName}
           clearNewDashboard={clearNewDashboard}
           clearWidgetSize={clearWidgetSize} />
@@ -114,7 +114,7 @@ const mapDispatchtoProps = {
   setDashboards: loadDashboards,
   toggleHide: toggleMainMenu,
   setInstallationObjectData: setInstallationObjectData,
-  setDashboardId: setDashboardId,
+  // setDashboardId: setDashboardId,
   setDashboardName: setDashboardName,
   clearNewDashboard: clearNewDashboard,
   clearWidgetSize: clearWidgetSize,
