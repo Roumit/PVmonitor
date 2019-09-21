@@ -48,7 +48,6 @@ export default function WidgetFrame({ size, setTargetWidget, id, deleteElement,
                 top: '0px',
                 height: '24px',
                 width: '100%',
-                backgroundColor: 'rgba(0,0,0,0.1)',
                 cursor: 'move',
             }}>
             </div>

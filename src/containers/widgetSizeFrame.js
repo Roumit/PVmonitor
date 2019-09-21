@@ -86,12 +86,12 @@ export default function WidgetFrame(props) {
                 saveToNewDashboard();
             }}>
                 <div
+                className='top-widget-div'
                 style={{
                     position: 'absolute',
                     top: size.move? '50%': 0,
                     width: '100%',
                     height: '24px',
-                    backgroundColor: 'rgba(0,0,0,0.1)',
                 }}></div>
             </div>
             <div 

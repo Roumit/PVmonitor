@@ -71,7 +71,18 @@ class App extends React.Component{
         </div>
       <div className="app">
         <BrowserRouter basename="/PVM">
-          <MainMenu
+          <div className="head">
+            <MainMenu
+            dashboards={dashboards}
+            toggleHide={toggleHide}
+            hide={hideMainMenu}
+            // setDashboardId={setDashboardId}
+            setDashboardName={setDashboardName}
+            clearNewDashboard={clearNewDashboard}
+            clearWidgetSize={clearWidgetSize} />
+            <Login />
+          </div>
+          {/* <MainMenu
           dashboards={dashboards}
           toggleHide={toggleHide}
           hide={hideMainMenu}
@@ -79,7 +90,7 @@ class App extends React.Component{
           setDashboardName={setDashboardName}
           clearNewDashboard={clearNewDashboard}
           clearWidgetSize={clearWidgetSize} />
-          <Login />
+          <Login /> */}
           <Switch>
             <Route exact path="/" component={Installations} />
             <Route path="/sites" component={Installations} />

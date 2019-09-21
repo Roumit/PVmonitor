@@ -135,7 +135,7 @@ class Constructor extends React.Component {
                     param: value, 
                     paramName: instDataObject[newElement.idSite][value].name,
                     value: instDataObject[newElement.idSite][value].value,
-                    name: instDataObject[newElement.idSite][value].name
+                    name: `${instDataObject[newElement.idSite].siteName} ${instDataObject[newElement.idSite][value].name}`
                 })
             } 
         }}>

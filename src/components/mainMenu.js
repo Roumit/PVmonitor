@@ -28,7 +28,7 @@ export function MainMenu({ dashboards, hide, toggleHide,
             color="primary"
             className="main-menu-button"
             onClick={toggleHide}>
-                hide menu
+                Menu
             </Button>
             <div className="main-menu">
                 <Link 
@@ -62,7 +62,7 @@ export function MainMenu({ dashboards, hide, toggleHide,
                     clearWidgetSize();
                 }}>
                     <div className="main-menu-base-elem">
-                        Create Dashboard
+                        Create new dashboard
                     </div>
                 </Link>
             </div>

@@ -46,7 +46,7 @@ const LoginField = ({ onChangeLoginPass, isLogin, loginRequest }) => {
             <div>
                 <Button
                 variant={'outlined'}
-                color="primary"
+                color="secondary"
                 onClick={() => loginRequest(isLogin) }
                 >{buttonText}</Button>
             </div>   
