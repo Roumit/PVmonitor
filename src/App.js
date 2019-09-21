@@ -54,7 +54,7 @@ class App extends React.Component{
   };
 
   render(){
-    const { dashboards, hideMainMenu, toggleHide, setDashboardId, setDashboardName, clearNewDashboard,
+    const { dashboards, hideMainMenu, toggleHide, setDashboardName, clearNewDashboard,
       clearWidgetSize } = this.props;
     return(
       <ThemeProvider theme={mainTheme}>
@@ -102,7 +102,6 @@ App.propTypes = {
   hideMainMenu: PropTypes.bool,
   toggleHide: PropTypes.func,
   setInstallationObjectData: PropTypes.func,
-  setDashboardId: PropTypes.func,
   setDashboardName: PropTypes.func,
   clearNewDashboard: PropTypes.func,
   clearWidgetSize: PropTypes.func,
@@ -114,7 +113,6 @@ const mapDispatchtoProps = {
   setDashboards: loadDashboards,
   toggleHide: toggleMainMenu,
   setInstallationObjectData: setInstallationObjectData,
-  // setDashboardId: setDashboardId,
   setDashboardName: setDashboardName,
   clearNewDashboard: clearNewDashboard,
   clearWidgetSize: clearWidgetSize,

@@ -3,6 +3,11 @@ html, body, #root, .app {
   height: 100%;
 }
 
+.app {
+  margin: 5px;
+}
+
+
 h1 {
   font-size: 1em;
   line-height: 0.2em

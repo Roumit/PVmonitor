@@ -10,6 +10,7 @@ export function MainMenu({ dashboards, hide, toggleHide,
         return (
             <div className='main-menu-conteiner'>
                 <Button 
+                variant={'outlined'}
                 color="primary"
                 className="main-menu-button"
                 onClick={toggleHide}>
@@ -23,6 +24,7 @@ export function MainMenu({ dashboards, hide, toggleHide,
         className='main-menu-conteiner'
         onMouseLeave={toggleHide}>
             <Button 
+            variant={'outlined'}
             color="primary"
             className="main-menu-button"
             onClick={toggleHide}>

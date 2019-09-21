@@ -19,7 +19,7 @@ const initialState = []
 
 export default handleActions({
     [setElemToNewDashboard]: (state, { payload }) => [...state, payload],
-    [setNewDashboard]: (state, { payload }) => payload,
+    [setNewDashboard]: (state, { payload }) => [...payload],
     [clearNewDashboard]: (state, { payload }) => initialState,
     [editElemInNewDashboard]: (state, { payload }) => {
         let newState = [...state];

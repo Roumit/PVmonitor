@@ -11,7 +11,7 @@ const initialState = {data: {success: false}};
 
 
 export default handleActions({
-    [setInstallations] : (state, { payload }) => payload ,
+    [setInstallations] : (state, { payload }) => ({...payload}) ,
 }, initialState);
 
 export const installationsSelector = state => state[REDUCER_NAME];

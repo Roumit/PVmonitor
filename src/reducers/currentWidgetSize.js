@@ -11,9 +11,7 @@ export const clearWidgetSize = createAction(CLEAR_CURRENT_WIDGET_SIZE);
 const initialState = {X: -100, Y: 0, W: 50, H: 50, resizeX: false, resizeY: false, move: false};
 
 export default handleActions({
-    [setWidgetSize]: (state, { payload }) => {
-        return {...state, ...payload}
-    },
+    [setWidgetSize]: (state, { payload }) => ({ ...state, ...payload }),
     [clearWidgetSize]: (state, { payload }) => initialState,
 }, initialState);
 

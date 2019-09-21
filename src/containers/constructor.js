@@ -100,6 +100,7 @@ class Constructor extends React.Component {
         return (
         <Select 
             native 
+            // color="primary"
             inputProps={{ style: { width: "25" } }} 
             input={<OutlinedInput />} 
             color="primary" 
@@ -122,6 +123,7 @@ class Constructor extends React.Component {
     const ParamSelect = () => (
         <Select
         native
+        // color="primary"
         inputProps={{style: {width: "25"}}}
         input={<OutlinedInput />}
         color="primary" 
@@ -175,7 +177,7 @@ class Constructor extends React.Component {
                 
                 <OutlinedInput 
                 inputProps={{style: {width: "-webkit-fill-available"}}}
-                color="primary"
+                // color="primary"
                 placeholder={"Edit parameter name"}
                 value={newElement.name || ''}
                 onChange={({target: { value }}) => {
@@ -185,6 +187,7 @@ class Constructor extends React.Component {
                 }} />
                 <Button
                 variant={'outlined'}
+                color="secondary"
                 style={{
                     marginLeft: '10px'
                 }}

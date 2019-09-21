@@ -6,7 +6,8 @@ import { IconButton } from "@material-ui/core";
 
 
 
-export default function WidgetFrame({ size, setTargetWidget, id, deleteElement, clearWidgetSize, children }) {
+export default function WidgetFrame({ size, setTargetWidget, id, deleteElement, 
+    clearWidgetSize, children }) {
     return (
         <div 
         className='widget-outer-div'

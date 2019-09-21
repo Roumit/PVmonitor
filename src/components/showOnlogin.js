@@ -10,7 +10,9 @@ const ShowOnLogin = ({ isLogin, logout }) => {
                     {`login as: ${isLogin.username}`}
                 </div>
                 <div>
-                    <Button color="secondary" onClick={() => {
+                    <Button 
+                    color="secondary" 
+                    onClick={() => {
                         logout();
                     }}>Exit</Button>
                 </div>

@@ -12,4 +12,5 @@ export default handleActions({
     [toggleMainMenu]: (state, { payload }) => (state)? false : true,
 }, initialState);
 
-export const hideMainMenuSelector = state => state[REDUCER_NAME];    
+export const hideMainMenuSelector = state => state[REDUCER_NAME]; 
+   

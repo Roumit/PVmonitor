@@ -21,7 +21,7 @@ export default handleActions({
         newState[payload.id] = { ...payload };
         return newState;
     },
-    [loadDashboards]: (state, { payload }) => payload,
+    [loadDashboards]: (state, { payload }) => [...payload],
     [deleteDashboard]: (state, { payload }) => {
         let newState = [...state];
         newState[payload] = "";

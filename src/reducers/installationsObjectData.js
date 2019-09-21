@@ -9,7 +9,7 @@ export const setInstallationObjectData = createAction(SET_DATA);
 const initialState = {};
 
 export default handleActions({
-    [setInstallationObjectData] : (state, { payload }) => payload,
+    [setInstallationObjectData] : (state, { payload }) => ({...payload}),
 }, initialState);
 
 export const instDataObjectSelector = state => state[REDUCER_NAME];

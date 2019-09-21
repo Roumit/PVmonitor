@@ -11,13 +11,7 @@ export const setCoord = createAction(SET_COORD);
 const initialState = {in:true, X: 0, Y: 0, dragX: 0, dragY: 0};
 
 export default handleActions({
-    [setCoord]: (state, { payload }) => {
-        const newState = Object.assign({}, state);
-        for (let key in payload) {
-            newState[key] = payload[key];
-        } 
-        return newState;
-    },
+    [setCoord]: (state, { payload }) => ({...state, ...payload}),
 }, initialState);
 
 export const mouseCoordSelector = state => state[REDUCER_NAME];
