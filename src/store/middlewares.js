@@ -1,3 +1,4 @@
+import Thunk from "redux-thunk";
 // import { setCookie } from "../containers/cookieGetSet";
 import { setLocalStorage } from "../containers/localStorageReadWrite";
 import { SET_INSTALLATIONS } from "../reducers/installationsVRM";
@@ -50,6 +51,7 @@ export const  logToLocalStorage = state => next => action => {
 
 const createMiddlewares = () => [
     // logToCookie,
+    Thunk,
     logToLocalStorage
 ]
 

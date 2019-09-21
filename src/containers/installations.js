@@ -8,7 +8,7 @@ import InstallationList from "../components/installations-list";
 import { setInst, installationSelector } from "../reducers/selectedInst";
 import InstallationDetails from "./installationDetails";
 import { installationsSelector, setInstallations } from "../reducers/installationsVRM";
-import { updateTimerId, updateInstallations } from "./apiVRM";
+import { updateTimerId, updateInstallations } from "../store/apiVRM";
 import { setInstallationObjectData } from "../reducers/installationsObjectData";
 
 
@@ -22,7 +22,7 @@ class Installations extends React.Component {
     };
 
     componentWillMount(){
-        updateInstallations(this.props.isLogin, this.props.setInstallations, this.props.setInstallationObjectData );
+        this.props.updateInstallations(this.props.isLogin, 20000);
     };
 
     render(){
@@ -56,6 +56,7 @@ Installations.propTypes = {
     selectedInst: PropTypes.number,
     setInstallations: PropTypes.func,
     setInstallationObjectData: PropTypes.func,
+    updateInstallations: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
@@ -68,6 +69,7 @@ const mapDispatchToProps = {
     selectInst: setInst,
     setInstallations: setInstallations, 
     setInstallationObjectData: setInstallationObjectData,
+    updateInstallations: updateInstallations,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Installations);

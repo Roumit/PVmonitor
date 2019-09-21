@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getLoginRequest,  } from "../containers/apiVRM";
+// import { getLoginRequest,  } from "../containers/apiVRM";
 import { Button, TextField } from "@material-ui/core";
 
 
@@ -11,7 +11,7 @@ const buttonText = "Login"
 
 const passInput = React.createRef();
 
-const LoginField = ({ onChangeLoginPass, isLogin }) => {
+const LoginField = ({ onChangeLoginPass, isLogin, loginRequest }) => {
     if (isLogin.islogin) {
         return null;
     }
@@ -37,7 +37,8 @@ const LoginField = ({ onChangeLoginPass, isLogin }) => {
                 onChange={({target: { value }}) => onChangeLoginPass({ pass: value })}
                 onKeyDown={ e => {
                     if (e.keyCode === 13) {
-                        getLoginRequest()
+                        loginRequest(isLogin);
+                        // getLoginRequest()
                     }
                 }} 
                 value={isLogin.pass} />
@@ -45,7 +46,7 @@ const LoginField = ({ onChangeLoginPass, isLogin }) => {
             <div>
                 <Button
                 color="primary"
-                onClick={() => getLoginRequest() }
+                onClick={() => loginRequest(isLogin) }
                 >{buttonText}</Button>
             </div>   
         </div>

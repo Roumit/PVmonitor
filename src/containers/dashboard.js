@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { dashboardsSelector, deleteDashboard } from "../reducers/dashboards";
 import { installationsSelector, setInstallations } from "../reducers/installationsVRM";
-import { updateTimerId, updateInstallations } from "./apiVRM";
+import { updateTimerId, updateInstallations } from "../store/apiVRM";
 import { isLoginSelector } from "../reducers/loginVRM";
 import { Button } from "@material-ui/core";
 import { setInstallationObjectData, instDataObjectSelector } from "../reducers/installationsObjectData";
@@ -13,12 +13,12 @@ import { Link } from "react-router-dom";
 
 class Dashboard extends React.Component {
     componentWillUnmount(){
+        // console.log(updateTimerId);
         clearInterval(updateTimerId);
         clearTimeout(updateTimerId);
     }
     componentWillMount(){
-        updateInstallations(this.props.isLogin, this.props.setInstallations, 
-            this.props.setInstallationObjectData);
+        this.props.updateInstallations(this.props.isLogin, 10000);
     };
     render() {
         const { dashboards, deleteDashboard, instDataObject } = this.props;
@@ -49,6 +49,7 @@ class Dashboard extends React.Component {
                     if (elem.element.type === 'widget'){
                         return (
                             <div
+                            key={id}
                             id={id}
                             style={{
                                 position: 'absolute',
@@ -103,6 +104,7 @@ Dashboard.propTypes = {
     deleteDashboard: PropTypes.func,
     setInstallationObjectData: PropTypes.func,
     instDataObject: PropTypes.object,
+    updateInstallations: PropTypes.func,
 
 };
 
@@ -117,6 +119,7 @@ const mapDispathToProps = {
     setInstallations: setInstallations,
     deleteDashboard: deleteDashboard,
     setInstallationObjectData: setInstallationObjectData,
+    updateInstallations: updateInstallations,
 };
 
 export default connect(mapStateToProps, mapDispathToProps)(Dashboard);
