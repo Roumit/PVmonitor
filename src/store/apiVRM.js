@@ -64,8 +64,8 @@ export function getLoginRequest(loginPass){
                         headerWithToken
                     };
                     dispatch(setToken(isLogin));
-                    getInstallations(isLogin.idUser, isLogin.headerWithToken, 
-                        CreateInstallationsDataObject);
+                    dispatch(getInstallations(isLogin.idUser, isLogin.headerWithToken, 
+                        CreateInstallationsDataObject));
                 }
             },
             error => {
