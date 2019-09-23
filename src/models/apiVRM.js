@@ -100,7 +100,7 @@ export function updateInstallations(isLogin, time=10000){
         dispatch(setTimer(setTimeout(() => {
             dispatch(setTimer(setInterval(() => {
                 if (isLogin.islogin) {
-                    console.log("=== auto request ===");
+                    // console.log("=== auto request ===");
                     dispatch(getInstallations(isLogin.idUser, isLogin.headerWithToken, 
                         CreateInstallationsDataObject));
                 }
