@@ -3,6 +3,7 @@ import React from "react";
 import { setToken } from "../reducers/loginVRM";
 import { setInstallations } from "../reducers/installationsVRM";
 import { setInstallationObjectData } from "../reducers/installationsObjectData";
+import { setTimer } from "../reducers/updateTimer";
 
 
 //APIs
@@ -20,8 +21,6 @@ export function formInstallationsApi(idUser){
 
 
 export const getInstallations = FormRequestToVRM(formInstallationsApi, setInstallations);
-
-// export const getInstallationData = FormRequestToVRM(formInstallationOwerviewApi, )
 
 
 function FormRequestToVRM(formURL, action) {
@@ -80,14 +79,12 @@ export function CreateInstallationsDataObject(installationResponse) {
     return function(dispatch) {
         if (installationResponse.data && installationResponse.data.records) {
             const newDataObj = {};
-            installationResponse.data.records.map((e) => {
+            installationResponse.data.records.forEach((e) => {
                 const params = {siteName: e.name};
-                e.extended.map((data) => {
+                e.extended.forEach((data) => {
                     params[data.idDataAttribute || data.code] = { name: data.description, value: data.formattedValue};
-                    return null;
                 });
                 newDataObj[e.idSite] = params;
-                return null;
             });
             dispatch(setInstallationObjectData(newDataObj));
             return newDataObj;
@@ -97,19 +94,17 @@ export function CreateInstallationsDataObject(installationResponse) {
 };
 
 
-export let updateTimerId = null;
 
 export function updateInstallations(isLogin, time=10000){
     return function(dispatch) {
-        updateTimerId = setTimeout(() => {
-            updateTimerId = setInterval(() => {
-                // console.log(updateTimerId);
+        dispatch(setTimer(setTimeout(() => {
+            dispatch(setTimer(setInterval(() => {
                 if (isLogin.islogin) {
-                    // console.log('===  auto request ===');
+                    console.log("=== auto request ===");
                     dispatch(getInstallations(isLogin.idUser, isLogin.headerWithToken, 
                         CreateInstallationsDataObject));
                 }
-            }, time);
-        }, time);
+            }, time)));
+        }, time)));
     }
 };

@@ -47,6 +47,7 @@ export default function WidgetFrame(props) {
                 height: size.move? '100px': '24px',
                 width: '100%',
                 cursor: 'move',
+                zIndex: size.move? 1001 : 999
             }}
             onMouseMove={(ev) => {
                 ev.preventDefault();

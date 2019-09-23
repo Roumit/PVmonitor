@@ -10,6 +10,7 @@ import dashboardName from "./dashboardName";
 import hideMainMenu from "./hideMainMenu";
 import currentWidgetSize from "./currentWidgetSize";
 // import readLocalStorage from "./readLocalSrorage";
+import updateTimer from "./updateTimer";
 
 
 export const reducers = {
@@ -25,4 +26,5 @@ export const reducers = {
     hideMainMenu,
     currentWidgetSize,
     // readLocalStorage,
+    updateTimer,
 };

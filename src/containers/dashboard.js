@@ -3,19 +3,20 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { dashboardsSelector, deleteDashboard } from "../reducers/dashboards";
 import { installationsSelector, setInstallations } from "../reducers/installationsVRM";
-import { updateTimerId, updateInstallations } from "../models/apiVRM";
+import { updateInstallations } from "../models/apiVRM";
 import { isLoginSelector } from "../reducers/loginVRM";
 import { Button } from "@material-ui/core";
 import { setInstallationObjectData, instDataObjectSelector } from "../reducers/installationsObjectData";
 import queryString from "query-string";
 import { Link } from "react-router-dom";
+import { timerSelector } from "../reducers/updateTimer";
 
 
 class Dashboard extends React.Component {
     componentWillUnmount(){
         // console.log(updateTimerId);
-        clearInterval(updateTimerId);
-        clearTimeout(updateTimerId);
+        clearInterval(this.props.updateTimerId);
+        clearTimeout(this.props.updateTimerId);
     }
     componentWillMount(){
         this.props.updateInstallations(this.props.isLogin, 10000);
@@ -105,6 +106,7 @@ Dashboard.propTypes = {
     setInstallationObjectData: PropTypes.func,
     instDataObject: PropTypes.object,
     updateInstallations: PropTypes.func,
+    updateTimerId: PropTypes.number,
 
 };
 
@@ -113,6 +115,7 @@ const mapStateToProps = state => ({
     installationsResponce: installationsSelector(state),
     isLogin: isLoginSelector(state),
     instDataObject: instDataObjectSelector(state),
+    updateTimerId: timerSelector(state),
 });
 
 const mapDispathToProps = {

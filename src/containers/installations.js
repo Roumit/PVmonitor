@@ -8,8 +8,9 @@ import InstallationList from "../components/installations-list";
 import { setInst, installationSelector } from "../reducers/selectedInst";
 // import InstallationDetails from "./installationDetails";
 import { installationsSelector, setInstallations } from "../reducers/installationsVRM";
-import { updateTimerId, updateInstallations } from "../models/apiVRM";
+import { updateInstallations } from "../models/apiVRM";
 import { setInstallationObjectData } from "../reducers/installationsObjectData";
+import { timerSelector } from "../reducers/updateTimer";
 
 
 
@@ -17,8 +18,8 @@ import { setInstallationObjectData } from "../reducers/installationsObjectData";
 class Installations extends React.Component {
     
     componentWillUnmount(){
-        clearInterval(updateTimerId);
-        clearTimeout(updateTimerId);
+        clearInterval(this.props.updateTimerId);
+        clearTimeout(this.props.updateTimerId);
     };
 
     componentWillMount(){
@@ -57,12 +58,14 @@ Installations.propTypes = {
     setInstallations: PropTypes.func,
     setInstallationObjectData: PropTypes.func,
     updateInstallations: PropTypes.func,
+    updateTimerId: PropTypes.number,
 };
 
 const mapStateToProps = state => ({
     isLogin: isLoginSelector(state),
     installationResponce: installationsSelector(state),
     selectedInst: installationSelector(state),
+    updateTimerId: timerSelector(state),
 });
 
 const mapDispatchToProps = {

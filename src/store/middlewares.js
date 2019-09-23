@@ -1,11 +1,13 @@
 import Thunk from "redux-thunk";
 // import { setCookie } from "../containers/cookieGetSet";
+import { useDispatch } from "react-redux";
 import { setLocalStorage } from "../containers/localStorageReadWrite";
-import { SET_INSTALLATIONS } from "../reducers/installationsVRM";
-import { SET_ISNTLOGIN, SET_TOKEN } from "../reducers/loginVRM";
-import { SET_DASHBOARD } from "../reducers/dashboards";
-import { SET_DATA } from "../reducers/installationsObjectData";
+import { SET_INSTALLATIONS, setInstallations } from "../reducers/installationsVRM";
+import { SET_ISNTLOGIN, SET_TOKEN, setToken } from "../reducers/loginVRM";
+import { SET_DASHBOARD, loadDashboards } from "../reducers/dashboards";
+import { SET_DATA, setInstallationObjectData } from "../reducers/installationsObjectData";
 import { READ_LOCAL_STORAGE } from "../reducers/readLocalSrorage";
+import writeStoreFromLocalStorage from "../models/localStorageRead";
 
 const filterToLocalStorageLog = {
     [SET_ISNTLOGIN]: "loginVRM",
@@ -18,7 +20,7 @@ const filterToLocalStorageLog = {
 
 const actionsToLocalStorage = [SET_INSTALLATIONS, SET_ISNTLOGIN, SET_TOKEN, SET_DATA, SET_DASHBOARD];
 
-export const  logToLocalStorage = state => next => action => {
+export const logToLocalStorage = state => next => action => {
     const returnValue = next(action);
     // console.log(action);
     const newState = state.getState();
@@ -33,42 +35,48 @@ export const  logToLocalStorage = state => next => action => {
 }
 
 
-export const  takeFromLocalStorage = state => next => action => {
-    const returnValue = next(action);
-    // console.log(action);
-    // const newState = state.getState();
-    
+const keysToTakeFromLocalStorage = [
+    {
+        key: "loginVRM",
+        Dispatch: setToken
+    },
+    {
+        key: "installationsVRM",
+        Dispatch: setInstallations
+    },
+    {
+        key: "dashboards",
+        Dispatch: loadDashboards
+    },
+    {
+        key: "installationsObjectData",
+        Dispatch: setInstallationObjectData
+    }
+];
 
+
+
+export const takeFromLocalStorage = state => next => action => {
+    const returnValue = next(action);
     if (action.type === READ_LOCAL_STORAGE) {
-        // console.log(action);
+        keysToTakeFromLocalStorage.forEach((el) => {
+            const data = writeStoreFromLocalStorage(el.key)
+            if (data) {
+                state.dispatch(el.Dispatch(data));
+            }
+        });
+        
     }
     
     return returnValue;
 }
 
-// const filterToCookieLog = ["loginVRM"];
-
-// export const  logToCookie = state => next => action => {
-//         const returnValue = next(action);
-//         const newState = state.getState();
-//         console.log('1: ', newState);
-//         // console.log('2: ', newState.loginVRM);
-//         filterToCookieLog.map((key) => {
-//             if (newState[key]) {
-//                 console.log("cookie tolog: ", newState[key]);
-//                 setCookie(key, JSON.stringify(newState[key]), {"max-age": 0});
-//             }
-//         })
-//         // console.log(document.cookie);
-//         return returnValue;
-// }
 
 
 const createMiddlewares = () => [
-    // logToCookie,
     Thunk,
     logToLocalStorage,
-    takeFromLocalStorage
+    takeFromLocalStorage,
 ]
 
 export default createMiddlewares;

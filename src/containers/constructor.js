@@ -100,7 +100,6 @@ class Constructor extends React.Component {
         return (
             <Select 
                 native 
-                // color="primary"
                 inputProps={{ style: { width: "25" } }} 
                 input={<OutlinedInput />} 
                 color="primary" 
@@ -123,7 +122,6 @@ class Constructor extends React.Component {
     const ParamSelect = () => (
         <Select
         native
-        // color="primary"
         inputProps={{style: {width: "25"}}}
         input={<OutlinedInput />}
         color="primary" 
