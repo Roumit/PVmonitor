@@ -9,6 +9,7 @@ import dashboards from "./dashboards";
 import dashboardName from "./dashboardName";
 import hideMainMenu from "./hideMainMenu";
 import currentWidgetSize from "./currentWidgetSize";
+// import readLocalStorage from "./readLocalSrorage";
 
 
 export const reducers = {
@@ -23,4 +24,5 @@ export const reducers = {
     dashboardName,
     hideMainMenu,
     currentWidgetSize,
+    // readLocalStorage,
 };

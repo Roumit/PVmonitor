@@ -1,5 +1,5 @@
 import {handleActions, createAction} from "redux-actions";
-import {testLogin, testPass} from "./testLoginPass";
+import {testLogin, testPass} from "../constants/testLoginPass";
 
 export const SET_ISNTLOGIN = "LOGIN_VRM/SET_ISNTLOGIN";
 export const SET_TOKEN = "LOGIN_VRM/SET_TOKEN";

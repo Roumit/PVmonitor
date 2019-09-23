@@ -8,7 +8,7 @@ import LoginField from "../components/login-field";
 import ShowOnLogin from "../components/showOnlogin";
 // import { setInstallationObjectData } from "../reducers/installationsObjectData";
 
-import { getLoginRequest,  } from "../store/apiVRM";
+import { getLoginRequest,  } from "../models/apiVRM";
 
 
 

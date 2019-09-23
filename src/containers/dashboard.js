@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { dashboardsSelector, deleteDashboard } from "../reducers/dashboards";
 import { installationsSelector, setInstallations } from "../reducers/installationsVRM";
-import { updateTimerId, updateInstallations } from "../store/apiVRM";
+import { updateTimerId, updateInstallations } from "../models/apiVRM";
 import { isLoginSelector } from "../reducers/loginVRM";
 import { Button } from "@material-ui/core";
 import { setInstallationObjectData, instDataObjectSelector } from "../reducers/installationsObjectData";

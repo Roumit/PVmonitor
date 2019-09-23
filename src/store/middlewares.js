@@ -5,6 +5,7 @@ import { SET_INSTALLATIONS } from "../reducers/installationsVRM";
 import { SET_ISNTLOGIN, SET_TOKEN } from "../reducers/loginVRM";
 import { SET_DASHBOARD } from "../reducers/dashboards";
 import { SET_DATA } from "../reducers/installationsObjectData";
+import { READ_LOCAL_STORAGE } from "../reducers/readLocalSrorage";
 
 const filterToLocalStorageLog = {
     [SET_ISNTLOGIN]: "loginVRM",
@@ -31,6 +32,20 @@ export const  logToLocalStorage = state => next => action => {
     return returnValue;
 }
 
+
+export const  takeFromLocalStorage = state => next => action => {
+    const returnValue = next(action);
+    // console.log(action);
+    // const newState = state.getState();
+    
+
+    if (action.type === READ_LOCAL_STORAGE) {
+        // console.log(action);
+    }
+    
+    return returnValue;
+}
+
 // const filterToCookieLog = ["loginVRM"];
 
 // export const  logToCookie = state => next => action => {
@@ -52,7 +67,8 @@ export const  logToLocalStorage = state => next => action => {
 const createMiddlewares = () => [
     // logToCookie,
     Thunk,
-    logToLocalStorage
+    logToLocalStorage,
+    takeFromLocalStorage
 ]
 
 export default createMiddlewares;

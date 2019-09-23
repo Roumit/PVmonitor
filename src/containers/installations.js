@@ -8,7 +8,7 @@ import InstallationList from "../components/installations-list";
 import { setInst, installationSelector } from "../reducers/selectedInst";
 // import InstallationDetails from "./installationDetails";
 import { installationsSelector, setInstallations } from "../reducers/installationsVRM";
-import { updateTimerId, updateInstallations } from "../store/apiVRM";
+import { updateTimerId, updateInstallations } from "../models/apiVRM";
 import { setInstallationObjectData } from "../reducers/installationsObjectData";
 
 

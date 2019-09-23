@@ -98,26 +98,26 @@ class Constructor extends React.Component {
 
     const SiteSelect = () => {
         return (
-        <Select 
-            native 
-            // color="primary"
-            inputProps={{ style: { width: "25" } }} 
-            input={<OutlinedInput />} 
-            color="primary" 
-            name='site-select' 
-            value={newElement.idSite} 
-            onChange={({ target: { value } }) => {
-            if (value !== "-") {
-                setNewElement({
-                    idSite: value
-                });
-            }
-        }}>
-            <option key="null" value="-" hidden>Choose site</option>
-            {installationResponce.data.records.map((site) => (
+            <Select 
+                native 
+                // color="primary"
+                inputProps={{ style: { width: "25" } }} 
+                input={<OutlinedInput />} 
+                color="primary" 
+                name='site-select' 
+                value={newElement.idSite} 
+                onChange={({ target: { value } }) => {
+                if (value !== "-") {
+                    setNewElement({
+                        idSite: value
+                    });
+                }}}>
+                <option key="null" value="-" hidden>Choose site</option>
+                {installationResponce.data.records.map((site) => (
                     <option key={site.idSite} value={site.idSite}>{site.name}</option>
                     ))}
-        </Select>);
+            </Select>
+        );
     };
 
     const ParamSelect = () => (
@@ -145,7 +145,7 @@ class Constructor extends React.Component {
             </option>
             
             {elementTargetParamSet(instDataObject, newElement.idSite).map((e) => (
-                        <option key={e.id} value={e.id}>{e.name}</option>))}
+                <option key={e.id} value={e.id}>{e.name}</option>))}
         </Select>
     );
 

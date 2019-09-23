@@ -21,6 +21,7 @@ import { setInstallationObjectData } from './reducers/installationsObjectData';
 import { setDashboardName } from './reducers/dashboardName';
 import { clearNewDashboard } from './reducers/newDashboard';
 import { clearWidgetSize } from './reducers/currentWidgetSize';
+import { readLocalStorage } from './reducers/readLocalSrorage';
 
 
 
@@ -42,6 +43,8 @@ const Page404 = () =>(
 class App extends React.Component{
 
   componentWillMount(){
+    this.props.readLocalStorage("some");
+
     const rawloginVRM = localStorage.getItem("loginVRM");
     const rawInst = localStorage.getItem("installationsVRM");
     const rawDashboards = localStorage.getItem("dashboards");
@@ -116,6 +119,7 @@ App.propTypes = {
   setDashboardName: PropTypes.func,
   clearNewDashboard: PropTypes.func,
   clearWidgetSize: PropTypes.func,
+  readLocalStorage: PropTypes.func,
 };
 
 const mapDispatchtoProps = {
@@ -127,6 +131,7 @@ const mapDispatchtoProps = {
   setDashboardName: setDashboardName,
   clearNewDashboard: clearNewDashboard,
   clearWidgetSize: clearWidgetSize,
+  readLocalStorage: readLocalStorage,
 };
 
 const mapStateToProps = state => ({
