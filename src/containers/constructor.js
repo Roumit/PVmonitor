@@ -230,12 +230,14 @@ class Constructor extends React.Component {
                     // console.log(newDashboard);
                     const filterNewDashboard = newDashboard.filter(
                         elem => (elem.delete === false || elem.delete === undefined));
+                    const id = this.urlParam.valid ? this.urlParam.id : dashboards.length;   
                     setDashboard({ 
                         dashboard: filterNewDashboard, 
                         name: dashboardName, 
-                        id: this.urlParam.valid ? this.urlParam.id : dashboards.length //dashboardId
+                        id
                     });
                     alert(`Dashboard "${dashboardName}" saved. You can find it in main Menu.`)
+                    this.props.history.push(`/newdashboard/?id=${id}`);
                 }}
                 >Save dashboard</Button>
             </div>

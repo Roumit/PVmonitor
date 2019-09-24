@@ -24,6 +24,7 @@ function LevitateElement({ newElement, coord, setToNewDashboard, clearElement, s
             position: 'absolute', 
             left: `${coord.X - coord.dragX}px`, 
             top: `${coord.Y - coord.dragY}px`,
+            height: `${coord.Y - coord.dragY + 1}px`,
             }}
             onMouseUp={(ev) => {
                 if ( newElement.idSite !== newElementInitialState.idSite 

@@ -116,7 +116,12 @@ button.MuiButtonBase-root.MuiIconButton-root {
 .levitate-element-div {
   display: inline-block;
   cursor: crosshair;
+  /* height: "50px"; */
 }
+
+/* .text-elem-dashboard-constructor-div {
+  height: "25px";
+} */
 
 .top-widget-div {
   background-color: rgba(255, 145, 0, 0.2);
