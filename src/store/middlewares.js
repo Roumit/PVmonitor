@@ -1,7 +1,7 @@
 import Thunk from "redux-thunk";
 // import { setCookie } from "../containers/cookieGetSet";
 import { useDispatch } from "react-redux";
-import { setLocalStorage } from "../containers/localStorageReadWrite";
+import { setLocalStorage } from "../models/localStorageReadWrite";
 import { SET_INSTALLATIONS, setInstallations } from "../reducers/installationsVRM";
 import { SET_ISNTLOGIN, SET_TOKEN, setToken } from "../reducers/loginVRM";
 import { SET_DASHBOARD, loadDashboards } from "../reducers/dashboards";

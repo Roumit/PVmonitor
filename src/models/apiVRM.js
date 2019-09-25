@@ -108,3 +108,5 @@ export function updateInstallations(isLogin, time=10000){
         }, time)));
     }
 };
+
+
