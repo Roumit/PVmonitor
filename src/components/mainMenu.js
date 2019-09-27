@@ -2,6 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
+const Test = [
+    <div>2222</div>,
+    <div>2222</div>
+]
+
 
 
 export function MainMenu({ dashboards, hide, toggleHide,
@@ -19,6 +24,7 @@ export function MainMenu({ dashboards, hide, toggleHide,
             </div>
         )
     }
+
     return (
         <div
         className='main-menu-conteiner'
@@ -37,8 +43,23 @@ export function MainMenu({ dashboards, hide, toggleHide,
                     <div className="main-menu-base-elem">
                         Go to main
                     </div>
-                </Link>       
-                {dashboards.map( (dashboard, id) => {
+                </Link>
+                { Object.keys(dashboards).map((elem) => {
+                    if (dashboards[elem].dashboard) {    
+                        return (
+                            <Link 
+                            key={elem}
+                            to={`/dashboards/?id=${elem}`} 
+                            onClick={toggleHide}>
+                                <div className="main-menu-elem">
+                                    {dashboards[elem].name}
+                                </div>
+                            </Link>     
+                        );
+                    }
+                    return null;
+                })}
+                {/* {dashboards.map( (dashboard, id) => {
                     if (dashboard) {    
                         return (
                             <Link 
@@ -52,7 +73,7 @@ export function MainMenu({ dashboards, hide, toggleHide,
                         );
                     }
                     return null;
-                })}
+                })} */}
                 <Link 
                 to="/newdashboard" 
                 onClick={() => {

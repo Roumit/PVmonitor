@@ -111,7 +111,7 @@ class App extends React.Component{
 App.propTypes = {
   setIsLogin: PropTypes.func,
   setInst: PropTypes.func,
-  dashboards: PropTypes.array,
+  dashboards: PropTypes.object,
   setDashboards: PropTypes.func,
   hideMainMenu: PropTypes.bool,
   toggleHide: PropTypes.func,

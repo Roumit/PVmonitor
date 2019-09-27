@@ -50,19 +50,21 @@ class Constructor extends React.Component {
     //     console.log('===  constructor update ===');
     // }
     componentWillMount() {
+        console.log("--- constructor will mount  ---");
         this.urlParam = queryString.parse(this.props.location.search);
         if (this.urlParam.id && this.props.dashboards[this.urlParam.id]) {
-            this.urlParam.valid = true;
+            // this.urlParam.valid = true;
             this.props.setNewDashboard(this.props.dashboards[this.urlParam.id].dashboard);
             this.props.setDashboardName(this.props.dashboards[this.urlParam.id].name);
         } else {
-            this.props.setDashboardName(`Dashboard #${this.props.dashboards.length}`)
+            // this.urlParam.valid = false;
+            this.props.setDashboardName(`Dashboard #${Object.keys(this.props.dashboards).length}`); //${Object.keys(this.props.dashboards).length}`)
             this.props.clearNewDashboard();
         }
       
     };
     componentDidMount(){
-        // console.log("--- constructor did mount  ---");
+        console.log("--- constructor did mount  ---");
         if (this.props.isLogin.islogin) {
             this.props.setWidgetSize({
                 left: this.upperDiv.current.offsetLeft,
@@ -71,14 +73,19 @@ class Constructor extends React.Component {
         }
     };
 
+    componentWillUpdate(){
+        console.log("--- constructor will update  ---");
+    }
+
     componentDidUpdate(){
-        // console.log("--- constructor did update  ---");
+        console.log("--- constructor did update  ---");
         if (this.props.isLogin.islogin) {
             this.props.setWidgetSize({
                 left: this.upperDiv.current.offsetLeft,
                 top: this.upperDiv.current.offsetTop
             });
         }
+        
     };
 
     componentWillUnmount() {
@@ -227,10 +234,27 @@ class Constructor extends React.Component {
                 </TextField>
                 <Button
                 onClick={() => {
-                    // console.log(newDashboard);
+                    // console.log(Object.keys(dashboards).length);
                     const filterNewDashboard = newDashboard.filter(
-                        elem => (elem.delete === false || elem.delete === undefined));
-                    const id = this.urlParam.valid ? this.urlParam.id : dashboards.length;   
+                        elem => (elem.delete === false || elem.delete === undefined)
+                        );
+                    let id = null;
+                    if (this.urlParam.id && this.props.dashboards[queryString.parse(this.props.location.search).id]) {
+                        console.log(1);
+                        id = this.urlParam.id;
+                    } else {
+                        console.log((Object.keys(dashboards) !== []));
+                        id = Object.keys(dashboards) !== [] ? console.log(3) || Object.keys(dashboards).reduce(( sum, el ) => {
+                            console.log(sum);
+                            if (sum === undefined) return 0;
+                            if (sum < el) {
+                                sum = el;
+                            }
+                            return sum + 1;
+                        }, 0)
+                        : console.log(4) || 0;
+                    }
+
                     setDashboard({ 
                         dashboard: filterNewDashboard, 
                         name: dashboardName, 
@@ -258,7 +282,7 @@ Constructor.propTypes = {
     editElement: PropTypes.func,
     deleteElement: PropTypes.func,
     clearElement: PropTypes.func,
-    dashboards: PropTypes.array,
+    dashboards: PropTypes.object,
     setDashboard: PropTypes.func,
     dashboardName: PropTypes.string,
     setDashboardName: PropTypes.func,

@@ -25,14 +25,14 @@ class Dashboard extends React.Component {
         const { dashboards, deleteDashboard, instDataObject } = this.props;
         const target = queryString.parse(this.props.location.search);
         if (!target.id || !dashboards[target.id]) {
-            return (dashboards.map( (dashboard, id) => {
-                if (dashboard) {    
+            return (Object.keys(dashboards).map( (key) => {
+                if (dashboards[key]) {    
                     return (
                         <Link 
-                        key={id}
-                        to={`/dashboards/?id=${dashboard.id}`} >
+                        key={key}
+                        to={`/dashboards/?id=${key}`} >
                             <div>
-                                {dashboard.name}
+                                {dashboards[key].name}
                             </div>
                         </Link>     
                     );
@@ -87,7 +87,7 @@ class Dashboard extends React.Component {
                     }>Change dashboard</Button>
                     <Button onClick={() => {
                         if (window.confirm("Do you really want to delete dashboard?")) {
-                            deleteDashboard(target.id);
+                            deleteDashboard({id: target.id});
                             this.props.history.push("/");
                         }
                     }}>Delete dashboard</Button>
@@ -98,7 +98,7 @@ class Dashboard extends React.Component {
 };
 
 Dashboard.propTypes = {
-    dashboards: PropTypes.array,
+    dashboards: PropTypes.object,
     installationsResponce: PropTypes.object,
     isLogin: PropTypes.object,
     setInstallations: PropTypes.func,
