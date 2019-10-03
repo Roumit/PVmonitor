@@ -13,13 +13,12 @@ import { setToken } from './reducers/loginVRM';
 import { setInstallations } from './reducers/installationsVRM';
 import { MainMenu } from './components/mainMenu';
 import Constructor from "./containers/constructor";
-import { dashboardsSelector, loadDashboards } from './reducers/dashboards';
+import { dashboardsSelector, loadDashboards, clearConstructorDashboard } from './reducers/dashboards';
 import Dashboard from './containers/dashboard';
 import { hideMainMenuSelector, toggleMainMenu } from './reducers/hideMainMenu';
 import { setInstallationObjectData } from './reducers/installationsObjectData';
 // import { setDashboardId } from './reducers/dashboardId';
 import { setDashboardName } from './reducers/dashboardName';
-import { clearNewDashboard } from './reducers/newDashboard';
 import { clearWidgetSize } from './reducers/currentWidgetSize';
 import { readLocalStorage } from './reducers/readLocalSrorage';
 
@@ -81,7 +80,7 @@ class App extends React.Component{
             hide={hideMainMenu}
             // setDashboardId={setDashboardId}
             setDashboardName={setDashboardName}
-            clearNewDashboard={clearNewDashboard}
+            clearConstructorDashboard={clearConstructorDashboard}
             clearWidgetSize={clearWidgetSize} />
             <Login />
           </div>
@@ -117,7 +116,7 @@ App.propTypes = {
   toggleHide: PropTypes.func,
   setInstallationObjectData: PropTypes.func,
   setDashboardName: PropTypes.func,
-  clearNewDashboard: PropTypes.func,
+  clearConstructorDashboard: PropTypes.func,
   clearWidgetSize: PropTypes.func,
   readLocalStorage: PropTypes.func,
 };
@@ -129,7 +128,7 @@ const mapDispatchtoProps = {
   toggleHide: toggleMainMenu,
   setInstallationObjectData: setInstallationObjectData,
   setDashboardName: setDashboardName,
-  clearNewDashboard: clearNewDashboard,
+  clearConstructorDashboard: clearConstructorDashboard,
   clearWidgetSize: clearWidgetSize,
   readLocalStorage: readLocalStorage,
 };

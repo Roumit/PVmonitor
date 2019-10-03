@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { REDUCER_NAME as currentWidgetSize, setWidgetSize} from "../reducers/currentWidgetSize"
-import { editElemInNewDashboard } from "../reducers/newDashboard";
+import { editElemInConstructor } from "../reducers/dashboards";
 
 
 
@@ -11,7 +11,7 @@ export default function WidgetFrame(props) {
     const size = useSelector(state => state[currentWidgetSize]);
 
     const saveToNewDashboard = () => {
-        dispatch(editElemInNewDashboard({
+        dispatch(editElemInConstructor({
             id: size.id,
             element: {
                 size: {

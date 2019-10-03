@@ -6,7 +6,7 @@ import WidgetFrame from "./widgetFrame";
 
 
 export default function DashboardInConstructor({ newDashboard, editElement, deleteElement, 
-    setMouseCoordinate, setNewElement, instDataObject, setTargetWidget, clearWidgetSize }) {
+    setMouseCoordinate, setNewElement, instDataObject, setTargetWidget, clearWidgetSize, dashboards }) {
 return (
 <div 
 className="dashboard-in-constructor">
@@ -23,7 +23,7 @@ className="dashboard-in-constructor">
         <p>Saved dashboards are in menu list.</p>
     </div>
         
-    {newDashboard.map((elem, id) => {
+    {dashboards.constructor.dashboard.map((elem, id) => {
         if (elem.delete) {
             return null
         }
@@ -46,7 +46,7 @@ className="dashboard-in-constructor">
             setMouseCoordinate={setMouseCoordinate}
             setNewElement={setNewElement}
             deleteElement={deleteElement}
-            newDashboard={newDashboard}
+            dashboards={dashboards}
             editElement={editElement}
             instDataObject={instDataObject}
             id={id}

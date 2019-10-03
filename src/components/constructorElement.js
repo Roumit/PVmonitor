@@ -6,7 +6,7 @@ import { IconButton } from "@material-ui/core";
 
 
 export default function ConstructorElement ({ element, setMouseCoordinate, setNewElement, deleteElement,
-    newDashboard, editElement, instDataObject, id }) {
+    editElement, instDataObject, id, dashboards }) {
 
     if (!element) {
         return null;
@@ -31,7 +31,7 @@ export default function ConstructorElement ({ element, setMouseCoordinate, setNe
                         dragX: ev.clientX - ev.currentTarget.getBoundingClientRect().left,
                         dragY: ev.clientY - ev.currentTarget.getBoundingClientRect().top
                     });
-                    setNewElement(newDashboard[id].element);
+                    setNewElement(dashboards.constructor.dashboard[id].element);
                     deleteElement(id);
                 }
             }}>

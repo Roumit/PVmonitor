@@ -11,8 +11,7 @@ import DashboardInConstructor from "../components/dashboardInConstructor";
 import ConstructorField from "./constructorField";
 import WidgetFrameSize from "./widgetSizeFrame";
 
-import { newDashboardSelector, setElemToNewDashboard, editElemInNewDashboard, deleteElemInNewDashboard, clearNewDashboard, setNewDashboard } from "../reducers/newDashboard";
-import { dashboardsSelector, setDashboard } from "../reducers/dashboards";
+import { dashboardsSelector, setDashboard, deleteElemInConstructor, editElemInConstructor, setElemToConstructor, clearConstructorDashboard, setConstructorDashboard } from "../reducers/dashboards";
 import { dashboardNameSelector, setDashboardName } from "../reducers/dashboardName";
 import { instDataObjectSelector } from "../reducers/installationsObjectData";
 import queryString from "query-string";
@@ -54,12 +53,12 @@ class Constructor extends React.Component {
         this.urlParam = queryString.parse(this.props.location.search);
         if (this.urlParam.id && this.props.dashboards[this.urlParam.id]) {
             // this.urlParam.valid = true;
-            this.props.setNewDashboard(this.props.dashboards[this.urlParam.id].dashboard);
+            this.props.setConstructorDashboard(this.urlParam.id);
             this.props.setDashboardName(this.props.dashboards[this.urlParam.id].name);
         } else {
             // this.urlParam.valid = false;
             this.props.setDashboardName(`Dashboard #${Object.keys(this.props.dashboards).length}`); //${Object.keys(this.props.dashboards).length}`)
-            this.props.clearNewDashboard();
+            this.props.clearConstructorDashboard();
         }
       
     };
@@ -89,7 +88,7 @@ class Constructor extends React.Component {
     };
 
     componentWillUnmount() {
-        this.props.clearNewDashboard();
+        this.props.clearConstructorDashboard();
         this.props.clearWidgetSize();
     };
 
@@ -98,7 +97,7 @@ class Constructor extends React.Component {
 
     render(){
     const { setMouseCoordinate, isLogin, installationResponce, 
-        setNewElement, newElement, newDashboard, setToNewDashboard, 
+        setNewElement, newElement, newDashboard, setElemToConstructor, 
         editElement, deleteElement, setDashboard, 
         dashboardName, setDashboardName, dashboards, 
         instDataObject, setTargetWidget, clearWidgetSize } = this.props;
@@ -197,7 +196,7 @@ class Constructor extends React.Component {
                     marginLeft: '10px'
                 }}
                 onClick={() => {
-                    setToNewDashboard(new InitialWidget());
+                    setElemToConstructor(new InitialWidget());
                 }}
                 >Add widget</Button>
             </div>
@@ -212,7 +211,7 @@ class Constructor extends React.Component {
                 }}>
                 <ConstructorField />
                 <DashboardInConstructor 
-                newDashboard={newDashboard}
+                // newDashboard={newDashboard}
                 editElement={editElement}
                 deleteElement={deleteElement}
                 setMouseCoordinate={setMouseCoordinate}
@@ -220,6 +219,7 @@ class Constructor extends React.Component {
                 instDataObject={instDataObject}
                 setTargetWidget={setTargetWidget}
                 clearWidgetSize={clearWidgetSize}
+                dashboards={dashboards}
                  />
                 <WidgetFrameSize>
                 </WidgetFrameSize>
@@ -235,9 +235,8 @@ class Constructor extends React.Component {
                 <Button
                 onClick={() => {
                     // console.log(Object.keys(dashboards).length);
-                    const filterNewDashboard = newDashboard.filter(
-                        elem => (elem.delete === false || elem.delete === undefined)
-                        );
+                    const filterNewDashboard = dashboards.constructor.dashboard.filter(
+                        elem => (elem.delete === false || elem.delete === undefined));
                     let id = null;
                     if (this.urlParam.id && this.props.dashboards[queryString.parse(this.props.location.search).id]) {
                         console.log(1);
@@ -277,8 +276,8 @@ Constructor.propTypes = {
     installationResponce: PropTypes.object,
     setNewElement: PropTypes.func,
     newElement: PropTypes.object,
-    newDashboard: PropTypes.array,
-    setToNewDashboard: PropTypes.func,
+    // newDashboard: PropTypes.array,
+    setElemToConstructor: PropTypes.func,
     editElement: PropTypes.func,
     deleteElement: PropTypes.func,
     clearElement: PropTypes.func,
@@ -286,20 +285,18 @@ Constructor.propTypes = {
     setDashboard: PropTypes.func,
     dashboardName: PropTypes.string,
     setDashboardName: PropTypes.func,
-    clearNewDashboard: PropTypes.func,
+    clearConstructorDashboard: PropTypes.func,
     instDataObject: PropTypes.object,
-    setNewDashboard: PropTypes.func,
+    setConstructorDashboard: PropTypes.func,
     setWidgetSize: PropTypes.func,
     setTargetWidget:PropTypes.func,
     clearWidgetSize: PropTypes.func,
-
 };
 
 const mapStateToProps = state => ({
     isLogin: isLoginSelector(state),
     installationResponce: installationsSelector(state),
     newElement: newElementSelector(state),
-    newDashboard: newDashboardSelector(state),
     dashboards: dashboardsSelector(state),
     dashboardName: dashboardNameSelector(state),
     instDataObject: instDataObjectSelector(state),
@@ -308,14 +305,14 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     setMouseCoordinate: setCoord,
     setNewElement: setElement,
-    setToNewDashboard: setElemToNewDashboard,
-    editElement: editElemInNewDashboard,
-    deleteElement: deleteElemInNewDashboard,
+    setElemToConstructor: setElemToConstructor,
+    editElement: editElemInConstructor, //editElemInNewDashboard,
+    deleteElement: deleteElemInConstructor, //deleteElemInNewDashboard,
     clearElement: clearElement,
     setDashboardName: setDashboardName,
     setDashboard: setDashboard,
-    clearNewDashboard: clearNewDashboard,
-    setNewDashboard: setNewDashboard,
+    clearConstructorDashboard: clearConstructorDashboard,
+    setConstructorDashboard: setConstructorDashboard,
     setWidgetSize: setWidgetSize,
     setTargetWidget: setWidgetSize,
     clearWidgetSize: clearWidgetSize,

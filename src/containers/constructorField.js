@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { mouseCoordSelector, setCoord } from "../reducers/mouseCoordinates";
 import { newElementSelector, clearElement, initialState as newElementInitialState } from "../reducers/newDashboardElement";
-import { setElemToNewDashboard } from "../reducers/newDashboard";
+import { setElemToConstructor } from "../reducers/dashboards";
 
 
 
@@ -97,7 +97,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     setMouseCoordinate: setCoord,
-    setToNewDashboard: setElemToNewDashboard,
+    setToNewDashboard: setElemToConstructor, //setElemToNewDashboard,
     clearElement: clearElement,
 };
 

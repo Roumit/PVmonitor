@@ -2,15 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 
-const Test = [
-    <div>2222</div>,
-    <div>2222</div>
-]
 
 
 
 export function MainMenu({ dashboards, hide, toggleHide,
-    setDashboardName, clearNewDashboard, clearWidgetSize }) {
+    setDashboardName, clearConstructorDashboard, clearWidgetSize }) {
     if (hide) {
         return (
             <div className='main-menu-conteiner'>
@@ -79,7 +75,7 @@ export function MainMenu({ dashboards, hide, toggleHide,
                 onClick={() => {
                     toggleHide();
                     setDashboardName(`Dashboard #${dashboards.length}`);
-                    clearNewDashboard();
+                    clearConstructorDashboard();
                     clearWidgetSize();
                 }}>
                     <div className="main-menu-base-elem">
